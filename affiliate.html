@@ -1,0 +1,2387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiHive - Affiliate Program</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --primary-dark: #d97706;
+            --secondary: #10b981;
+            --danger: #ef4444;
+            --gray-light: #f3f4f6;
+            --gray: #9ca3af;
+            --gray-dark: #4b5563;
+            --dark: #1f2937;
+            --light: #ffffff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --purple: #8b5cf6;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--light);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--dark);
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .user-details h3 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .user-details p {
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logout-btn:hover {
+            color: var(--danger);
+        }
+
+        /* Hero Section */
+        .affiliate-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .affiliate-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .affiliate-hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .commission-badge {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        /* Stats Section */
+        .affiliate-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .stat-card {
+            background-color: var(--light);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+
+        .stat-earnings .stat-icon {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .stat-referrals .stat-icon {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--info);
+        }
+
+        .stat-conversion .stat-icon {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .stat-commission .stat-icon {
+            background-color: rgba(139, 92, 246, 0.1);
+            color: var(--purple);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+
+        /* Main Content Layout */
+        .affiliate-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        /* Left Column - Main Content */
+        .affiliate-content {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            background-color: var(--light);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.125rem;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .step p {
+            color: var(--gray-dark);
+        }
+
+        /* Affiliate Dashboard */
+        .affiliate-dashboard {
+            background-color: var(--light);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        /* Dashboard Tabs */
+        .dashboard-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--gray-light);
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .dashboard-tab {
+            padding: 1rem 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .dashboard-tab:hover {
+            color: var(--primary);
+        }
+
+        .dashboard-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .dashboard-content {
+            display: none;
+        }
+
+        .dashboard-content.active {
+            display: block;
+        }
+
+        /* Referral Link Section */
+        .referral-section {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .referral-input-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .referral-input {
+            flex: 1;
+            padding: 1rem;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            background-color: white;
+        }
+
+        .referral-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background-color: var(--gray-light);
+            color: var(--gray-dark);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--gray);
+            color: white;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #0da271;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(245, 158, 11, 0.1);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-copy {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .social-share {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-share-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .social-share-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .social-share-btn.facebook {
+            background-color: #1877f2;
+        }
+
+        .social-share-btn.twitter {
+            background-color: #1da1f2;
+        }
+
+        .social-share-btn.whatsapp {
+            background-color: #25d366;
+        }
+
+        .social-share-btn.telegram {
+            background-color: #0088cc;
+        }
+
+        /* Referral Table */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 1rem;
+            font-weight: 600;
+            color: var(--gray-dark);
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .status-approved {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-rejected {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        /* Right Column - Sidebar */
+        .affiliate-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar-card {
+            background-color: var(--light);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .sidebar-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Commission Tiers */
+        .commission-tiers {
+            list-style: none;
+        }
+
+        .tier {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .tier:last-child {
+            border-bottom: none;
+        }
+
+        .tier-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .tier-name {
+            font-weight: 600;
+        }
+
+        .tier-rate {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .tier-requirements {
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+
+        /* Promo Materials */
+        .promo-materials {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .promo-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .promo-item:hover {
+            border-color: var(--primary);
+            background-color: rgba(245, 158, 11, 0.05);
+        }
+
+        .promo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .promo-info h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .promo-info p {
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background-color: var(--light);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 4rem;
+        }
+
+        .faq-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .faq-item {
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            background-color: var(--gray-light);
+        }
+
+        .faq-question:hover {
+            background-color: rgba(245, 158, 11, 0.1);
+        }
+
+        .faq-answer {
+            padding: 1.5rem;
+            display: none;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: var(--radius);
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .copyright {
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: var(--gray);
+            font-size: 1.25rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--light);
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        /* Loading States */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--gray);
+        }
+
+        .loading-spinner {
+            border: 3px solid var(--gray-light);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Empty States */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--gray);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Error States */
+        .error-message {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            padding: 1rem;
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Success States */
+        .success-message {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            padding: 1rem;
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Notification */
+        #notification {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 2000;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .affiliate-main {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .affiliate-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .affiliate-hero p {
+                font-size: 1.125rem;
+            }
+            
+            .steps {
+                grid-template-columns: 1fr;
+            }
+            
+            .referral-input-group {
+                flex-direction: column;
+            }
+            
+            .dashboard-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .dashboard-tab {
+                padding: 0.75rem 1rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <i class="fas fa-bee" style="color: var(--primary); margin-right: 0.5rem;"></i>
+                    Digi<span>Hive</span>
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="marketplace.html">Marketplace</a></li>
+                    <li><a href="videos.html">Video Content</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="seller.html">Seller Portal</a></li>
+                    <li><a href="affiliate.html" class="active">Affiliate Program</a></li>
+                </ul>
+                
+                <div class="user-section">
+                    <div class="user-info">
+                        <div class="user-avatar" id="userAvatar">A</div>
+                        <div class="user-details">
+                            <h3 id="userName">Affiliate</h3>
+                            <p id="userType" id="affiliateTier">Starter Tier</p>
+                        </div>
+                    </div>
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="affiliate-hero">
+        <div class="container">
+            <div class="commission-badge">Earn up to 15% Commission</div>
+            <h1>DigiHive Affiliate Program</h1>
+            <p>Join our affiliate program and earn commissions by referring customers to DigiHive. Share your unique link and start earning today!</p>
+            <button class="btn btn-success" id="joinAffiliateBtn" style="font-size: 1.125rem; padding: 1rem 2rem;">
+                <i class="fas fa-rocket"></i> Join the Program
+            </button>
+        </div>
+    </section>
+
+    <!-- Affiliate Stats -->
+    <div class="container">
+        <div class="affiliate-stats" id="affiliateStats">
+            <div class="stat-card stat-earnings">
+                <div class="stat-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div class="stat-value" id="totalEarnings">R0.00</div>
+                <div class="stat-label">Total Earnings</div>
+            </div>
+            
+            <div class="stat-card stat-referrals">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-value" id="totalReferrals">0</div>
+                <div class="stat-label">Total Referrals</div>
+            </div>
+            
+            <div class="stat-card stat-conversion">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-value" id="conversionRate">0%</div>
+                <div class="stat-label">Conversion Rate</div>
+            </div>
+            
+            <div class="stat-card stat-commission">
+                <div class="stat-icon">
+                    <i class="fas fa-percentage"></i>
+                </div>
+                <div class="stat-value" id="commissionRate">10%</div>
+                <div class="stat-label">Commission Rate</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="affiliate-main">
+            <!-- Left Column -->
+            <div class="affiliate-content">
+                <!-- How It Works Section -->
+                <section class="how-it-works">
+                    <div class="section-header">
+                        <h2>How It Works</h2>
+                        <p>Start earning commissions in three simple steps</p>
+                    </div>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <h3>Join the Program</h3>
+                            <p>Sign up for the affiliate program to get your unique referral link and dashboard.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <h3>Share Your Link</h3>
+                            <p>Share your referral link with your audience through social media, blogs, or email.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <h3>Earn Commissions</h3>
+                            <p>Earn commissions every time someone signs up or makes a purchase through your link.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Affiliate Dashboard -->
+                <section class="affiliate-dashboard">
+                    <div class="section-header">
+                        <h2>Affiliate Dashboard</h2>
+                        <p>Track your referrals, earnings, and performance</p>
+                    </div>
+                    
+                    <!-- Dashboard Tabs -->
+                    <div class="dashboard-tabs">
+                        <div class="dashboard-tab active" data-tab="referrals">Referral Links</div>
+                        <div class="dashboard-tab" data-tab="tracking">Tracking & Analytics</div>
+                        <div class="dashboard-tab" data-tab="earnings">Earnings</div>
+                        <div class="dashboard-tab" data-tab="payouts">Payouts</div>
+                    </div>
+                    
+                    <!-- Referral Links Tab -->
+                    <div class="dashboard-content active" id="referrals-tab">
+                        <div class="referral-section">
+                            <h3 style="margin-bottom: 1rem;">Your Referral Link</h3>
+                            <p style="margin-bottom: 1.5rem; color: var(--gray-dark);">Share this link with your audience to start earning commissions</p>
+                            
+                            <div class="referral-input-group">
+                                <input type="text" class="referral-input" id="referralLink" value="https://digihive.com/ref/?code=loading..." readonly>
+                                <button class="btn-copy" id="copyLinkBtn">
+                                    <i class="fas fa-copy"></i> Copy Link
+                                </button>
+                            </div>
+                            
+                            <div class="social-share">
+                                <div class="social-share-btn facebook" onclick="shareOnFacebook()">
+                                    <i class="fab fa-facebook-f"></i>
+                                </div>
+                                <div class="social-share-btn twitter" onclick="shareOnTwitter()">
+                                    <i class="fab fa-twitter"></i>
+                                </div>
+                                <div class="social-share-btn whatsapp" onclick="shareOnWhatsApp()">
+                                    <i class="fab fa-whatsapp"></i>
+                                </div>
+                                <div class="social-share-btn telegram" onclick="shareOnTelegram()">
+                                    <i class="fab fa-telegram-plane"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h3 style="margin: 2rem 0 1rem;">Your Referrals</h3>
+                        <div class="table-container">
+                            <div id="referralsTable">
+                                <div class="loading">
+                                    <div class="loading-spinner"></div>
+                                    <p>Loading referrals...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tracking & Analytics Tab -->
+                    <div class="dashboard-content" id="tracking-tab">
+                        <div id="analyticsContent">
+                            <div class="loading">
+                                <div class="loading-spinner"></div>
+                                <p>Loading analytics...</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Earnings Tab -->
+                    <div class="dashboard-content" id="earnings-tab">
+                        <div id="earningsContent">
+                            <div class="loading">
+                                <div class="loading-spinner"></div>
+                                <p>Loading earnings data...</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Payouts Tab -->
+                    <div class="dashboard-content" id="payouts-tab">
+                        <div id="payoutsContent">
+                            <div class="loading">
+                                <div class="loading-spinner"></div>
+                                <p>Loading payout history...</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column - Sidebar -->
+            <div class="affiliate-sidebar">
+                <!-- Commission Tiers -->
+                <div class="sidebar-card">
+                    <h3>Commission Tiers</h3>
+                    <ul class="commission-tiers">
+                        <li class="tier">
+                            <div class="tier-header">
+                                <span class="tier-name">Starter</span>
+                                <span class="tier-rate">10%</span>
+                            </div>
+                            <div class="tier-requirements">0-9 referrals</div>
+                        </li>
+                        <li class="tier">
+                            <div class="tier-header">
+                                <span class="tier-name">Growth</span>
+                                <span class="tier-rate">12%</span>
+                            </div>
+                            <div class="tier-requirements">10-49 referrals</div>
+                        </li>
+                        <li class="tier">
+                            <div class="tier-header">
+                                <span class="tier-name">Pro</span>
+                                <span class="tier-rate">15%</span>
+                            </div>
+                            <div class="tier-requirements">50+ referrals</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Promo Materials -->
+                <div class="sidebar-card">
+                    <h3>Promo Materials</h3>
+                    <div class="promo-materials">
+                        <div class="promo-item" onclick="downloadMaterial('banners')">
+                            <div class="promo-icon">
+                                <i class="fas fa-image"></i>
+                            </div>
+                            <div class="promo-info">
+                                <h4>Marketing Banners</h4>
+                                <p>Download banners for your website</p>
+                            </div>
+                        </div>
+                        
+                        <div class="promo-item" onclick="downloadMaterial('copy')">
+                            <div class="promo-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="promo-info">
+                                <h4>Email Templates</h4>
+                                <p>Pre-written email copy</p>
+                            </div>
+                        </div>
+                        
+                        <div class="promo-item" onclick="downloadMaterial('links')">
+                            <div class="promo-icon">
+                                <i class="fas fa-link"></i>
+                            </div>
+                            <div class="promo-info">
+                                <h4>Product Links</h4>
+                                <p>Direct links to popular products</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="sidebar-card">
+                    <h3>This Month</h3>
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--gray-light);">
+                            <span>Referrals</span>
+                            <strong id="monthReferrals">0</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--gray-light);">
+                            <span>Earnings</span>
+                            <strong id="monthEarnings" style="color: var(--success);">R0.00</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0;">
+                            <span>Clicks</span>
+                            <strong id="monthClicks">0</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Find answers to common questions about our affiliate program</p>
+            </div>
+            
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How do I join the affiliate program?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Click the "Join the Program" button above and fill out the application form. Once approved, you'll get access to your affiliate dashboard with your unique referral link.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How much commission can I earn?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Commission rates start at 10% and can increase to 15% based on your performance. Check the Commission Tiers section for details on how to qualify for higher rates.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>When and how do I get paid?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Payouts are processed monthly on the 15th for commissions earned in the previous month. Minimum payout is R50. Payments are made via bank transfer, PayPal, or Digi-Coins.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How are referrals tracked?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Referrals are tracked using cookies that last for 30 days. When someone clicks your link and makes a purchase within that period, you earn commission on their purchase.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What products can I promote?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You can promote any product on the DigiHive marketplace. Some products may have special commission rates - these will be marked in your dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2>Ready to Start Earning?</h2>
+            <p>Join thousands of affiliates who are already earning commissions with DigiHive. No experience required!</p>
+            <button class="btn btn-success" id="joinNowBtn" style="font-size: 1.125rem; padding: 1rem 2rem; background-color: white; color: var(--primary);">
+                <i class="fas fa-rocket"></i> Join Now - It's Free!
+            </button>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>DigiHive</h3>
+                    <p>Professional platform for digital content creators.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Platform</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="marketplace.html">Marketplace</a></li>
+                        <li><a href="videos.html">Video Content</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>For Creators</h3>
+                    <ul class="footer-links">
+                        <li><a href="seller.html">Seller Portal</a></li>
+                        <li><a href="affiliate.html">Affiliate Program</a></li>
+                        <li><a href="plans.html">Pricing Plans</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    &copy; 2024 DigiHive. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Join Program Modal -->
+    <div class="modal" id="joinModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Join Affiliate Program</h2>
+                <button class="modal-close" onclick="closeModal('joinModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="authRequired" class="error-message" style="display: none;">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>You must be logged in to join the affiliate program.</span>
+                </div>
+                
+                <div id="alreadyAffiliate" class="success-message" style="display: none;">
+                    <i class="fas fa-check-circle"></i>
+                    <span>You're already an affiliate! Check your dashboard for details.</span>
+                </div>
+                
+                <div id="joinForm" style="display: none;">
+                    <p style="margin-bottom: 1.5rem;">Fill out the form below to apply for the affiliate program.</p>
+                    
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">How will you promote DigiHive?</label>
+                        <select class="form-select" id="promotionMethod" style="width: 100%; padding: 0.75rem; border: 1px solid var(--gray-light); border-radius: var(--radius);">
+                            <option value="">Select method</option>
+                            <option value="social">Social Media</option>
+                            <option value="blog">Blog/Website</option>
+                            <option value="youtube">YouTube Channel</option>
+                            <option value="email">Email List</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Website/Channel URL (optional)</label>
+                        <input type="url" class="form-input" id="websiteUrl" placeholder="https://example.com" style="width: 100%; padding: 0.75rem; border: 1px solid var(--gray-light); border-radius: var(--radius);">
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 2rem;">
+                        <div style="display: flex; align-items: flex-start; gap: 0.5rem;">
+                            <input type="checkbox" id="agreeTerms" style="margin-top: 0.25rem;">
+                            <label for="agreeTerms" style="font-size: 0.875rem;">
+                                I agree to the <a href="terms.html" style="color: var(--primary);">Affiliate Program Terms</a> and understand that I must comply with all promotion guidelines.
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary w-100" onclick="submitAffiliateApplication()">
+                        <i class="fas fa-paper-plane"></i> Submit Application
+                    </button>
+                </div>
+                
+                <div id="joinSuccess" style="display: none; text-align: center; padding: 2rem 0;">
+                    <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--success); margin-bottom: 1rem;"></i>
+                    <h3>Application Submitted!</h3>
+                    <p style="margin-bottom: 1.5rem;">Your application has been submitted and will be reviewed within 24-48 hours. You'll receive an email once approved.</p>
+                    <button class="btn btn-primary" onclick="closeModal('joinModal')">
+                        <i class="fas fa-check"></i> OK
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payout Request Modal -->
+    <div class="modal" id="payoutModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Request Payout</h2>
+                <button class="modal-close" onclick="closeModal('payoutModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="payoutForm">
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Available Balance</label>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--success);" id="availableBalance">R0.00</div>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Payout Amount (ZAR) *</label>
+                        <input type="number" class="form-input" id="payoutAmount" placeholder="0.00" min="50" step="0.01" style="width: 100%; padding: 0.75rem; border: 1px solid var(--gray-light); border-radius: var(--radius);">
+                        <small style="color: var(--gray);">Minimum payout: R50.00</small>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Payout Method *</label>
+                        <select class="form-select" id="payoutMethod" style="width: 100%; padding: 0.75rem; border: 1px solid var(--gray-light); border-radius: var(--radius);">
+                            <option value="">Select method</option>
+                            <option value="bank">Bank Transfer</option>
+                            <option value="paypal">PayPal</option>
+                            <option value="digicoins">Digi-Coins</option>
+                        </select>
+                    </div>
+                    
+                    <div id="bankDetails" style="display: none; margin-bottom: 1.5rem;">
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-size: 0.875rem;">Bank Name</label>
+                            <input type="text" class="form-input" id="bankName" style="width: 100%; padding: 0.75rem; border: 1px solid var(--gray-light); border-radius: var(--radius);">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-size: 0.875rem;">Account Number</label>
+                            <input type="text" class="form-input" id="accountNumber" style="width: 100%; padding: 0.75rem; border: 1px solid var(--gray-light); border-radius: var(--radius);">
+                        </div>
+                    </div>
+                    
+                    <div id="paypalDetails" style="display: none; margin-bottom: 1.5rem;">
+                        <div class="form-group">
+                            <label style="display: block; margin-bottom: 0.5rem; font-size: 0.875rem;">PayPal Email</label>
+                            <input type="email" class="form-input" id="paypalEmail" style="width: 100%; padding: 0.75rem; border: 1px solid var(--gray-light); border-radius: var(--radius);">
+                        </div>
+                    </div>
+                    
+                    <div id="payoutError" class="error-message" style="display: none; margin-bottom: 1rem;"></div>
+                    
+                    <button class="btn btn-primary w-100" onclick="submitPayoutRequest()" id="submitPayoutBtn">
+                        <i class="fas fa-paper-plane"></i> Request Payout
+                    </button>
+                </div>
+                
+                <div id="payoutSuccess" style="display: none; text-align: center; padding: 2rem 0;">
+                    <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--success); margin-bottom: 1rem;"></i>
+                    <h3>Payout Request Submitted</h3>
+                    <p style="margin-bottom: 1.5rem;">Your payout request has been submitted and will be processed within 3-5 business days.</p>
+                    <button class="btn btn-primary" onclick="closeModal('payoutModal')">
+                        <i class="fas fa-check"></i> OK
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification"></div>
+
+    <script>
+        // Global Variables
+        let currentUser = null;
+        let affiliateData = null;
+        let referralLinks = [];
+        let referrals = [];
+        let payouts = [];
+
+        // Initialize Page
+        document.addEventListener('DOMContentLoaded', async function() {
+            await checkAuthentication();
+            await loadAffiliateData();
+            initializePage();
+            setupEventListeners();
+        });
+
+        // Check Authentication
+        async function checkAuthentication() {
+            try {
+                const user = JSON.parse(localStorage.getItem('digihive_user'));
+                currentUser = user;
+                updateUserUI();
+            } catch (error) {
+                console.error('Auth error:', error);
+                currentUser = null;
+            }
+        }
+
+        // Update user UI
+        function updateUserUI() {
+            if (currentUser) {
+                document.getElementById('userName').textContent = currentUser.name || 'Affiliate';
+                document.getElementById('userAvatar').textContent = currentUser.name ? currentUser.name.charAt(0).toUpperCase() : 'A';
+                
+                // Update affiliate tier if available
+                if (affiliateData) {
+                    const tier = getTierFromReferrals(affiliateData.totalReferrals || 0);
+                    document.getElementById('affiliateTier').textContent = tier + ' Tier';
+                }
+            } else {
+                document.getElementById('userName').textContent = 'Guest';
+                document.getElementById('userType').textContent = 'Viewer';
+                document.getElementById('userAvatar').textContent = '?';
+            }
+        }
+
+        // Load affiliate data
+        async function loadAffiliateData() {
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                // Load from localStorage
+                const userId = currentUser ? currentUser.id : 'guest';
+                affiliateData = JSON.parse(localStorage.getItem(`digihive_affiliate_${userId}`));
+                
+                // If no affiliate data exists and user is logged in, create default
+                if (currentUser && !affiliateData) {
+                    affiliateData = createDefaultAffiliateData();
+                }
+                
+                // Load referrals
+                referrals = affiliateData ? affiliateData.referrals || [] : [];
+                
+                // Load payouts
+                payouts = affiliateData ? affiliateData.payouts || [] : [];
+                
+                // Load referral links
+                referralLinks = affiliateData ? affiliateData.referralLinks || [] : [];
+                
+                // Update UI
+                updateAffiliateUI();
+            } catch (error) {
+                console.error('Error loading affiliate data:', error);
+            }
+        }
+
+        // Create default affiliate data
+        function createDefaultAffiliateData() {
+            const defaultData = {
+                userId: currentUser.id,
+                isActive: false,
+                applicationStatus: 'not_applied',
+                totalEarnings: 0,
+                totalReferrals: 0,
+                conversionRate: 0,
+                commissionRate: 10,
+                referrals: [],
+                payouts: [],
+                referralLinks: [],
+                monthlyStats: {
+                    referrals: 0,
+                    earnings: 0,
+                    clicks: 0
+                }
+            };
+            
+            localStorage.setItem(`digihive_affiliate_${currentUser.id}`, JSON.stringify(defaultData));
+            return defaultData;
+        }
+
+        // Update affiliate UI
+        function updateAffiliateUI() {
+            if (!affiliateData) return;
+            
+            // Update stats
+            document.getElementById('totalEarnings').textContent = 'R' + affiliateData.totalEarnings.toFixed(2);
+            document.getElementById('totalReferrals').textContent = affiliateData.totalReferrals;
+            document.getElementById('conversionRate').textContent = affiliateData.conversionRate.toFixed(1) + '%';
+            document.getElementById('commissionRate').textContent = affiliateData.commissionRate + '%';
+            
+            // Update monthly stats
+            document.getElementById('monthReferrals').textContent = affiliateData.monthlyStats.referrals;
+            document.getElementById('monthEarnings').textContent = 'R' + affiliateData.monthlyStats.earnings.toFixed(2);
+            document.getElementById('monthClicks').textContent = affiliateData.monthlyStats.clicks;
+            
+            // Update referral link
+            const referralCode = currentUser ? generateReferralCode(currentUser.id) : 'not_logged_in';
+            const referralLink = `https://digihive.com/ref/?code=${referralCode}`;
+            document.getElementById('referralLink').value = referralLink;
+            
+            // Update buttons based on affiliate status
+            updateJoinButton();
+        }
+
+        // Generate referral code
+        function generateReferralCode(userId) {
+            if (!userId) return 'error';
+            const base = userId.substring(0, 8);
+            const random = Math.random().toString(36).substr(2, 4).toUpperCase();
+            return base + random;
+        }
+
+        // Get tier from referrals count
+        function getTierFromReferrals(count) {
+            if (count >= 50) return 'Pro';
+            if (count >= 10) return 'Growth';
+            return 'Starter';
+        }
+
+        // Update join button
+        function updateJoinButton() {
+            const joinBtn = document.getElementById('joinAffiliateBtn');
+            const joinNowBtn = document.getElementById('joinNowBtn');
+            
+            if (!currentUser) {
+                joinBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Log In to Join';
+                joinNowBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Log In to Join';
+                return;
+            }
+            
+            if (affiliateData.isActive) {
+                joinBtn.innerHTML = '<i class="fas fa-chart-line"></i> Go to Dashboard';
+                joinNowBtn.innerHTML = '<i class="fas fa-chart-line"></i> Go to Dashboard';
+            } else if (affiliateData.applicationStatus === 'pending') {
+                joinBtn.innerHTML = '<i class="fas fa-clock"></i> Application Pending';
+                joinBtn.disabled = true;
+                joinNowBtn.innerHTML = '<i class="fas fa-clock"></i> Application Pending';
+                joinNowBtn.disabled = true;
+            } else {
+                joinBtn.innerHTML = '<i class="fas fa-rocket"></i> Join the Program';
+                joinNowBtn.innerHTML = '<i class="fas fa-rocket"></i> Join Now - It\'s Free!';
+            }
+        }
+
+        // Initialize page
+        function initializePage() {
+            // Load initial tab content
+            loadTabContent('referrals');
+            
+            // Setup dashboard tabs
+            setupDashboardTabs();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Logout button
+            document.getElementById('logoutBtn').addEventListener('click', logout);
+            
+            // Join buttons
+            document.getElementById('joinAffiliateBtn').addEventListener('click', handleJoinClick);
+            document.getElementById('joinNowBtn').addEventListener('click', handleJoinClick);
+            
+            // Copy link button
+            document.getElementById('copyLinkBtn').addEventListener('click', copyReferralLink);
+            
+            // Payout method change
+            document.getElementById('payoutMethod')?.addEventListener('change', function() {
+                const method = this.value;
+                document.getElementById('bankDetails').style.display = method === 'bank' ? 'block' : 'none';
+                document.getElementById('paypalDetails').style.display = method === 'paypal' ? 'block' : 'none';
+            });
+        }
+
+        // Setup dashboard tabs
+        function setupDashboardTabs() {
+            const tabs = document.querySelectorAll('.dashboard-tab');
+            const contents = document.querySelectorAll('.dashboard-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show active content
+                    contents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === `${tabId}-tab`) {
+                            content.classList.add('active');
+                        }
+                    });
+                    
+                    // Load tab content
+                    loadTabContent(tabId);
+                });
+            });
+        }
+
+        // Load tab content
+        function loadTabContent(tabId) {
+            switch(tabId) {
+                case 'referrals':
+                    loadReferralsTable();
+                    break;
+                case 'tracking':
+                    loadTrackingAnalytics();
+                    break;
+                case 'earnings':
+                    loadEarningsData();
+                    break;
+                case 'payouts':
+                    loadPayoutsData();
+                    break;
+            }
+        }
+
+        // Load referrals table
+        function loadReferralsTable() {
+            const container = document.getElementById('referralsTable');
+            
+            if (!affiliateData || !affiliateData.isActive) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-users"></i>
+                        <h3>No Referrals Yet</h3>
+                        <p>${!currentUser ? 'Log in to join the affiliate program' : 'Join the affiliate program to start tracking referrals'}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            if (!referrals.length) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-users"></i>
+                        <h3>No Referrals Yet</h3>
+                        <p>Share your referral link to start earning commissions</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let tableHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Commission</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            referrals.forEach(referral => {
+                tableHTML += `
+                    <tr>
+                        <td>${referral.name || 'Customer'}</td>
+                        <td>${referral.email || 'N/A'}</td>
+                        <td>${formatDate(referral.date)}</td>
+                        <td><span class="status-badge ${getReferralStatusClass(referral.status)}">${referral.status}</span></td>
+                        <td>R${referral.commission ? referral.commission.toFixed(2) : '0.00'}</td>
+                    </tr>
+                `;
+            });
+            
+            tableHTML += `
+                    </tbody>
+                </table>
+            `;
+            
+            container.innerHTML = tableHTML;
+        }
+
+        // Load tracking analytics
+        function loadTrackingAnalytics() {
+            const container = document.getElementById('analyticsContent');
+            
+            if (!affiliateData || !affiliateData.isActive) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Analytics Not Available</h3>
+                        <p>${!currentUser ? 'Log in to join the affiliate program' : 'Join the affiliate program to access analytics'}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const clicks = affiliateData.monthlyStats.clicks || 0;
+            const conversions = affiliateData.monthlyStats.referrals || 0;
+            const conversionRate = clicks > 0 ? (conversions / clicks * 100).toFixed(1) : 0;
+            
+            container.innerHTML = `
+                <div style="display: grid; gap: 2rem;">
+                    <div style="background-color: var(--gray-light); border-radius: var(--radius); padding: 2rem; text-align: center;">
+                        <h3 style="margin-bottom: 1rem;">Monthly Performance</h3>
+                        <div style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--info);">${clicks}</div>
+                                <div style="font-size: 0.875rem; color: var(--gray);">Link Clicks</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--success);">${conversions}</div>
+                                <div style="font-size: 0.875rem; color: var(--gray);">Conversions</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">${conversionRate}%</div>
+                                <div style="font-size: 0.875rem; color: var(--gray);">Conversion Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="margin-bottom: 1rem;">Top Referral Sources</h3>
+                        <div style="background-color: white; border: 1px solid var(--gray-light); border-radius: var(--radius); padding: 1.5rem;">
+                            <p style="color: var(--gray); text-align: center;">Referral source tracking will appear here once you start getting referrals.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Load earnings data
+        function loadEarningsData() {
+            const container = document.getElementById('earningsContent');
+            
+            if (!affiliateData || !affiliateData.isActive) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <h3>No Earnings Data</h3>
+                        <p>${!currentUser ? 'Log in to join the affiliate program' : 'Join the affiliate program to start earning'}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Calculate monthly earnings breakdown
+            const monthlyBreakdown = calculateMonthlyBreakdown();
+            
+            let breakdownHTML = '';
+            monthlyBreakdown.forEach(item => {
+                breakdownHTML += `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--gray-light);">
+                        <span>${item.month}</span>
+                        <strong style="color: var(--success);">R${item.earnings.toFixed(2)}</strong>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = `
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+                    <div>
+                        <h3 style="margin-bottom: 1rem;">Earnings Overview</h3>
+                        <div style="background-color: var(--gray-light); border-radius: var(--radius); padding: 2rem; text-align: center; margin-bottom: 1.5rem;">
+                            <div style="font-size: 2.5rem; font-weight: 800; color: var(--success); margin-bottom: 0.5rem;">R${affiliateData.totalEarnings.toFixed(2)}</div>
+                            <div style="font-size: 0.875rem; color: var(--gray);">Total Lifetime Earnings</div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                            <button class="btn btn-primary" onclick="openPayoutModal()">
+                                <i class="fas fa-money-bill-wave"></i> Request Payout
+                            </button>
+                            <button class="btn btn-outline" onclick="exportEarnings()">
+                                <i class="fas fa-download"></i> Export Data
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="margin-bottom: 1rem;">Monthly Breakdown</h3>
+                        <div style="background-color: white; border: 1px solid var(--gray-light); border-radius: var(--radius); padding: 1rem;">
+                            ${breakdownHTML || '<p style="color: var(--gray); text-align: center;">No earnings data yet</p>'}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Calculate monthly breakdown
+        function calculateMonthlyBreakdown() {
+            const breakdown = [];
+            const now = new Date();
+            
+            // Generate last 6 months
+            for (let i = 5; i >= 0; i--) {
+                const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+                const monthName = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+                
+                // Calculate earnings for this month (simulated)
+                const earnings = Math.random() * 1000;
+                
+                breakdown.push({
+                    month: monthName,
+                    earnings: earnings
+                });
+            }
+            
+            return breakdown;
+        }
+
+        // Load payouts data
+        function loadPayoutsData() {
+            const container = document.getElementById('payoutsContent');
+            
+            if (!affiliateData || !affiliateData.isActive) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-history"></i>
+                        <h3>No Payout History</h3>
+                        <p>${!currentUser ? 'Log in to join the affiliate program' : 'Join the affiliate program to request payouts'}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            if (!payouts.length) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-history"></i>
+                        <h3>No Payouts Yet</h3>
+                        <p>Request your first payout when you reach R50 in earnings</p>
+                        <button class="btn btn-primary" onclick="openPayoutModal()" style="margin-top: 1rem;">
+                            <i class="fas fa-money-bill-wave"></i> Request Payout
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            let tableHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Method</th>
+                            <th>Status</th>
+                            <th>Reference</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            payouts.forEach(payout => {
+                tableHTML += `
+                    <tr>
+                        <td>${formatDate(payout.date)}</td>
+                        <td>R${payout.amount.toFixed(2)}</td>
+                        <td>${formatPayoutMethod(payout.method)}</td>
+                        <td><span class="status-badge ${getPayoutStatusClass(payout.status)}">${payout.status}</span></td>
+                        <td>${payout.reference}</td>
+                    </tr>
+                `;
+            });
+            
+            tableHTML += `
+                    </tbody>
+                </table>
+            `;
+            
+            container.innerHTML = tableHTML;
+        }
+
+        // Handle join button click
+        function handleJoinClick() {
+            if (!currentUser) {
+                showNotification('Please log in to join the affiliate program', 'warning');
+                return;
+            }
+            
+            if (affiliateData.isActive) {
+                // Already an affiliate, focus on dashboard
+                document.querySelector('.affiliate-dashboard').scrollIntoView({ behavior: 'smooth' });
+                return;
+            }
+            
+            openJoinModal();
+        }
+
+        // Open join modal
+        function openJoinModal() {
+            const authRequired = document.getElementById('authRequired');
+            const alreadyAffiliate = document.getElementById('alreadyAffiliate');
+            const joinForm = document.getElementById('joinForm');
+            const joinSuccess = document.getElementById('joinSuccess');
+            
+            // Reset modal state
+            authRequired.style.display = 'none';
+            alreadyAffiliate.style.display = 'none';
+            joinForm.style.display = 'none';
+            joinSuccess.style.display = 'none';
+            
+            if (!currentUser) {
+                authRequired.style.display = 'flex';
+            } else if (affiliateData.isActive) {
+                alreadyAffiliate.style.display = 'flex';
+            } else if (affiliateData.applicationStatus === 'pending') {
+                showNotification('Your application is already pending review', 'info');
+                return;
+            } else {
+                joinForm.style.display = 'block';
+                // Reset form
+                document.getElementById('promotionMethod').value = '';
+                document.getElementById('websiteUrl').value = '';
+                document.getElementById('agreeTerms').checked = false;
+            }
+            
+            openModal('joinModal');
+        }
+
+        // Submit affiliate application
+        function submitAffiliateApplication() {
+            const promotionMethod = document.getElementById('promotionMethod').value;
+            const websiteUrl = document.getElementById('websiteUrl').value;
+            const agreeTerms = document.getElementById('agreeTerms').checked;
+            
+            if (!promotionMethod) {
+                showNotification('Please select how you will promote DigiHive', 'warning');
+                return;
+            }
+            
+            if (!agreeTerms) {
+                showNotification('Please agree to the Affiliate Program Terms', 'warning');
+                return;
+            }
+            
+            // Update affiliate data
+            affiliateData.applicationStatus = 'pending';
+            affiliateData.promotionMethod = promotionMethod;
+            affiliateData.websiteUrl = websiteUrl;
+            affiliateData.applicationDate = new Date().toISOString();
+            
+            // Save to localStorage
+            localStorage.setItem(`digihive_affiliate_${currentUser.id}`, JSON.stringify(affiliateData));
+            
+            // Update UI
+            document.getElementById('joinForm').style.display = 'none';
+            document.getElementById('joinSuccess').style.display = 'block';
+            
+            // Update join button
+            updateJoinButton();
+            
+            showNotification('Affiliate application submitted successfully!', 'success');
+        }
+
+        // Open payout modal
+        function openPayoutModal() {
+            if (!currentUser || !affiliateData || !affiliateData.isActive) {
+                showNotification('You must be an active affiliate to request payouts', 'warning');
+                return;
+            }
+            
+            if (affiliateData.totalEarnings < 50) {
+                showNotification(`Minimum payout is R50. Your current balance is R${affiliateData.totalEarnings.toFixed(2)}`, 'warning');
+                return;
+            }
+            
+            document.getElementById('availableBalance').textContent = 'R' + affiliateData.totalEarnings.toFixed(2);
+            document.getElementById('payoutAmount').value = '';
+            document.getElementById('payoutMethod').value = '';
+            document.getElementById('payoutError').style.display = 'none';
+            document.getElementById('payoutForm').style.display = 'block';
+            document.getElementById('payoutSuccess').style.display = 'none';
+            
+            // Reset form fields
+            document.getElementById('bankName').value = '';
+            document.getElementById('accountNumber').value = '';
+            document.getElementById('paypalEmail').value = '';
+            
+            openModal('payoutModal');
+        }
+
+        // Submit payout request
+        function submitPayoutRequest() {
+            const submitBtn = document.getElementById('submitPayoutBtn');
+            const amount = parseFloat(document.getElementById('payoutAmount').value);
+            const method = document.getElementById('payoutMethod').value;
+            
+            // Validation
+            if (!amount || amount < 50) {
+                showPayoutError('Minimum payout amount is R50.00');
+                return;
+            }
+            
+            if (amount > affiliateData.totalEarnings) {
+                showPayoutError('Payout amount cannot exceed available balance');
+                return;
+            }
+            
+            if (!method) {
+                showPayoutError('Please select a payout method');
+                return;
+            }
+            
+            // Validate method-specific details
+            if (method === 'bank') {
+                const bankName = document.getElementById('bankName').value;
+                const accountNumber = document.getElementById('accountNumber').value;
+                
+                if (!bankName || !accountNumber) {
+                    showPayoutError('Please fill in all bank details');
+                    return;
+                }
+            } else if (method === 'paypal') {
+                const paypalEmail = document.getElementById('paypalEmail').value;
+                if (!paypalEmail || !isValidEmail(paypalEmail)) {
+                    showPayoutError('Please enter a valid PayPal email address');
+                    return;
+                }
+            }
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            
+            try {
+                // Create payout record
+                const payout = {
+                    id: generateId(),
+                    amount: amount,
+                    method: method,
+                    status: 'pending',
+                    date: new Date().toISOString(),
+                    reference: 'PAY-' + generateReference(),
+                    details: method === 'bank' ? {
+                        bankName: document.getElementById('bankName').value,
+                        accountNumber: document.getElementById('accountNumber').value
+                    } : method === 'paypal' ? {
+                        paypalEmail: document.getElementById('paypalEmail').value
+                    } : {}
+                };
+                
+                // Update affiliate earnings
+                affiliateData.totalEarnings -= amount;
+                
+                // Add to payouts
+                payouts.push(payout);
+                affiliateData.payouts = payouts;
+                
+                // Save to storage
+                localStorage.setItem(`digihive_affiliate_${currentUser.id}`, JSON.stringify(affiliateData));
+                
+                // Update UI
+                document.getElementById('payoutForm').style.display = 'none';
+                document.getElementById('payoutSuccess').style.display = 'block';
+                
+                // Update stats
+                updateAffiliateUI();
+                loadEarningsData();
+                loadPayoutsData();
+            } catch (error) {
+                console.error('Error processing payout:', error);
+                showPayoutError('Error processing payout. Please try again.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Request Payout';
+            }
+        }
+
+        // Show payout error
+        function showPayoutError(message) {
+            const errorDiv = document.getElementById('payoutError');
+            errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+            errorDiv.style.display = 'block';
+        }
+
+        // Copy referral link
+        function copyReferralLink() {
+            const referralLink = document.getElementById('referralLink');
+            
+            if (!currentUser) {
+                showNotification('Please log in to copy your referral link', 'warning');
+                return;
+            }
+            
+            if (!affiliateData || !affiliateData.isActive) {
+                showNotification('Join the affiliate program to get your referral link', 'warning');
+                return;
+            }
+            
+            referralLink.select();
+            referralLink.setSelectionRange(0, 99999); // For mobile devices
+            
+            try {
+                navigator.clipboard.writeText(referralLink.value);
+                showNotification('Referral link copied to clipboard!', 'success');
+            } catch (err) {
+                // Fallback for older browsers
+                document.execCommand('copy');
+                showNotification('Referral link copied!', 'success');
+            }
+        }
+
+        // Share on social media
+        function shareOnFacebook() {
+            const link = encodeURIComponent(document.getElementById('referralLink').value);
+            const text = encodeURIComponent('Join DigiHive through my referral link and get access to amazing digital products!');
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${link}&quote=${text}`, '_blank');
+        }
+
+        function shareOnTwitter() {
+            const link = encodeURIComponent(document.getElementById('referralLink').value);
+            const text = encodeURIComponent('Join DigiHive through my referral link! #DigiHive #Affiliate');
+            window.open(`https://twitter.com/intent/tweet?url=${link}&text=${text}`, '_blank');
+        }
+
+        function shareOnWhatsApp() {
+            const link = encodeURIComponent(document.getElementById('referralLink').value);
+            const text = encodeURIComponent('Check out DigiHive - an amazing platform for digital products! Join through my link: ');
+            window.open(`https://wa.me/?text=${text}${link}`, '_blank');
+        }
+
+        function shareOnTelegram() {
+            const link = encodeURIComponent(document.getElementById('referralLink').value);
+            const text = encodeURIComponent('Join DigiHive through my referral link!');
+            window.open(`https://t.me/share/url?url=${link}&text=${text}`, '_blank');
+        }
+
+        // Download promo material
+        function downloadMaterial(type) {
+            if (!currentUser || !affiliateData || !affiliateData.isActive) {
+                showNotification('You must be an active affiliate to download promo materials', 'warning');
+                return;
+            }
+            
+            const materials = {
+                banners: 'https://digihive.com/promo/banners.zip',
+                copy: 'https://digihive.com/promo/email-templates.zip',
+                links: 'https://digihive.com/promo/product-links.csv'
+            };
+            
+            showNotification(`Downloading ${type} materials...`, 'info');
+            
+            // In a real app, this would trigger a download
+            setTimeout(() => {
+                showNotification('Promo materials downloaded successfully!', 'success');
+            }, 1000);
+        }
+
+        // Export earnings data
+        function exportEarnings() {
+            if (!affiliateData || !affiliateData.isActive) {
+                showNotification('No earnings data to export', 'warning');
+                return;
+            }
+            
+            // Create CSV content
+            let csv = 'Month,Earnings\n';
+            const breakdown = calculateMonthlyBreakdown();
+            breakdown.forEach(item => {
+                csv += `${item.month},R${item.earnings.toFixed(2)}\n`;
+            });
+            
+            // Create download link
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `digihive-earnings-${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            showNotification('Earnings data exported successfully!', 'success');
+        }
+
+        // Toggle FAQ
+        function toggleFAQ(element) {
+            const item = element.parentElement;
+            const answer = item.querySelector('.faq-answer');
+            
+            item.classList.toggle('active');
+            answer.classList.toggle('active');
+        }
+
+        // Logout
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                // In a real app, this would clear session
+                currentUser = null;
+                updateUserUI();
+                showNotification('Logged out successfully', 'info');
+                
+                // Update page content
+                loadReferralsTable();
+                loadTrackingAnalytics();
+                loadEarningsData();
+                loadPayoutsData();
+            }
+        }
+
+        // Open modal
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        // Close modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            const icon = type === 'success' ? 'fa-check-circle' :
+                        type === 'error' ? 'fa-exclamation-circle' :
+                        type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle';
+            
+            const color = type === 'success' ? 'var(--success)' :
+                         type === 'error' ? 'var(--danger)' :
+                         type === 'warning' ? 'var(--warning)' : 'var(--info)';
+            
+            notification.innerHTML = `
+                <div style="background-color: ${color}; color: white; padding: 1rem 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 0.5rem; min-width: 300px;">
+                    <i class="fas ${icon}"></i>
+                    <span>${message}</span>
+                    <button onclick="this.parentElement.parentElement.style.display='none'" style="background: none; border: none; color: white; margin-left: 1rem; cursor: pointer;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            
+            notification.style.display = 'block';
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 5000);
+        }
+
+        // Utility functions
+        function generateId() {
+            return 'aff_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        function generateReference() {
+            return Math.random().toString(36).substr(2, 8).toUpperCase();
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-ZA', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function formatPayoutMethod(method) {
+            const methods = {
+                'bank': 'Bank Transfer',
+                'paypal': 'PayPal',
+                'digicoins': 'Digi-Coins'
+            };
+            return methods[method] || method;
+        }
+
+        function getReferralStatusClass(status) {
+            const classes = {
+                'pending': 'status-pending',
+                'approved': 'status-approved',
+                'rejected': 'status-rejected'
+            };
+            return classes[status] || 'status-pending';
+        }
+
+        function getPayoutStatusClass(status) {
+            const classes = {
+                'pending': 'status-pending',
+                'processing': 'status-pending',
+                'completed': 'status-approved',
+                'failed': 'status-rejected'
+            };
+            return classes[status] || 'status-pending';
+        }
+
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
