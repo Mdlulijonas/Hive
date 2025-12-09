@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiHive - Seller Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --primary-dark: #d97706;
+            --secondary: #10b981;
+            --danger: #ef4444;
+            --gray-light: #f3f4f6;
+            --gray: #9ca3af;
+            --gray-dark: #4b5563;
+            --dark: #1f2937;
+            --light: #ffffff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--light);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--dark);
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .user-details h3 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .user-details p {
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logout-btn:hover {
+            color: var(--danger);
+        }
+
+        /* Hero Section */
+        .seller-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            border-radius: 0 0 var(--radius) var(--radius);
+            margin-bottom: 3rem;
+        }
+
+        .seller-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .seller-hero p {
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .plan-badge {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Seller Stats */
+        .seller-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background-color: var(--light);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-earnings .stat-icon {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .stat-sales .stat-icon {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--info);
+        }
+
+        .stat-products .stat-icon {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .stat-rating .stat-icon {
+            background-color: rgba(139, 92, 246, 0.1);
+            color: #8b5cf6;
+        }
+
+        .stat-details h3 {
+            font-size: 0.875rem;
+            color: var(--gray);
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-details .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-details .change {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .positive {
+            color: var(--success);
+        }
+
+        .neutral {
+            color: var(--gray);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--gray-light);
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 1rem 2rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tab:hover {
+            color: var(--primary);
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Sections */
+        .section {
+            background-color: var(--light);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .section-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #0da271;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(245, 158, 11, 0.1);
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 1rem;
+            font-weight: 600;
+            color: var(--gray-dark);
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-draft {
+            background-color: rgba(156, 163, 175, 0.1);
+            color: var(--gray-dark);
+        }
+
+        .status-pending {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--gray);
+            transition: color 0.3s;
+            padding: 0.25rem;
+        }
+
+        .action-btn:hover {
+            color: var(--primary);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--gray-dark);
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .file-upload {
+            border: 2px dashed var(--gray-light);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary);
+        }
+
+        .file-upload i {
+            font-size: 2rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        /* Pricing Cards */
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .pricing-card {
+            background-color: var(--light);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.popular {
+            border-color: var(--primary);
+            position: relative;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary);
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pricing-features li i {
+            color: var(--success);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--gray);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .copyright {
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: var(--gray);
+            font-size: 1.25rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .seller-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .seller-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                overflow-x: auto;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <i class="fas fa-bee" style="color: var(--primary); margin-right: 0.5rem;"></i>
+                    Digi<span>Hive</span>
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="marketplace.html">Marketplace</a></li>
+                    <li><a href="videos.html">Video Content</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="seller.html" class="active">Seller Portal</a></li>
+                    <li><a href="plans.html">Pricing</a></li>
+                </ul>
+                
+                <div class="user-section">
+                    <div class="user-info">
+                        <div class="user-avatar">S</div>
+                        <div class="user-details">
+                            <h3 id="userName">Seller Account</h3>
+                            <p id="userType">Pro Plan</p>
+                        </div>
+                    </div>
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="seller-hero">
+        <div class="container">
+            <div class="plan-badge">Pro Seller Plan</div>
+            <h1>Grow Your Digital Business</h1>
+            <p>Manage your products, track sales, and grow your digital business with our powerful seller tools. Everything you need to succeed in one place.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <button class="btn btn-primary" onclick="switchTab('products')">
+                    <i class="fas fa-box"></i> Manage Products
+                </button>
+                <button class="btn btn-success" onclick="switchTab('add-product')">
+                    <i class="fas fa-plus-circle"></i> Add New Product
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seller Stats -->
+    <div class="container">
+        <div class="seller-stats">
+            <div class="stat-card stat-earnings">
+                <div class="stat-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div class="stat-details">
+                    <h3>Total Earnings</h3>
+                    <div class="value">R2,450.00</div>
+                    <div class="change positive">+12.5% this month</div>
+                </div>
+            </div>
+            
+            <div class="stat-card stat-sales">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div class="stat-details">
+                    <h3>Total Sales</h3>
+                    <div class="value">47</div>
+                    <div class="change positive">+8.2% this month</div>
+                </div>
+            </div>
+            
+            <div class="stat-card stat-products">
+                <div class="stat-icon">
+                    <i class="fas fa-box"></i>
+                </div>
+                <div class="stat-details">
+                    <h3>Active Products</h3>
+                    <div class="value">8</div>
+                    <div class="change positive">+2 this month</div>
+                </div>
+            </div>
+            
+            <div class="stat-card stat-rating">
+                <div class="stat-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="stat-details">
+                    <h3>Average Rating</h3>
+                    <div class="value">4.7</div>
+                    <div class="change neutral">+0.2 this month</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab active" data-tab="products">My Products</div>
+            <div class="tab" data-tab="add-product">Add Product</div>
+            <div class="tab" data-tab="analytics">Sales Analytics</div>
+            <div class="tab" data-tab="earnings">Earnings</div>
+            <div class="tab" data-tab="plans">Pricing Plans</div>
+        </div>
+
+        <!-- My Products Tab -->
+        <div class="tab-content active" id="products-tab">
+            <div class="section">
+                <div class="section-header">
+                    <h2>My Digital Products</h2>
+                    <button class="btn btn-primary" onclick="switchTab('add-product')">
+                        <i class="fas fa-plus"></i> Add New Product
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Sales</th>
+                                <th>Revenue</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>Premium Digital Marketing Guide</strong>
+                                    <div style="font-size: 0.875rem; color: var(--gray);">Category: Ebooks</div>
+                                </td>
+                                <td>R149.99</td>
+                                <td>18</td>
+                                <td>R2,699.82</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-btn" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Social Media Content Templates</strong>
+                                    <div style="font-size: 0.875rem; color: var(--gray);">Category: Templates</div>
+                                </td>
+                                <td>R99.99</td>
+                                <td>12</td>
+                                <td>R1,199.88</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-btn" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Video Editing Masterclass</strong>
+                                    <div style="font-size: 0.875rem; color: var(--gray);">Category: Courses</div>
+                                </td>
+                                <td>R299.99</td>
+                                <td>7</td>
+                                <td>R2,099.93</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-btn" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Website UI Kit</strong>
+                                    <div style="font-size: 0.875rem; color: var(--gray);">Category: Graphics</div>
+                                </td>
+                                <td>R199.99</td>
+                                <td>10</td>
+                                <td>R1,999.90</td>
+                                <td><span class="status-badge status-draft">Draft</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-btn" title="Publish">
+                                            <i class="fas fa-upload"></i>
+                                        </button>
+                                        <button class="action-btn" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Product Tab -->
+        <div class="tab-content" id="add-product-tab">
+            <div class="section">
+                <div class="section-header">
+                    <h2>Add New Product</h2>
+                </div>
+                
+                <form id="productForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Product Title *</label>
+                            <input type="text" class="form-input" id="productTitle" placeholder="Enter product title" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Category *</label>
+                            <select class="form-select" id="productCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="ebooks">Ebooks & Guides</option>
+                                <option value="templates">Templates</option>
+                                <option value="courses">Online Courses</option>
+                                <option value="software">Software & Tools</option>
+                                <option value="graphics">Graphics & Design</option>
+                                <option value="audio">Audio & Music</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Description *</label>
+                        <textarea class="form-textarea" id="productDescription" placeholder="Describe your product in detail..." required></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Price (ZAR) *</label>
+                            <input type="number" class="form-input" id="productPrice" placeholder="0.00" min="0" step="0.01" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Product Type</label>
+                            <select class="form-select" id="productType">
+                                <option value="digital">Digital Download</option>
+                                <option value="video">Video Content</option>
+                                <option value="service">Service</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Product File</label>
+                        <div class="file-upload" id="fileUploadArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p style="margin-bottom: 1rem; font-weight: 500;">Click to upload product file</p>
+                            <p style="font-size: 0.875rem; color: var(--gray);">
+                                Max file size: 500MB • Supported formats: PDF, ZIP, MP4, MP3, DOC, PSD, etc.
+                            </p>
+                            <div id="selectedFileName" style="margin-top: 1rem; font-size: 0.875rem;"></div>
+                        </div>
+                        <input type="file" id="productFile" style="display: none;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Tags (comma separated)</label>
+                        <input type="text" class="form-input" id="productTags" placeholder="digital, marketing, guide, premium">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Product Image URL</label>
+                        <input type="text" class="form-input" id="productImage" placeholder="https://example.com/product-image.jpg">
+                    </div>
+                    
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save & Publish Product
+                        </button>
+                        <button type="button" class="btn btn-outline" onclick="switchTab('products')">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Sales Analytics Tab -->
+        <div class="tab-content" id="analytics-tab">
+            <div class="section">
+                <div class="section-header">
+                    <h2>Sales Analytics</h2>
+                    <div>
+                        <select class="form-select" style="width: 200px;" id="analyticsPeriod">
+                            <option value="7days">Last 7 days</option>
+                            <option value="30days" selected>Last 30 days</option>
+                            <option value="90days">Last 90 days</option>
+                            <option value="year">This year</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <div id="analyticsChart" style="height: 300px; background-color: var(--gray-light); border-radius: var(--radius); display: flex; align-items: center; justify-content: center;">
+                        <div style="text-align: center; color: var(--gray);">
+                            <i class="fas fa-chart-line" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                            <h3>Sales Analytics Chart</h3>
+                            <p>Interactive chart showing sales performance over time</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="section">
+                        <h3 style="margin-bottom: 1rem;">Top Performing Products</h3>
+                        <ul style="list-style: none;">
+                            <li style="padding: 1rem 0; border-bottom: 1px solid var(--gray-light); display: flex; justify-content: space-between;">
+                                <span>Premium Digital Marketing Guide</span>
+                                <strong>18 sales</strong>
+                            </li>
+                            <li style="padding: 1rem 0; border-bottom: 1px solid var(--gray-light); display: flex; justify-content: space-between;">
+                                <span>Video Editing Masterclass</span>
+                                <strong>7 sales</strong>
+                            </li>
+                            <li style="padding: 1rem 0; border-bottom: 1px solid var(--gray-light); display: flex; justify-content: space-between;">
+                                <span>Social Media Content Templates</span>
+                                <strong>12 sales</strong>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="section">
+                        <h3 style="margin-bottom: 1rem;">Sales by Category</h3>
+                        <ul style="list-style: none;">
+                            <li style="padding: 1rem 0; border-bottom: 1px solid var(--gray-light); display: flex; justify-content: space-between;">
+                                <span>Ebooks & Guides</span>
+                                <strong>18 sales</strong>
+                            </li>
+                            <li style="padding: 1rem 0; border-bottom: 1px solid var(--gray-light); display: flex; justify-content: space-between;">
+                                <span>Courses</span>
+                                <strong>7 sales</strong>
+                            </li>
+                            <li style="padding: 1rem 0; border-bottom: 1px solid var(--gray-light); display: flex; justify-content: space-between;">
+                                <span>Templates</span>
+                                <strong>12 sales</strong>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings Tab -->
+        <div class="tab-content" id="earnings-tab">
+            <div class="section">
+                <div class="section-header">
+                    <h2>Earnings Overview</h2>
+                </div>
+                
+                <div class="seller-stats" style="margin-bottom: 2rem;">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Total Earnings</h3>
+                            <div class="value">R2,450.00</div>
+                            <div class="change positive">All time</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Available for Withdrawal</h3>
+                            <div class="value">R1,850.00</div>
+                            <div class="change positive">Ready to withdraw</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Digi-Coins Balance</h3>
+                            <div class="value">3,700</div>
+                            <div class="change neutral">2 Digi-Coins = 1 ZAR</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-header">
+                    <h2>Withdrawal History</h2>
+                    <button class="btn btn-primary" id="withdrawBtn">
+                        <i class="fas fa-money-bill-wave"></i> Request Withdrawal
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Method</th>
+                                <th>Status</th>
+                                <th>Reference</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2024-01-15</td>
+                                <td>R850.00</td>
+                                <td>Bank Transfer</td>
+                                <td><span class="status-badge status-active">Completed</span></td>
+                                <td>TX-789456</td>
+                            </tr>
+                            <tr>
+                                <td>2023-12-05</td>
+                                <td>R450.00</td>
+                                <td>PayPal</td>
+                                <td><span class="status-badge status-active">Completed</span></td>
+                                <td>TX-789455</td>
+                            </tr>
+                            <tr>
+                                <td>2023-11-20</td>
+                                <td>R750.00</td>
+                                <td>Bank Transfer</td>
+                                <td><span class="status-badge status-active">Completed</span></td>
+                                <td>TX-789454</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pricing Plans Tab -->
+        <div class="tab-content" id="plans-tab">
+            <div class="section">
+                <div class="section-header">
+                    <h2>Choose Your Seller Plan</h2>
+                    <p>Upgrade to unlock more features and higher earnings</p>
+                </div>
+                
+                <div class="pricing-cards">
+                    <div class="pricing-card">
+                        <h3>Free Plan</h3>
+                        <div class="price">R0<span>/month</span></div>
+                        <p>Perfect for getting started</p>
+                        
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check"></i> 93% Earnings on Sales</li>
+                            <li><i class="fas fa-check"></i> Up to 5 Products</li>
+                            <li><i class="fas fa-check"></i> Basic Analytics</li>
+                            <li><i class="fas fa-check"></i> Digital Delivery</li>
+                            <li><i class="fas fa-times" style="color: var(--gray);"></i> <span style="text-decoration: line-through; color: var(--gray);">Advanced DRM Protection</span></li>
+                            <li><i class="fas fa-times" style="color: var(--gray);"></i> <span style="text-decoration: line-through; color: var(--gray);">Priority Support</span></li>
+                        </ul>
+                        
+                        <button class="btn btn-outline" style="width: 100%;" onclick="selectPlan('free')">
+                            Select Free Plan
+                        </button>
+                    </div>
+                    
+                    <div class="pricing-card popular">
+                        <div class="popular-badge">Most Popular</div>
+                        <h3>Pro Plan</h3>
+                        <div class="price">R99<span>/month</span></div>
+                        <p>For serious sellers</p>
+                        
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check"></i> 100% Earnings on Sales</li>
+                            <li><i class="fas fa-check"></i> Unlimited Products</li>
+                            <li><i class="fas fa-check"></i> Advanced Analytics</li>
+                            <li><i class="fas fa-check"></i> Digital Delivery</li>
+                            <li><i class="fas fa-check"></i> Advanced DRM Protection</li>
+                            <li><i class="fas fa-check"></i> Priority Support</li>
+                        </ul>
+                        
+                        <button class="btn btn-primary" style="width: 100%;" onclick="selectPlan('pro')">
+                            Select Pro Plan
+                        </button>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <h3>Business Plan</h3>
+                        <div class="price">R199<span>/month</span></div>
+                        <p>For growing businesses</p>
+                        
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check"></i> 100% Earnings on Sales</li>
+                            <li><i class="fas fa-check"></i> Unlimited Products</li>
+                            <li><i class="fas fa-check"></i> Advanced Analytics + API</li>
+                            <li><i class="fas fa-check"></i> Digital & Physical Delivery</li>
+                            <li><i class="fas fa-check"></i> Advanced DRM Protection</li>
+                            <li><i class="fas fa-check"></i> Dedicated Account Manager</li>
+                        </ul>
+                        
+                        <button class="btn btn-outline" style="width: 100%;" onclick="selectPlan('business')">
+                            Select Business Plan
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="section" style="margin-top: 2rem;">
+                    <h3 style="margin-bottom: 1rem;">Plan Comparison</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Free Plan</th>
+                                    <th>Pro Plan</th>
+                                    <th>Business Plan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Monthly Fee</td>
+                                    <td>R0</td>
+                                    <td>R99</td>
+                                    <td>R199</td>
+                                </tr>
+                                <tr>
+                                    <td>Earnings Percentage</td>
+                                    <td>93%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                </tr>
+                                <tr>
+                                    <td>Product Limit</td>
+                                    <td>5</td>
+                                    <td>Unlimited</td>
+                                    <td>Unlimited</td>
+                                </tr>
+                                <tr>
+                                    <td>Advanced DRM</td>
+                                    <td><i class="fas fa-times" style="color: var(--danger);"></i></td>
+                                    <td><i class="fas fa-check" style="color: var(--success);"></i></td>
+                                    <td><i class="fas fa-check" style="color: var(--success);"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Priority Support</td>
+                                    <td><i class="fas fa-times" style="color: var(--danger);"></i></td>
+                                    <td><i class="fas fa-check" style="color: var(--success);"></i></td>
+                                    <td><i class="fas fa-check" style="color: var(--success);"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>API Access</td>
+                                    <td><i class="fas fa-times" style="color: var(--danger);"></i></td>
+                                    <td><i class="fas fa-times" style="color: var(--danger);"></i></td>
+                                    <td><i class="fas fa-check" style="color: var(--success);"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>DigiHive</h3>
+                    <p>Professional platform for digital content creators. Built with ❤️ for the creator economy.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Platform</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="marketplace.html">Marketplace</a></li>
+                        <li><a href="videos.html">Video Content</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>For Creators</h3>
+                    <ul class="footer-links">
+                        <li><a href="seller.html">Sell on DigiHive</a></li>
+                        <li><a href="plans.html">Pricing Plans</a></li>
+                        <li><a href="affiliate.html">Affiliate Program</a></li>
+                        <li><a href="#">Creator Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    &copy; 2024 DigiHive. All rights reserved. Made with <i class="fas fa-heart" style="color: var(--primary);"></i> for creators.
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab switching functionality
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        function switchTab(tabId) {
+            // Update active tab
+            tabs.forEach(tab => {
+                if (tab.getAttribute('data-tab') === tabId) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+            
+            // Show active tab content
+            tabContents.forEach(content => {
+                if (content.id === `${tabId}-tab`) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+            
+            // Scroll to top of tab content
+            const activeTabContent = document.getElementById(`${tabId}-tab`);
+            if (activeTabContent) {
+                activeTabContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        
+        // Setup tab click events
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                switchTab(tabId);
+            });
+        });
+        
+        // File upload functionality
+        const fileUploadArea = document.getElementById('fileUploadArea');
+        const productFileInput = document.getElementById('productFile');
+        const selectedFileName = document.getElementById('selectedFileName');
+        
+        fileUploadArea.addEventListener('click', function() {
+            productFileInput.click();
+        });
+        
+        productFileInput.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                const fileName = this.files[0].name;
+                const fileSize = this.files[0].size;
+                const fileSizeMB = (fileSize / (1024 * 1024)).toFixed(2);
+                
+                selectedFileName.innerHTML = `
+                    <i class="fas fa-file" style="margin-right: 0.5rem;"></i>
+                    <strong>${fileName}</strong> (${fileSizeMB} MB)
+                `;
+                selectedFileName.style.color = 'var(--success)';
+            }
+        });
+        
+        // Product form submission
+        const productForm = document.getElementById('productForm');
+        productForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const productData = {
+                title: document.getElementById('productTitle').value,
+                category: document.getElementById('productCategory').value,
+                description: document.getElementById('productDescription').value,
+                price: document.getElementById('productPrice').value,
+                type: document.getElementById('productType').value,
+                tags: document.getElementById('productTags').value,
+                image: document.getElementById('productImage').value
+            };
+            
+            // Basic validation
+            if (!productData.title || !productData.category || !productData.description || !productData.price) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // Show success message
+            alert('Product saved successfully! It will now appear in your product list.');
+            
+            // Reset form
+            productForm.reset();
+            selectedFileName.innerHTML = '';
+            document.getElementById('productTags').value = 'digital, marketing, guide, premium';
+            
+            // Switch to products tab
+            switchTab('products');
+        });
+        
+        // Plan selection
+        function selectPlan(plan) {
+            let planName = '';
+            let planPrice = '';
+            
+            switch(plan) {
+                case 'free':
+                    planName = 'Free Plan';
+                    planPrice = 'R0/month';
+                    break;
+                case 'pro':
+                    planName = 'Pro Plan';
+                    planPrice = 'R99/month';
+                    break;
+                case 'business':
+                    planName = 'Business Plan';
+                    planPrice = 'R199/month';
+                    break;
+            }
+            
+            if (confirm(`Are you sure you want to select the ${planName} (${planPrice})?`)) {
+                // In a real app, this would process payment and update user plan
+                document.querySelector('.plan-badge').textContent = planName;
+                document.querySelector('.user-details p').textContent = planName;
+                
+                // Show success message
+                alert(`Successfully upgraded to ${planName}! Your account has been updated.`);
+            }
+        }
+        
+        // Logout functionality
+        const logoutBtn = document.getElementById('logoutBtn');
+        logoutBtn.addEventListener('click', function() {
+            if (confirm('Are you sure you want to logout?')) {
+                // In a real app, this would clear session and redirect
+                alert('Logged out successfully. Redirecting to home page...');
+                window.location.href = 'index.html';
+            }
+        });
+        
+        // Withdrawal button
+        const withdrawBtn = document.getElementById('withdrawBtn');
+        if (withdrawBtn) {
+            withdrawBtn.addEventListener('click', function() {
+                // In a real app, this would open a withdrawal modal
+                alert('Withdrawal feature will be available soon! You can request withdrawals from your dashboard.');
+            });
+        }
+        
+        // Analytics period change
+        const analyticsPeriod = document.getElementById('analyticsPeriod');
+        if (analyticsPeriod) {
+            analyticsPeriod.addEventListener('change', function() {
+                // In a real app, this would reload analytics data
+                console.log('Analytics period changed to:', this.value);
+                alert('Loading analytics data for selected period...');
+            });
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Seller portal loaded successfully');
+        });
+    </script>
+</body>
+</html>
