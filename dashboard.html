@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiHive - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --primary-dark: #d97706;
+            --secondary: #10b981;
+            --danger: #ef4444;
+            --gray-light: #f3f4f6;
+            --gray: #9ca3af;
+            --gray-dark: #4b5563;
+            --dark: #1f2937;
+            --light: #ffffff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--light);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--dark);
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .user-details h3 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .user-details p {
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logout-btn:hover {
+            color: var(--danger);
+        }
+
+        /* Dashboard Layout */
+        .dashboard-container {
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: var(--light);
+            box-shadow: var(--shadow);
+            padding: 2rem 0;
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            margin-bottom: 2rem;
+            padding: 0 1.5rem;
+        }
+
+        .sidebar-section h3 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            color: var(--gray-dark);
+            border-radius: var(--radius);
+            transition: all 0.3s;
+        }
+
+        .sidebar-nav a:hover {
+            background-color: var(--gray-light);
+            color: var(--dark);
+        }
+
+        .sidebar-nav a.active {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .sidebar-nav a i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-header h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+        }
+
+        .user-type-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--gray-light);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .user-type-badge i {
+            color: var(--primary);
+        }
+
+        /* Dashboard Overview Cards */
+        .overview-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background-color: var(--light);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 0.875rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .card-earnings .card-icon {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .card-sales .card-icon {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--info);
+        }
+
+        .card-views .card-icon {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .card-rating .card-icon {
+            background-color: rgba(139, 92, 246, 0.1);
+            color: #8b5cf6;
+        }
+
+        .card-value {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-change {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .positive-change {
+            color: var(--success);
+        }
+
+        .neutral-change {
+            color: var(--gray);
+        }
+
+        /* Dashboard Sections */
+        .dashboard-section {
+            background-color: var(--light);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .section-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        /* Table Styles */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+            color: var(--gray-dark);
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-completed {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-pending {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .status-failed {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        /* Wallet Section */
+        .wallet-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: var(--radius);
+            padding: 2rem;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .wallet-balance h3 {
+            font-size: 0.875rem;
+            font-weight: 500;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .wallet-balance h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .wallet-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(245, 158, 11, 0.1);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #0da271;
+        }
+
+        /* Settings Section */
+        .settings-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--gray-dark);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .checkbox-group input {
+            width: 18px;
+            height: 18px;
+        }
+
+        .checkbox-group label {
+            font-size: 0.875rem;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Seller Portal */
+        .seller-portal {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 2rem;
+        }
+
+        .seller-portal h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .seller-portal p {
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-badge {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--gray-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            color: var(--primary);
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Empty States */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--gray);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--light);
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                display: flex;
+                overflow-x: auto;
+                padding: 1rem 0;
+            }
+            
+            .sidebar-section {
+                margin-bottom: 0;
+                padding: 0 1rem;
+                min-width: 200px;
+            }
+            
+            .sidebar-nav {
+                display: flex;
+                gap: 0.5rem;
+            }
+            
+            .sidebar-nav li {
+                margin-bottom: 0;
+            }
+            
+            .sidebar-nav a {
+                white-space: nowrap;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .overview-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .settings-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .user-section {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .wallet-summary {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+            
+            .wallet-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .wallet-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .tabs {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <i class="fas fa-bee" style="color: var(--primary); margin-right: 0.5rem;"></i>
+                    Digi<span>Hive</span>
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="marketplace.html">Marketplace</a></li>
+                    <li><a href="videos.html">Video Content</a></li>
+                    <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                    <li><a href="seller.html">Seller Portal</a></li>
+                    <li><a href="plans.html">Pricing</a></li>
+                </ul>
+                
+                <div class="user-section">
+                    <div class="user-info">
+                        <div class="user-avatar">U</div>
+                        <div class="user-details">
+                            <h3 id="userName">Guest User</h3>
+                            <p id="userType">Visitor</p>
+                        </div>
+                    </div>
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <h3>Main</h3>
+                <ul class="sidebar-nav">
+                    <li><a href="#overview" class="active"><i class="fas fa-chart-pie"></i> Overview</a></li>
+                    <li><a href="#purchases"><i class="fas fa-shopping-bag"></i> My Purchases</a></li>
+                    <li><a href="#wallet"><i class="fas fa-wallet"></i> My Wallet</a></li>
+                    <li><a href="#settings"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Seller Portal</h3>
+                <ul class="sidebar-nav">
+                    <li><a href="#seller"><i class="fas fa-store"></i> Seller Account</a></li>
+                    <li><a href="#products"><i class="fas fa-box"></i> My Products</a></li>
+                    <li><a href="#add-product"><i class="fas fa-plus-circle"></i> Add Product</a></li>
+                    <li><a href="#analytics"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                    <li><a href="#earnings"><i class="fas fa-money-bill-wave"></i> Earnings</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <h1>Dashboard Overview</h1>
+                <div class="user-type-badge">
+                    <i class="fas fa-user"></i>
+                    <span id="currentUserType">Guest User</span>
+                </div>
+            </div>
+
+            <!-- Overview Cards -->
+            <div class="overview-cards">
+                <div class="card card-earnings">
+                    <div class="card-header">
+                        <h3 class="card-title">Total Earnings</h3>
+                        <div class="card-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">R0.00</div>
+                    <div class="card-change positive-change">+0% this month</div>
+                </div>
+                
+                <div class="card card-sales">
+                    <div class="card-header">
+                        <h3 class="card-title">Total Sales</h3>
+                        <div class="card-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">0</div>
+                    <div class="card-change positive-change">+0% this month</div>
+                </div>
+                
+                <div class="card card-views">
+                    <div class="card-header">
+                        <h3 class="card-title">Product Views</h3>
+                        <div class="card-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">0</div>
+                    <div class="card-change neutral-change">+0% this month</div>
+                </div>
+                
+                <div class="card card-rating">
+                    <div class="card-header">
+                        <h3 class="card-title">Average Rating</h3>
+                        <div class="card-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">0.0</div>
+                    <div class="card-change neutral-change">+0% this month</div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="dashboard-section" id="overview">
+                <div class="section-header">
+                    <h2>Recent Activity</h2>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Activity</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Account Created</td>
+                                <td>Just now</td>
+                                <td><span class="status-badge status-completed">Completed</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- My Purchases -->
+            <div class="dashboard-section" id="purchases">
+                <div class="section-header">
+                    <h2>My Purchases</h2>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5" class="empty-state">
+                                    <i class="fas fa-shopping-bag"></i>
+                                    <h3>No purchases yet</h3>
+                                    <p>Start shopping in the marketplace to see your purchases here</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- My Wallet -->
+            <div class="dashboard-section" id="wallet">
+                <div class="section-header">
+                    <h2>My Wallet</h2>
+                </div>
+                
+                <div class="wallet-summary">
+                    <div class="wallet-balance">
+                        <h3>Available Balance</h3>
+                        <h2>R0.00</h2>
+                    </div>
+                    <div>
+                        <h3>Digi-Coins: 0</h3>
+                        <p>Conversion: 2 Digi-Coins = 1 ZAR</p>
+                    </div>
+                </div>
+                
+                <div class="wallet-actions">
+                    <button class="btn btn-primary" id="addFundsBtn">
+                        <i class="fas fa-plus-circle"></i> Add Funds
+                    </button>
+                    <button class="btn btn-outline" id="withdrawBtn">
+                        <i class="fas fa-money-bill-wave"></i> Withdraw
+                    </button>
+                </div>
+                
+                <div class="section-header">
+                    <h2>Recent Transactions</h2>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="4" class="empty-state">
+                                    <i class="fas fa-exchange-alt"></i>
+                                    <h3>No transactions yet</h3>
+                                    <p>Add funds or make a purchase to see transactions here</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Account Settings -->
+            <div class="dashboard-section" id="settings">
+                <div class="section-header">
+                    <h2>Account Settings</h2>
+                </div>
+                
+                <form id="settingsForm" class="settings-form">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" id="fullName" placeholder="Enter your full name" value="Guest User">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" id="emailAddress" placeholder="Enter your email" value="guest@example.com">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <h3 style="margin-bottom: 1rem;">Change Password</h3>
+                        <div class="form-group">
+                            <label class="form-label">Current password</label>
+                            <input type="password" class="form-input" id="currentPassword" placeholder="Enter current password">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">New password</label>
+                            <input type="password" class="form-input" id="newPassword" placeholder="Enter new password">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Confirm new password</label>
+                            <input type="password" class="form-input" id="confirmPassword" placeholder="Confirm new password">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <h3 style="margin-bottom: 1rem;">Notification Preferences</h3>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="emailPurchases" checked>
+                            <label for="emailPurchases">Email notifications for purchases</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="marketingEmails">
+                            <label for="marketingEmails">Marketing emails</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="smsNotifications">
+                            <label for="smsNotifications">SMS notifications</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Seller Portal -->
+            <div class="seller-portal">
+                <div class="plan-badge">Free Plan</div>
+                <h2>Seller Portal</h2>
+                <p>Manage your digital products, track sales, and grow your business</p>
+                <button class="btn btn-success" id="createSellerBtn">
+                    <i class="fas fa-store"></i> Create Seller Account
+                </button>
+            </div>
+
+            <!-- Seller Account Tabs -->
+            <div class="tabs" id="sellerTabs">
+                <div class="tab active" data-tab="products">My Products</div>
+                <div class="tab" data-tab="add-product">Add New Product</div>
+                <div class="tab" data-tab="analytics">Sales Analytics</div>
+                <div class="tab" data-tab="earnings">Earnings Overview</div>
+            </div>
+
+            <!-- My Products Tab -->
+            <div class="tab-content active" id="products-tab">
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2>My Products</h2>
+                        <button class="btn btn-primary" onclick="switchTab('add-product')">
+                            <i class="fas fa-plus"></i> Add Product
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Sales</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="5" class="empty-state">
+                                        <i class="fas fa-box-open"></i>
+                                        <h3>You need a seller account to access this section</h3>
+                                        <p>Create a seller account to start selling your digital products</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add New Product Tab -->
+            <div class="tab-content" id="add-product-tab">
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2>Add New Product</h2>
+                    </div>
+                    
+                    <form id="productForm" class="settings-form">
+                        <div class="form-group">
+                            <label class="form-label">Product Title *</label>
+                            <input type="text" class="form-input" id="productTitle" placeholder="Enter product title" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Category *</label>
+                            <select class="form-input" id="productCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="templates">Templates</option>
+                                <option value="ebooks">Ebooks</option>
+                                <option value="software">Software</option>
+                                <option value="courses">Courses</option>
+                                <option value="graphics">Graphics</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label class="form-label">Description *</label>
+                            <textarea class="form-input" id="productDescription" rows="4" placeholder="Enter product description" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Price (ZAR) *</label>
+                            <input type="number" class="form-input" id="productPrice" placeholder="0.00" min="0" step="0.01" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Product Type</label>
+                            <select class="form-input" id="productType">
+                                <option value="digital">Digital Download</option>
+                                <option value="physical">Physical Product</option>
+                                <option value="service">Service</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label class="form-label">Product File</label>
+                            <div style="border: 2px dashed var(--gray-light); border-radius: var(--radius); padding: 2rem; text-align: center;">
+                                <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--gray); margin-bottom: 1rem;"></i>
+                                <p style="margin-bottom: 1rem;">Click to upload product file</p>
+                                <p style="font-size: 0.875rem; color: var(--gray);">
+                                    Max file size: 500MB • Supported formats: PDF, ZIP, MP4, etc.
+                                </p>
+                                <button type="button" class="btn btn-outline" id="uploadFileBtn" style="margin-top: 1rem;">
+                                    <i class="fas fa-upload"></i> Choose File
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label class="form-label">Tags (comma separated)</label>
+                            <input type="text" class="form-input" id="productTags" placeholder="digital, marketing, guide, premium" value="digital, marketing, guide, premium">
+                        </div>
+                        
+                        <div class="form-group full-width" style="display: flex; gap: 1rem;">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save Product
+                            </button>
+                            <button type="button" class="btn btn-outline" onclick="switchTab('products')">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Sales Analytics Tab -->
+            <div class="tab-content" id="analytics-tab">
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2>Sales Analytics</h2>
+                    </div>
+                    <div class="empty-state">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>No analytics data available yet</h3>
+                        <p>Start selling to see your performance analytics</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Earnings Overview Tab -->
+            <div class="tab-content" id="earnings-tab">
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2>Earnings Overview</h2>
+                    </div>
+                    
+                    <div class="overview-cards" style="margin-bottom: 2rem;">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Total Earnings</h3>
+                                <div class="card-icon">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                            </div>
+                            <div class="card-value">R0.00</div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Available for Withdrawal</h3>
+                                <div class="card-icon">
+                                    <i class="fas fa-wallet"></i>
+                                </div>
+                            </div>
+                            <div class="card-value">R0.00</div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Digi-Coins Balance</h3>
+                                <div class="card-icon">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                            </div>
+                            <div class="card-value">0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-header">
+                        <h2>Withdrawal History</h2>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Method</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="4" class="empty-state">
+                                        <i class="fas fa-history"></i>
+                                        <h3>No withdrawals yet</h3>
+                                        <p>When you make withdrawals, they will appear here</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Funds Modal -->
+    <div class="modal" id="addFundsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Funds to Wallet</h2>
+                <button class="modal-close" onclick="closeModal('addFundsModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Amount (ZAR)</label>
+                    <input type="number" class="form-input" id="fundAmount" placeholder="0.00" min="10" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Payment Method</label>
+                    <select class="form-input" id="paymentMethod">
+                        <option value="card">Credit/Debit Card</option>
+                        <option value="bank">Bank Transfer</option>
+                        <option value="paypal">PayPal</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary w-100" onclick="processAddFunds()">
+                    <i class="fas fa-plus-circle"></i> Add Funds
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Seller Account Modal -->
+    <div class="modal" id="createSellerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create Seller Account</h2>
+                <button class="modal-close" onclick="closeModal('createSellerModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 1.5rem;">Upgrade to a seller account to start selling your digital products on DigiHive.</p>
+                <div class="form-group">
+                    <label class="form-label">Choose Plan</label>
+                    <select class="form-input" id="sellerPlan">
+                        <option value="free">Free Plan (93% earnings)</option>
+                        <option value="pro">Pro Plan (100% earnings)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Store Name</label>
+                    <input type="text" class="form-input" id="storeName" placeholder="Enter your store name">
+                </div>
+                <button class="btn btn-success w-100" onclick="createSellerAccount()">
+                    <i class="fas fa-store"></i> Create Seller Account
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const userName = document.getElementById('userName');
+        const userType = document.getElementById('userType');
+        const currentUserType = document.getElementById('currentUserType');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const addFundsBtn = document.getElementById('addFundsBtn');
+        const withdrawBtn = document.getElementById('withdrawBtn');
+        const createSellerBtn = document.getElementById('createSellerBtn');
+        const settingsForm = document.getElementById('settingsForm');
+        const productForm = document.getElementById('productForm');
+        
+        // User data (in a real app, this would come from backend/API)
+        let userData = {
+            name: "Guest User",
+            type: "Visitor",
+            email: "guest@example.com",
+            isSeller: false,
+            balance: 0,
+            digiCoins: 0
+        };
+        
+        // Initialize dashboard
+        function initDashboard() {
+            // Load user data from localStorage or set default
+            const savedUser = localStorage.getItem('digihive_user');
+            if (savedUser) {
+                userData = JSON.parse(savedUser);
+            }
+            
+            updateUserDisplay();
+            setupEventListeners();
+            setupTabs();
+        }
+        
+        // Update user display
+        function updateUserDisplay() {
+            userName.textContent = userData.name;
+            userType.textContent = userData.type;
+            currentUserType.textContent = userData.type;
+            
+            // Update avatar with first letter of name
+            const avatar = document.querySelector('.user-avatar');
+            if (userData.name) {
+                avatar.textContent = userData.name.charAt(0).toUpperCase();
+            }
+            
+            // Update wallet balance if element exists
+            const balanceElement = document.querySelector('.wallet-balance h2');
+            if (balanceElement) {
+                balanceElement.textContent = `R${userData.balance.toFixed(2)}`;
+            }
+            
+            // Update Digi-Coins if element exists
+            const digiCoinsElement = document.querySelector('.wallet-summary h3');
+            if (digiCoinsElement && digiCoinsElement.textContent.includes('Digi-Coins')) {
+                const parentDiv = digiCoinsElement.parentElement;
+                const coinsElement = parentDiv.querySelector('h3');
+                coinsElement.textContent = `Digi-Coins: ${userData.digiCoins}`;
+            }
+            
+            // Update seller portal visibility
+            if (userData.isSeller) {
+                document.querySelector('.seller-portal').innerHTML = `
+                    <div class="plan-badge">${userData.sellerPlan || 'Free Plan'}</div>
+                    <h2>Seller Portal</h2>
+                    <p>Manage your digital products, track sales, and grow your business</p>
+                    <button class="btn btn-success" onclick="switchTab('add-product')">
+                        <i class="fas fa-plus-circle"></i> Add New Product
+                    </button>
+                `;
+            }
+        }
+        
+        // Setup event listeners
+        function setupEventListeners() {
+            // Sidebar navigation
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    sidebarLinks.forEach(l => l.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Get target section
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    // Scroll to target section
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                    
+                    // Handle seller tabs
+                    if (targetId === 'seller') {
+                        switchTab('products');
+                    }
+                });
+            });
+            
+            // Logout button
+            logoutBtn.addEventListener('click', function() {
+                if (confirm('Are you sure you want to logout?')) {
+                    // Reset to guest user
+                    userData = {
+                        name: "Guest User",
+                        type: "Visitor",
+                        email: "guest@example.com",
+                        isSeller: false,
+                        balance: 0,
+                        digiCoins: 0
+                    };
+                    
+                    localStorage.removeItem('digihive_user');
+                    updateUserDisplay();
+                    
+                    // Show notification
+                    showNotification('Logged out successfully. You are now a guest user.', 'info');
+                }
+            });
+            
+            // Add funds button
+            if (addFundsBtn) {
+                addFundsBtn.addEventListener('click', function() {
+                    if (userData.type === 'Visitor') {
+                        showNotification('Please create an account to add funds to your wallet.', 'warning');
+                        return;
+                    }
+                    openModal('addFundsModal');
+                });
+            }
+            
+            // Withdraw button
+            if (withdrawBtn) {
+                withdrawBtn.addEventListener('click', function() {
+                    if (userData.type === 'Visitor') {
+                        showNotification('Please create an account to withdraw funds.', 'warning');
+                        return;
+                    }
+                    
+                    if (userData.balance < 50) {
+                        showNotification(`Minimum withdrawal amount is R50. Your current balance is R${userData.balance.toFixed(2)}.`, 'warning');
+                        return;
+                    }
+                    
+                    showNotification('Withdrawal feature will be available soon!', 'info');
+                });
+            }
+            
+            // Create seller button
+            if (createSellerBtn) {
+                createSellerBtn.addEventListener('click', function() {
+                    if (userData.type === 'Visitor') {
+                        showNotification('Please create a user account first before becoming a seller.', 'warning');
+                        return;
+                    }
+                    openModal('createSellerModal');
+                });
+            }
+            
+            // Settings form
+            if (settingsForm) {
+                settingsForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Update user data
+                    userData.name = document.getElementById('fullName').value;
+                    userData.email = document.getElementById('emailAddress').value;
+                    
+                    // Check if password is being changed
+                    const currentPassword = document.getElementById('currentPassword').value;
+                    const newPassword = document.getElementById('newPassword').value;
+                    const confirmPassword = document.getElementById('confirmPassword').value;
+                    
+                    if (newPassword && newPassword === confirmPassword) {
+                        // In a real app, you would validate current password and update password
+                        showNotification('Password updated successfully!', 'success');
+                        document.getElementById('currentPassword').value = '';
+                        document.getElementById('newPassword').value = '';
+                        document.getElementById('confirmPassword').value = '';
+                    } else if (newPassword && newPassword !== confirmPassword) {
+                        showNotification('New passwords do not match.', 'error');
+                        return;
+                    }
+                    
+                    // Save notification preferences
+                    userData.notifications = {
+                        emailPurchases: document.getElementById('emailPurchases').checked,
+                        marketingEmails: document.getElementById('marketingEmails').checked,
+                        smsNotifications: document.getElementById('smsNotifications').checked
+                    };
+                    
+                    // Save to localStorage
+                    localStorage.setItem('digihive_user', JSON.stringify(userData));
+                    
+                    updateUserDisplay();
+                    showNotification('Settings saved successfully!', 'success');
+                });
+            }
+            
+            // Product form
+            if (productForm) {
+                productForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    if (!userData.isSeller) {
+                        showNotification('You need a seller account to add products.', 'warning');
+                        return;
+                    }
+                    
+                    // Get form data
+                    const productData = {
+                        title: document.getElementById('productTitle').value,
+                        category: document.getElementById('productCategory').value,
+                        description: document.getElementById('productDescription').value,
+                        price: document.getElementById('productPrice').value,
+                        type: document.getElementById('productType').value,
+                        tags: document.getElementById('productTags').value
+                    };
+                    
+                    // In a real app, you would send this to backend
+                    console.log('Product data:', productData);
+                    
+                    showNotification('Product added successfully!', 'success');
+                    
+                    // Reset form
+                    productForm.reset();
+                    document.getElementById('productTags').value = 'digital, marketing, guide, premium';
+                    
+                    // Switch to products tab
+                    switchTab('products');
+                });
+            }
+        }
+        
+        // Setup tabs
+        function setupTabs() {
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    switchTab(tabId);
+                });
+            });
+        }
+        
+        // Switch between tabs
+        function switchTab(tabId) {
+            // Update active tab
+            tabs.forEach(tab => {
+                if (tab.getAttribute('data-tab') === tabId) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+            
+            // Show active tab content
+            tabContents.forEach(content => {
+                if (content.id === `${tabId}-tab`) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+            
+            // Scroll to top of tab content
+            const activeTabContent = document.getElementById(`${tabId}-tab`);
+            if (activeTabContent) {
+                activeTabContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        
+        // Modal functions
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+            }
+        }
+        
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+            }
+        }
+        
+        // Process adding funds
+        function processAddFunds() {
+            const amount = parseFloat(document.getElementById('fundAmount').value);
+            const method = document.getElementById('paymentMethod').value;
+            
+            if (!amount || amount < 10) {
+                showNotification('Minimum amount to add is R10.', 'warning');
+                return;
+            }
+            
+            // In a real app, this would process payment
+            userData.balance += amount;
+            userData.digiCoins += amount * 2; // 2 Digi-Coins per ZAR
+            
+            // Save to localStorage
+            localStorage.setItem('digihive_user', JSON.stringify(userData));
+            
+            updateUserDisplay();
+            closeModal('addFundsModal');
+            
+            showNotification(`Successfully added R${amount.toFixed(2)} to your wallet!`, 'success');
+            
+            // Reset form
+            document.getElementById('fundAmount').value = '';
+        }
+        
+        // Create seller account
+        function createSellerAccount() {
+            const plan = document.getElementById('sellerPlan').value;
+            const storeName = document.getElementById('storeName').value;
+            
+            if (!storeName.trim()) {
+                showNotification('Please enter a store name.', 'warning');
+                return;
+            }
+            
+            userData.isSeller = true;
+            userData.type = 'Seller';
+            userData.sellerPlan = plan === 'free' ? 'Free Plan' : 'Pro Plan';
+            userData.storeName = storeName;
+            
+            // Save to localStorage
+            localStorage.setItem('digihive_user', JSON.stringify(userData));
+            
+            updateUserDisplay();
+            closeModal('createSellerModal');
+            
+            showNotification('Seller account created successfully!', 'success');
+            
+            // Switch to products tab
+            switchTab('products');
+        }
+        
+        // Show notification
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <span>${message}</span>
+                <button onclick="this.parentElement.remove()">&times;</button>
+            `;
+            
+            // Style the notification
+            notification.style.position = 'fixed';
+            notification.style.top = '20px';
+            notification.style.right = '20px';
+            notification.style.padding = '1rem 1.5rem';
+            notification.style.borderRadius = 'var(--radius)';
+            notification.style.boxShadow = 'var(--shadow-lg)';
+            notification.style.zIndex = '1000';
+            notification.style.display = 'flex';
+            notification.style.alignItems = 'center';
+            notification.style.justifyContent = 'space-between';
+            notification.style.minWidth = '300px';
+            notification.style.maxWidth = '400px';
+            
+            // Set background color based on type
+            if (type === 'success') {
+                notification.style.backgroundColor = 'var(--success)';
+                notification.style.color = 'white';
+            } else if (type === 'error') {
+                notification.style.backgroundColor = 'var(--danger)';
+                notification.style.color = 'white';
+            } else if (type === 'warning') {
+                notification.style.backgroundColor = 'var(--warning)';
+                notification.style.color = 'white';
+            } else {
+                notification.style.backgroundColor = 'var(--info)';
+                notification.style.color = 'white';
+            }
+            
+            // Style the close button
+            const closeBtn = notification.querySelector('button');
+            closeBtn.style.background = 'none';
+            closeBtn.style.border = 'none';
+            closeBtn.style.color = 'inherit';
+            closeBtn.style.fontSize = '1.5rem';
+            closeBtn.style.cursor = 'pointer';
+            closeBtn.style.marginLeft = '1rem';
+            
+            // Add to document
+            document.body.appendChild(notification);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+        
+        // Initialize dashboard when page loads
+        document.addEventListener('DOMContentLoaded', initDashboard);
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
