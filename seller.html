@@ -140,7 +140,40 @@
             color: var(--danger);
         }
 
-        /* Hero Section */
+        /* Auth Required Section */
+        .auth-required {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh;
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        .auth-icon {
+            font-size: 4rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .auth-required h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .auth-required p {
+            font-size: 1.125rem;
+            color: var(--gray-dark);
+            max-width: 500px;
+            margin-bottom: 2rem;
+        }
+
+        /* Dashboard - Only shown when authenticated */
+        #sellerDashboard {
+            display: none;
+        }
+
         .seller-hero {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -346,6 +379,11 @@
             background-color: rgba(245, 158, 11, 0.1);
         }
 
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         /* Tables */
         .table-container {
             overflow-x: auto;
@@ -390,6 +428,16 @@
         .status-pending {
             background-color: rgba(245, 158, 11, 0.1);
             color: var(--warning);
+        }
+
+        .status-completed {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-processing {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--info);
         }
 
         .action-buttons {
@@ -466,78 +514,42 @@
             margin-bottom: 1rem;
         }
 
-        /* Pricing Cards */
-        .pricing-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: var(--gray-light);
+            border-radius: 4px;
+            margin-top: 1rem;
+            overflow: hidden;
         }
 
-        .pricing-card {
-            background-color: var(--light);
-            border-radius: var(--radius);
-            padding: 2.5rem;
-            box-shadow: var(--shadow);
-            text-align: center;
-            transition: transform 0.3s;
-            border: 2px solid transparent;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .pricing-card.popular {
-            border-color: var(--primary);
-            position: relative;
-        }
-
-        .popular-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
+        .progress-fill {
+            height: 100%;
             background-color: var(--primary);
-            color: white;
-            padding: 0.25rem 1rem;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 600;
+            width: 0%;
+            transition: width 0.3s;
         }
 
-        .pricing-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .price {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--dark);
-            margin-bottom: 1rem;
-        }
-
-        .price span {
-            font-size: 1rem;
+        /* Loading States */
+        .loading {
+            text-align: center;
+            padding: 3rem;
             color: var(--gray);
         }
 
-        .pricing-features {
-            list-style: none;
-            margin-bottom: 2rem;
-            text-align: left;
+        .loading-spinner {
+            border: 3px solid var(--gray-light);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
         }
 
-        .pricing-features li {
-            padding: 0.5rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .pricing-features li i {
-            color: var(--success);
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Empty State */
@@ -556,6 +568,70 @@
         .empty-state h3 {
             font-size: 1.25rem;
             margin-bottom: 0.5rem;
+        }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--light);
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        /* Error States */
+        .error-message {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            padding: 1rem;
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         /* Footer */
@@ -647,10 +723,6 @@
                 grid-template-columns: 1fr;
             }
             
-            .pricing-cards {
-                grid-template-columns: 1fr;
-            }
-            
             .footer-bottom {
                 flex-direction: column;
                 gap: 1rem;
@@ -675,15 +747,14 @@
                     <li><a href="videos.html">Video Content</a></li>
                     <li><a href="dashboard.html">Dashboard</a></li>
                     <li><a href="seller.html" class="active">Seller Portal</a></li>
-                    <li><a href="plans.html">Pricing</a></li>
                 </ul>
                 
                 <div class="user-section">
                     <div class="user-info">
-                        <div class="user-avatar">S</div>
+                        <div class="user-avatar" id="userAvatar">U</div>
                         <div class="user-details">
-                            <h3 id="userName">Seller Account</h3>
-                            <p id="userType">Pro Plan</p>
+                            <h3 id="userName">Loading...</h3>
+                            <p id="userPlan">Loading...</p>
                         </div>
                     </div>
                     <button class="logout-btn" id="logoutBtn">
@@ -694,555 +765,210 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="seller-hero">
+    <!-- Authentication Required Section (Shown when not logged in) -->
+    <div id="authRequired" class="auth-required">
+        <div class="auth-icon">
+            <i class="fas fa-lock"></i>
+        </div>
+        <h2>Authentication Required</h2>
+        <p>You must be logged in and have a seller account to access the seller portal.</p>
+        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+            <a href="dashboard.html" class="btn btn-primary">
+                <i class="fas fa-sign-in-alt"></i> Go to Dashboard
+            </a>
+            <a href="index.html" class="btn btn-outline">
+                <i class="fas fa-home"></i> Return to Home
+            </a>
+        </div>
+    </div>
+
+    <!-- Seller Dashboard (Only shown when authenticated) -->
+    <div id="sellerDashboard">
+        <!-- Hero Section -->
+        <section class="seller-hero">
+            <div class="container">
+                <div class="plan-badge" id="sellerPlanBadge">Loading...</div>
+                <h1 id="sellerWelcome">Seller Portal</h1>
+                <p id="sellerDescription">Manage your digital products and track your sales performance</p>
+                <div style="display: flex; gap: 1rem; justify-content: center;">
+                    <button class="btn btn-primary" onclick="switchTab('products')">
+                        <i class="fas fa-box"></i> My Products
+                    </button>
+                    <button class="btn btn-success" onclick="switchTab('add-product')">
+                        <i class="fas fa-plus-circle"></i> Add Product
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
         <div class="container">
-            <div class="plan-badge">Pro Seller Plan</div>
-            <h1>Grow Your Digital Business</h1>
-            <p>Manage your products, track sales, and grow your digital business with our powerful seller tools. Everything you need to succeed in one place.</p>
-            <div style="display: flex; gap: 1rem; justify-content: center;">
-                <button class="btn btn-primary" onclick="switchTab('products')">
-                    <i class="fas fa-box"></i> Manage Products
-                </button>
-                <button class="btn btn-success" onclick="switchTab('add-product')">
-                    <i class="fas fa-plus-circle"></i> Add New Product
-                </button>
+            <!-- Seller Stats -->
+            <div class="seller-stats" id="sellerStats">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading statistics...</p>
+                </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Seller Stats -->
-    <div class="container">
-        <div class="seller-stats">
-            <div class="stat-card stat-earnings">
-                <div class="stat-icon">
-                    <i class="fas fa-money-bill-wave"></i>
-                </div>
-                <div class="stat-details">
-                    <h3>Total Earnings</h3>
-                    <div class="value">R2,450.00</div>
-                    <div class="change positive">+12.5% this month</div>
-                </div>
+            <!-- Tabs -->
+            <div class="tabs">
+                <div class="tab active" data-tab="products">My Products</div>
+                <div class="tab" data-tab="add-product">Add Product</div>
+                <div class="tab" data-tab="sales">Sales & Analytics</div>
+                <div class="tab" data-tab="earnings">Earnings & Withdrawals</div>
             </div>
-            
-            <div class="stat-card stat-sales">
-                <div class="stat-icon">
-                    <i class="fas fa-chart-bar"></i>
-                </div>
-                <div class="stat-details">
-                    <h3>Total Sales</h3>
-                    <div class="value">47</div>
-                    <div class="change positive">+8.2% this month</div>
-                </div>
-            </div>
-            
-            <div class="stat-card stat-products">
-                <div class="stat-icon">
-                    <i class="fas fa-box"></i>
-                </div>
-                <div class="stat-details">
-                    <h3>Active Products</h3>
-                    <div class="value">8</div>
-                    <div class="change positive">+2 this month</div>
-                </div>
-            </div>
-            
-            <div class="stat-card stat-rating">
-                <div class="stat-icon">
-                    <i class="fas fa-star"></i>
-                </div>
-                <div class="stat-details">
-                    <h3>Average Rating</h3>
-                    <div class="value">4.7</div>
-                    <div class="change neutral">+0.2 this month</div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Tabs -->
-        <div class="tabs">
-            <div class="tab active" data-tab="products">My Products</div>
-            <div class="tab" data-tab="add-product">Add Product</div>
-            <div class="tab" data-tab="analytics">Sales Analytics</div>
-            <div class="tab" data-tab="earnings">Earnings</div>
-            <div class="tab" data-tab="plans">Pricing Plans</div>
-        </div>
-
-        <!-- My Products Tab -->
-        <div class="tab-content active" id="products-tab">
-            <div class="section">
-                <div class="section-header">
-                    <h2>My Digital Products</h2>
-                    <button class="btn btn-primary" onclick="switchTab('add-product')">
-                        <i class="fas fa-plus"></i> Add New Product
-                    </button>
-                </div>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Product</th>
-                                <th>Price</th>
-                                <th>Sales</th>
-                                <th>Revenue</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <strong>Premium Digital Marketing Guide</strong>
-                                    <div style="font-size: 0.875rem; color: var(--gray);">Category: Ebooks</div>
-                                </td>
-                                <td>R149.99</td>
-                                <td>18</td>
-                                <td>R2,699.82</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="action-btn" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="action-btn" title="View">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                        <button class="action-btn" title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Social Media Content Templates</strong>
-                                    <div style="font-size: 0.875rem; color: var(--gray);">Category: Templates</div>
-                                </td>
-                                <td>R99.99</td>
-                                <td>12</td>
-                                <td>R1,199.88</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="action-btn" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="action-btn" title="View">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                        <button class="action-btn" title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Video Editing Masterclass</strong>
-                                    <div style="font-size: 0.875rem; color: var(--gray);">Category: Courses</div>
-                                </td>
-                                <td>R299.99</td>
-                                <td>7</td>
-                                <td>R2,099.93</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="action-btn" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="action-btn" title="View">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                        <button class="action-btn" title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Website UI Kit</strong>
-                                    <div style="font-size: 0.875rem; color: var(--gray);">Category: Graphics</div>
-                                </td>
-                                <td>R199.99</td>
-                                <td>10</td>
-                                <td>R1,999.90</td>
-                                <td><span class="status-badge status-draft">Draft</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="action-btn" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="action-btn" title="Publish">
-                                            <i class="fas fa-upload"></i>
-                                        </button>
-                                        <button class="action-btn" title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <!-- My Products Tab -->
+            <div class="tab-content active" id="products-tab">
+                <div class="section">
+                    <div class="section-header">
+                        <h2>My Digital Products</h2>
+                        <button class="btn btn-primary" onclick="switchTab('add-product')">
+                            <i class="fas fa-plus"></i> Add New Product
+                        </button>
+                    </div>
+                    <div id="productsTable">
+                        <div class="loading">
+                            <div class="loading-spinner"></div>
+                            <p>Loading products...</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Add Product Tab -->
-        <div class="tab-content" id="add-product-tab">
-            <div class="section">
-                <div class="section-header">
-                    <h2>Add New Product</h2>
-                </div>
-                
-                <form id="productForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Product Title *</label>
-                            <input type="text" class="form-input" id="productTitle" placeholder="Enter product title" required>
+            <!-- Add Product Tab -->
+            <div class="tab-content" id="add-product-tab">
+                <div class="section">
+                    <div class="section-header">
+                        <h2>Add New Digital Product</h2>
+                    </div>
+                    
+                    <form id="productForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Product Title *</label>
+                                <input type="text" class="form-input" id="productTitle" placeholder="Enter product title" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Category *</label>
+                                <select class="form-select" id="productCategory" required>
+                                    <option value="">Select Category</option>
+                                    <option value="ebooks">Ebooks & Guides</option>
+                                    <option value="templates">Templates</option>
+                                    <option value="courses">Online Courses</option>
+                                    <option value="software">Software & Tools</option>
+                                    <option value="graphics">Graphics & Design</option>
+                                    <option value="audio">Audio & Music</option>
+                                </select>
+                            </div>
                         </div>
                         
                         <div class="form-group">
-                            <label class="form-label">Category *</label>
-                            <select class="form-select" id="productCategory" required>
-                                <option value="">Select Category</option>
-                                <option value="ebooks">Ebooks & Guides</option>
-                                <option value="templates">Templates</option>
-                                <option value="courses">Online Courses</option>
-                                <option value="software">Software & Tools</option>
-                                <option value="graphics">Graphics & Design</option>
-                                <option value="audio">Audio & Music</option>
+                            <label class="form-label">Description *</label>
+                            <textarea class="form-textarea" id="productDescription" placeholder="Describe your product in detail..." required></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Price (ZAR) *</label>
+                                <input type="number" class="form-input" id="productPrice" placeholder="0.00" min="0" step="0.01" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Product Type</label>
+                                <select class="form-select" id="productType">
+                                    <option value="digital">Digital Download</option>
+                                    <option value="video">Video Content</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Product File *</label>
+                            <div class="file-upload" id="fileUploadArea">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p style="margin-bottom: 1rem; font-weight: 500;">Click to upload product file</p>
+                                <p style="font-size: 0.875rem; color: var(--gray);">
+                                    Max file size: 500MB • Supported formats: PDF, ZIP, MP4, MP3, DOC, PSD, etc.
+                                </p>
+                                <div id="selectedFileName" style="margin-top: 1rem; font-size: 0.875rem;"></div>
+                                <div class="progress-bar" id="uploadProgress" style="display: none;">
+                                    <div class="progress-fill" id="progressFill"></div>
+                                </div>
+                            </div>
+                            <input type="file" id="productFile" style="display: none;">
+                            <div id="uploadError" class="error-message" style="display: none; margin-top: 1rem;"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Tags (comma separated)</label>
+                            <input type="text" class="form-input" id="productTags" placeholder="digital, marketing, guide, premium">
+                        </div>
+                        
+                        <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                            <button type="submit" class="btn btn-primary" id="submitProductBtn">
+                                <i class="fas fa-save"></i> Save & Publish Product
+                            </button>
+                            <button type="button" class="btn btn-outline" onclick="switchTab('products')">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Sales & Analytics Tab -->
+            <div class="tab-content" id="sales-tab">
+                <div class="section">
+                    <div class="section-header">
+                        <h2>Sales Analytics</h2>
+                        <div>
+                            <select class="form-select" style="width: 200px;" id="analyticsPeriod">
+                                <option value="7days">Last 7 days</option>
+                                <option value="30days" selected>Last 30 days</option>
+                                <option value="90days">Last 90 days</option>
+                                <option value="year">This year</option>
+                                <option value="all">All time</option>
                             </select>
                         </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label class="form-label">Description *</label>
-                        <textarea class="form-textarea" id="productDescription" placeholder="Describe your product in detail..." required></textarea>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Price (ZAR) *</label>
-                            <input type="number" class="form-input" id="productPrice" placeholder="0.00" min="0" step="0.01" required>
+                    <div id="analyticsContent">
+                        <div class="loading">
+                            <div class="loading-spinner"></div>
+                            <p>Loading analytics data...</p>
                         </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Product Type</label>
-                            <select class="form-select" id="productType">
-                                <option value="digital">Digital Download</option>
-                                <option value="video">Video Content</option>
-                                <option value="service">Service</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Product File</label>
-                        <div class="file-upload" id="fileUploadArea">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p style="margin-bottom: 1rem; font-weight: 500;">Click to upload product file</p>
-                            <p style="font-size: 0.875rem; color: var(--gray);">
-                                Max file size: 500MB • Supported formats: PDF, ZIP, MP4, MP3, DOC, PSD, etc.
-                            </p>
-                            <div id="selectedFileName" style="margin-top: 1rem; font-size: 0.875rem;"></div>
-                        </div>
-                        <input type="file" id="productFile" style="display: none;">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Tags (comma separated)</label>
-                        <input type="text" class="form-input" id="productTags" placeholder="digital, marketing, guide, premium">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Product Image URL</label>
-                        <input type="text" class="form-input" id="productImage" placeholder="https://example.com/product-image.jpg">
-                    </div>
-                    
-                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> Save & Publish Product
-                        </button>
-                        <button type="button" class="btn btn-outline" onclick="switchTab('products')">
-                            <i class="fas fa-times"></i> Cancel
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <!-- Sales Analytics Tab -->
-        <div class="tab-content" id="analytics-tab">
-            <div class="section">
-                <div class="section-header">
-                    <h2>Sales Analytics</h2>
-                    <div>
-                        <select class="form-select" style="width: 200px;" id="analyticsPeriod">
-                            <option value="7days">Last 7 days</option>
-                            <option value="30days" selected>Last 30 days</option>
-                            <option value="90days">Last 90 days</option>
-                            <option value="year">This year</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div style="margin-bottom: 2rem;">
-                    <div id="analyticsChart" style="height: 300px; background-color: var(--gray-light); border-radius: var(--radius); display: flex; align-items: center; justify-content: center;">
-                        <div style="text-align: center; color: var(--gray);">
-                            <i class="fas fa-chart-line" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-                            <h3>Sales Analytics Chart</h3>
-                            <p>Interactive chart showing sales performance over time</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="section">
-                        <h3 style="margin-bottom: 1rem;">Top Performing Products</h3>
-                        <ul style="list-style: none;">
-                            <li style="padding: 1rem 0; border-bottom: 1px solid var(--gray-light); display: flex; justify-content: space-between;">
-                                <span>Premium Digital Marketing Guide</span>
-                                <strong>18 sales</strong>
-                            </li>
-                            <li style="padding: 1rem 0; border-bottom: 1px solid var(--gray-light); display: flex; justify-content: space-between;">
-                                <span>Video Editing Masterclass</span>
-                                <strong>7 sales</strong>
-                            </li>
-                            <li style="padding: 1rem 0; border-bottom: 1px solid var(--gray-light); display: flex; justify-content: space-between;">
-                                <span>Social Media Content Templates</span>
-                                <strong>12 sales</strong>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <div class="section">
-                        <h3 style="margin-bottom: 1rem;">Sales by Category</h3>
-                        <ul style="list-style: none;">
-                            <li style="padding: 1rem 0; border-bottom: 1px solid var(--gray-light); display: flex; justify-content: space-between;">
-                                <span>Ebooks & Guides</span>
-                                <strong>18 sales</strong>
-                            </li>
-                            <li style="padding: 1rem 0; border-bottom: 1px solid var(--gray-light); display: flex; justify-content: space-between;">
-                                <span>Courses</span>
-                                <strong>7 sales</strong>
-                            </li>
-                            <li style="padding: 1rem 0; border-bottom: 1px solid var(--gray-light); display: flex; justify-content: space-between;">
-                                <span>Templates</span>
-                                <strong>12 sales</strong>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Earnings Tab -->
-        <div class="tab-content" id="earnings-tab">
-            <div class="section">
-                <div class="section-header">
-                    <h2>Earnings Overview</h2>
-                </div>
-                
-                <div class="seller-stats" style="margin-bottom: 2rem;">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-money-bill-wave"></i>
-                        </div>
-                        <div class="stat-details">
-                            <h3>Total Earnings</h3>
-                            <div class="value">R2,450.00</div>
-                            <div class="change positive">All time</div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-wallet"></i>
-                        </div>
-                        <div class="stat-details">
-                            <h3>Available for Withdrawal</h3>
-                            <div class="value">R1,850.00</div>
-                            <div class="change positive">Ready to withdraw</div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-coins"></i>
-                        </div>
-                        <div class="stat-details">
-                            <h3>Digi-Coins Balance</h3>
-                            <div class="value">3,700</div>
-                            <div class="change neutral">2 Digi-Coins = 1 ZAR</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="section-header">
-                    <h2>Withdrawal History</h2>
-                    <button class="btn btn-primary" id="withdrawBtn">
-                        <i class="fas fa-money-bill-wave"></i> Request Withdrawal
-                    </button>
-                </div>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Amount</th>
-                                <th>Method</th>
-                                <th>Status</th>
-                                <th>Reference</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>2024-01-15</td>
-                                <td>R850.00</td>
-                                <td>Bank Transfer</td>
-                                <td><span class="status-badge status-active">Completed</span></td>
-                                <td>TX-789456</td>
-                            </tr>
-                            <tr>
-                                <td>2023-12-05</td>
-                                <td>R450.00</td>
-                                <td>PayPal</td>
-                                <td><span class="status-badge status-active">Completed</span></td>
-                                <td>TX-789455</td>
-                            </tr>
-                            <tr>
-                                <td>2023-11-20</td>
-                                <td>R750.00</td>
-                                <td>Bank Transfer</td>
-                                <td><span class="status-badge status-active">Completed</span></td>
-                                <td>TX-789454</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Pricing Plans Tab -->
-        <div class="tab-content" id="plans-tab">
-            <div class="section">
-                <div class="section-header">
-                    <h2>Choose Your Seller Plan</h2>
-                    <p>Upgrade to unlock more features and higher earnings</p>
-                </div>
-                
-                <div class="pricing-cards">
-                    <div class="pricing-card">
-                        <h3>Free Plan</h3>
-                        <div class="price">R0<span>/month</span></div>
-                        <p>Perfect for getting started</p>
-                        
-                        <ul class="pricing-features">
-                            <li><i class="fas fa-check"></i> 93% Earnings on Sales</li>
-                            <li><i class="fas fa-check"></i> Up to 5 Products</li>
-                            <li><i class="fas fa-check"></i> Basic Analytics</li>
-                            <li><i class="fas fa-check"></i> Digital Delivery</li>
-                            <li><i class="fas fa-times" style="color: var(--gray);"></i> <span style="text-decoration: line-through; color: var(--gray);">Advanced DRM Protection</span></li>
-                            <li><i class="fas fa-times" style="color: var(--gray);"></i> <span style="text-decoration: line-through; color: var(--gray);">Priority Support</span></li>
-                        </ul>
-                        
-                        <button class="btn btn-outline" style="width: 100%;" onclick="selectPlan('free')">
-                            Select Free Plan
+            <!-- Earnings & Withdrawals Tab -->
+            <div class="tab-content" id="earnings-tab">
+                <div class="section">
+                    <div class="section-header">
+                        <h2>Earnings Overview</h2>
+                        <button class="btn btn-primary" id="requestWithdrawalBtn" onclick="openWithdrawalModal()">
+                            <i class="fas fa-money-bill-wave"></i> Request Withdrawal
                         </button>
                     </div>
                     
-                    <div class="pricing-card popular">
-                        <div class="popular-badge">Most Popular</div>
-                        <h3>Pro Plan</h3>
-                        <div class="price">R99<span>/month</span></div>
-                        <p>For serious sellers</p>
-                        
-                        <ul class="pricing-features">
-                            <li><i class="fas fa-check"></i> 100% Earnings on Sales</li>
-                            <li><i class="fas fa-check"></i> Unlimited Products</li>
-                            <li><i class="fas fa-check"></i> Advanced Analytics</li>
-                            <li><i class="fas fa-check"></i> Digital Delivery</li>
-                            <li><i class="fas fa-check"></i> Advanced DRM Protection</li>
-                            <li><i class="fas fa-check"></i> Priority Support</li>
-                        </ul>
-                        
-                        <button class="btn btn-primary" style="width: 100%;" onclick="selectPlan('pro')">
-                            Select Pro Plan
-                        </button>
+                    <div id="earningsStats">
+                        <div class="loading">
+                            <div class="loading-spinner"></div>
+                            <p>Loading earnings data...</p>
+                        </div>
                     </div>
                     
-                    <div class="pricing-card">
-                        <h3>Business Plan</h3>
-                        <div class="price">R199<span>/month</span></div>
-                        <p>For growing businesses</p>
-                        
-                        <ul class="pricing-features">
-                            <li><i class="fas fa-check"></i> 100% Earnings on Sales</li>
-                            <li><i class="fas fa-check"></i> Unlimited Products</li>
-                            <li><i class="fas fa-check"></i> Advanced Analytics + API</li>
-                            <li><i class="fas fa-check"></i> Digital & Physical Delivery</li>
-                            <li><i class="fas fa-check"></i> Advanced DRM Protection</li>
-                            <li><i class="fas fa-check"></i> Dedicated Account Manager</li>
-                        </ul>
-                        
-                        <button class="btn btn-outline" style="width: 100%;" onclick="selectPlan('business')">
-                            Select Business Plan
-                        </button>
+                    <div class="section-header" style="margin-top: 2rem;">
+                        <h2>Withdrawal History</h2>
                     </div>
-                </div>
-                
-                <div class="section" style="margin-top: 2rem;">
-                    <h3 style="margin-bottom: 1rem;">Plan Comparison</h3>
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Feature</th>
-                                    <th>Free Plan</th>
-                                    <th>Pro Plan</th>
-                                    <th>Business Plan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Monthly Fee</td>
-                                    <td>R0</td>
-                                    <td>R99</td>
-                                    <td>R199</td>
-                                </tr>
-                                <tr>
-                                    <td>Earnings Percentage</td>
-                                    <td>93%</td>
-                                    <td>100%</td>
-                                    <td>100%</td>
-                                </tr>
-                                <tr>
-                                    <td>Product Limit</td>
-                                    <td>5</td>
-                                    <td>Unlimited</td>
-                                    <td>Unlimited</td>
-                                </tr>
-                                <tr>
-                                    <td>Advanced DRM</td>
-                                    <td><i class="fas fa-times" style="color: var(--danger);"></i></td>
-                                    <td><i class="fas fa-check" style="color: var(--success);"></i></td>
-                                    <td><i class="fas fa-check" style="color: var(--success);"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>Priority Support</td>
-                                    <td><i class="fas fa-times" style="color: var(--danger);"></i></td>
-                                    <td><i class="fas fa-check" style="color: var(--success);"></i></td>
-                                    <td><i class="fas fa-check" style="color: var(--success);"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>API Access</td>
-                                    <td><i class="fas fa-times" style="color: var(--danger);"></i></td>
-                                    <td><i class="fas fa-times" style="color: var(--danger);"></i></td>
-                                    <td><i class="fas fa-check" style="color: var(--success);"></i></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div id="withdrawalHistory">
+                        <div class="loading">
+                            <div class="loading-spinner"></div>
+                            <p>Loading withdrawal history...</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1255,7 +981,7 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>DigiHive</h3>
-                    <p>Professional platform for digital content creators. Built with ❤️ for the creator economy.</p>
+                    <p>Professional platform for digital content creators.</p>
                 </div>
                 <div class="footer-column">
                     <h3>Platform</h3>
@@ -1269,17 +995,8 @@
                 <div class="footer-column">
                     <h3>For Creators</h3>
                     <ul class="footer-links">
-                        <li><a href="seller.html">Sell on DigiHive</a></li>
+                        <li><a href="seller.html">Seller Portal</a></li>
                         <li><a href="plans.html">Pricing Plans</a></li>
-                        <li><a href="affiliate.html">Affiliate Program</a></li>
-                        <li><a href="#">Creator Resources</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Support</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Contact Us</a></li>
                         <li><a href="terms.html">Terms of Service</a></li>
                         <li><a href="#">Privacy Policy</a></li>
                     </ul>
@@ -1287,27 +1004,1065 @@
             </div>
             <div class="footer-bottom">
                 <div class="copyright">
-                    &copy; 2024 DigiHive. All rights reserved. Made with <i class="fas fa-heart" style="color: var(--primary);"></i> for creators.
-                </div>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    &copy; 2024 DigiHive. All rights reserved.
                 </div>
             </div>
         </div>
     </footer>
 
+    <!-- Withdrawal Modal -->
+    <div class="modal" id="withdrawalModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Request Withdrawal</h2>
+                <button class="modal-close" onclick="closeModal('withdrawalModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="withdrawalForm">
+                    <div class="form-group">
+                        <label class="form-label">Available Balance</label>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--success);" id="availableBalance">R0.00</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Withdrawal Amount (ZAR) *</label>
+                        <input type="number" class="form-input" id="withdrawalAmount" placeholder="0.00" min="50" step="0.01" required>
+                        <small style="color: var(--gray);">Minimum withdrawal: R50.00</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Payment Method *</label>
+                        <select class="form-select" id="withdrawalMethod" required>
+                            <option value="">Select Method</option>
+                            <option value="bank">Bank Transfer</option>
+                            <option value="paypal">PayPal</option>
+                        </select>
+                    </div>
+                    
+                    <div id="bankDetails" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label">Bank Name *</label>
+                            <input type="text" class="form-input" id="bankName">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Account Holder Name *</label>
+                            <input type="text" class="form-input" id="accountHolderName">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Account Number *</label>
+                            <input type="text" class="form-input" id="accountNumber">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Branch Code *</label>
+                            <input type="text" class="form-input" id="branchCode">
+                        </div>
+                    </div>
+                    
+                    <div id="paypalDetails" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label">PayPal Email *</label>
+                            <input type="email" class="form-input" id="paypalEmail">
+                        </div>
+                    </div>
+                    
+                    <div id="withdrawalError" class="error-message" style="display: none;"></div>
+                    
+                    <button class="btn btn-primary w-100" onclick="submitWithdrawalRequest()" id="submitWithdrawalBtn">
+                        <i class="fas fa-paper-plane"></i> Submit Withdrawal Request
+                    </button>
+                </div>
+                
+                <div id="withdrawalSuccess" style="display: none; text-align: center; padding: 2rem;">
+                    <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--success); margin-bottom: 1rem;"></i>
+                    <h3>Withdrawal Request Submitted</h3>
+                    <p>Your withdrawal request has been submitted and is being processed. You will receive a confirmation email shortly.</p>
+                    <button class="btn btn-primary" onclick="closeModal('withdrawalModal')">
+                        <i class="fas fa-check"></i> OK
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" style="display: none; position: fixed; top: 20px; right: 20px; z-index: 2000;"></div>
+
     <script>
-        // Tab switching functionality
-        const tabs = document.querySelectorAll('.tab');
-        const tabContents = document.querySelectorAll('.tab-content');
-        
+        // Global Variables
+        let currentUser = null;
+        let sellerData = null;
+        let userProducts = [];
+        let userSales = [];
+        let userWithdrawals = [];
+        let uploadedFile = null;
+
+        // Initialize Page
+        document.addEventListener('DOMContentLoaded', async function() {
+            await checkAuthentication();
+            if (currentUser && sellerData) {
+                initializeSellerDashboard();
+                loadSellerData();
+            }
+        });
+
+        // Check Authentication
+        async function checkAuthentication() {
+            try {
+                // Check if user is logged in (from localStorage)
+                const user = JSON.parse(localStorage.getItem('digihive_user'));
+                
+                if (!user) {
+                    showAuthRequired();
+                    return;
+                }
+
+                currentUser = user;
+                
+                // Check if user has seller account
+                if (!user.isSeller) {
+                    showAuthRequired("Seller account required. Please upgrade your account in the dashboard.");
+                    return;
+                }
+
+                // Load seller data (in production, this would be an API call)
+                sellerData = await loadSellerDataFromStorage(user.id);
+                
+                if (!sellerData) {
+                    showAuthRequired("Unable to load seller data. Please try again.");
+                    return;
+                }
+
+                // Update UI with user info
+                updateUserInfo();
+            } catch (error) {
+                console.error('Auth error:', error);
+                showAuthRequired("Authentication error. Please log in again.");
+            }
+        }
+
+        // Load seller data from storage (simulated)
+        async function loadSellerDataFromStorage(userId) {
+            // Simulate API delay
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            // In production, this would be an API call
+            const data = JSON.parse(localStorage.getItem(`digihive_seller_${userId}`));
+            
+            if (!data) {
+                // Create default seller data if not exists
+                const defaultData = {
+                    id: userId,
+                    plan: 'free',
+                    earnings: 0,
+                    balance: 0,
+                    digiCoins: 0,
+                    totalSales: 0,
+                    products: [],
+                    sales: [],
+                    withdrawals: []
+                };
+                
+                localStorage.setItem(`digihive_seller_${userId}`, JSON.stringify(defaultData));
+                return defaultData;
+            }
+            
+            return data;
+        }
+
+        // Show authentication required screen
+        function showAuthRequired(message = "You must be logged in and have a seller account to access the seller portal.") {
+            document.getElementById('authRequired').style.display = 'flex';
+            document.getElementById('sellerDashboard').style.display = 'none';
+            
+            if (message) {
+                document.querySelector('#authRequired p').textContent = message;
+            }
+        }
+
+        // Update user info in UI
+        function updateUserInfo() {
+            if (!currentUser || !sellerData) return;
+
+            document.getElementById('userName').textContent = currentUser.name || 'Seller';
+            document.getElementById('userPlan').textContent = sellerData.plan === 'free' ? 'Free Plan' : 
+                                                             sellerData.plan === 'pro' ? 'Pro Plan' : 
+                                                             sellerData.plan === 'business' ? 'Business Plan' : 'Seller';
+            
+            document.getElementById('userAvatar').textContent = currentUser.name ? currentUser.name.charAt(0).toUpperCase() : 'S';
+            
+            // Update seller dashboard
+            document.getElementById('sellerWelcome').textContent = `Welcome, ${currentUser.name || 'Seller'}!`;
+            document.getElementById('sellerPlanBadge').textContent = sellerData.plan === 'free' ? 'Free Seller Plan' : 
+                                                                   sellerData.plan === 'pro' ? 'Pro Seller Plan' : 
+                                                                   'Business Seller Plan';
+        }
+
+        // Initialize seller dashboard
+        function initializeSellerDashboard() {
+            document.getElementById('authRequired').style.display = 'none';
+            document.getElementById('sellerDashboard').style.display = 'block';
+            
+            // Setup event listeners
+            setupEventListeners();
+            setupTabs();
+        }
+
+        // Load seller data
+        async function loadSellerData() {
+            try {
+                // Load products
+                await loadProducts();
+                
+                // Load sales data
+                await loadSalesData();
+                
+                // Load withdrawals
+                await loadWithdrawals();
+                
+                // Update stats
+                updateSellerStats();
+                
+                // Update earnings tab
+                updateEarningsTab();
+            } catch (error) {
+                console.error('Error loading seller data:', error);
+                showNotification('Error loading data. Please refresh the page.', 'error');
+            }
+        }
+
+        // Load products
+        async function loadProducts() {
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 300));
+            
+            // Get products from storage
+            userProducts = sellerData.products || [];
+            
+            // Update products table
+            updateProductsTable();
+        }
+
+        // Load sales data
+        async function loadSalesData() {
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 300));
+            
+            // Get sales from storage
+            userSales = sellerData.sales || [];
+        }
+
+        // Load withdrawals
+        async function loadWithdrawals() {
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 300));
+            
+            // Get withdrawals from storage
+            userWithdrawals = sellerData.withdrawals || [];
+        }
+
+        // Update seller stats
+        function updateSellerStats() {
+            const statsContainer = document.getElementById('sellerStats');
+            
+            if (!userProducts.length && !userSales.length) {
+                statsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>No Statistics Available</h3>
+                        <p>Start selling to see your performance statistics</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Calculate stats
+            const totalEarnings = userSales.reduce((sum, sale) => sum + sale.amount, 0);
+            const totalSales = userSales.length;
+            const activeProducts = userProducts.filter(p => p.status === 'active').length;
+            
+            // Calculate monthly change (simplified)
+            const monthlyChange = totalSales > 0 ? '+12.5%' : '+0%';
+            
+            statsContainer.innerHTML = `
+                <div class="stat-card stat-earnings">
+                    <div class="stat-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Total Earnings</h3>
+                        <div class="value">R${totalEarnings.toFixed(2)}</div>
+                        <div class="change ${totalEarnings > 0 ? 'positive' : 'neutral'}">${totalEarnings > 0 ? monthlyChange : '+0% this month'}</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card stat-sales">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Total Sales</h3>
+                        <div class="value">${totalSales}</div>
+                        <div class="change ${totalSales > 0 ? 'positive' : 'neutral'}">${totalSales > 0 ? monthlyChange : '+0% this month'}</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card stat-products">
+                    <div class="stat-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Active Products</h3>
+                        <div class="value">${activeProducts}</div>
+                        <div class="change ${activeProducts > 0 ? 'positive' : 'neutral'}">${activeProducts > 0 ? '+2 this month' : '+0 this month'}</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card stat-rating">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Average Rating</h3>
+                        <div class="value">${calculateAverageRating()}</div>
+                        <div class="change neutral">+0.0 this month</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Calculate average rating
+        function calculateAverageRating() {
+            if (!userProducts.length) return '0.0';
+            
+            const ratedProducts = userProducts.filter(p => p.rating);
+            if (!ratedProducts.length) return '0.0';
+            
+            const totalRating = ratedProducts.reduce((sum, product) => sum + (product.rating || 0), 0);
+            return (totalRating / ratedProducts.length).toFixed(1);
+        }
+
+        // Update products table
+        function updateProductsTable() {
+            const productsTable = document.getElementById('productsTable');
+            
+            if (!userProducts.length) {
+                productsTable.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-box-open"></i>
+                        <h3>No Products Yet</h3>
+                        <p>Add your first digital product to start selling</p>
+                        <button class="btn btn-primary" onclick="switchTab('add-product')" style="margin-top: 1rem;">
+                            <i class="fas fa-plus-circle"></i> Add Your First Product
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            let tableHTML = `
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Sales</th>
+                                <th>Revenue</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            userProducts.forEach(product => {
+                const productSales = userSales.filter(sale => sale.productId === product.id);
+                const revenue = productSales.reduce((sum, sale) => sum + sale.amount, 0);
+                
+                tableHTML += `
+                    <tr>
+                        <td>
+                            <strong>${product.title}</strong>
+                            <div style="font-size: 0.875rem; color: var(--gray);">Category: ${formatCategory(product.category)}</div>
+                        </td>
+                        <td>R${product.price.toFixed(2)}</td>
+                        <td>${productSales.length}</td>
+                        <td>R${revenue.toFixed(2)}</td>
+                        <td><span class="status-badge ${getStatusClass(product.status)}">${formatStatus(product.status)}</span></td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn" title="Edit" onclick="editProduct('${product.id}')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn" title="View" onclick="viewProduct('${product.id}')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn" title="Delete" onclick="deleteProduct('${product.id}')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tableHTML += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            
+            productsTable.innerHTML = tableHTML;
+        }
+
+        // Update earnings tab
+        function updateEarningsTab() {
+            const totalEarnings = userSales.reduce((sum, sale) => sum + sale.amount, 0);
+            const availableBalance = sellerData.balance || 0;
+            const digiCoins = sellerData.digiCoins || 0;
+            
+            // Update earnings stats
+            document.getElementById('earningsStats').innerHTML = `
+                <div class="seller-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Total Earnings</h3>
+                            <div class="value">R${totalEarnings.toFixed(2)}</div>
+                            <div class="change ${totalEarnings > 0 ? 'positive' : 'neutral'}">All time</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Available for Withdrawal</h3>
+                            <div class="value">R${availableBalance.toFixed(2)}</div>
+                            <div class="change ${availableBalance >= 50 ? 'positive' : 'neutral'}">${availableBalance >= 50 ? 'Ready to withdraw' : 'Minimum R50 required'}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Digi-Coins Balance</h3>
+                            <div class="value">${digiCoins}</div>
+                            <div class="change neutral">2 Digi-Coins = 1 ZAR</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Update withdrawal history
+            updateWithdrawalHistory();
+        }
+
+        // Update withdrawal history
+        function updateWithdrawalHistory() {
+            const withdrawalHistory = document.getElementById('withdrawalHistory');
+            
+            if (!userWithdrawals.length) {
+                withdrawalHistory.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-history"></i>
+                        <h3>No Withdrawals Yet</h3>
+                        <p>When you make withdrawals, they will appear here</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let tableHTML = `
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Method</th>
+                                <th>Status</th>
+                                <th>Reference</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            userWithdrawals.forEach(withdrawal => {
+                tableHTML += `
+                    <tr>
+                        <td>${formatDate(withdrawal.date)}</td>
+                        <td>R${withdrawal.amount.toFixed(2)}</td>
+                        <td>${formatWithdrawalMethod(withdrawal.method)}</td>
+                        <td><span class="status-badge ${getWithdrawalStatusClass(withdrawal.status)}">${formatWithdrawalStatus(withdrawal.status)}</span></td>
+                        <td>${withdrawal.reference}</td>
+                    </tr>
+                `;
+            });
+            
+            tableHTML += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            
+            withdrawalHistory.innerHTML = tableHTML;
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Logout button
+            document.getElementById('logoutBtn').addEventListener('click', logout);
+            
+            // File upload
+            const fileUploadArea = document.getElementById('fileUploadArea');
+            const productFileInput = document.getElementById('productFile');
+            
+            fileUploadArea.addEventListener('click', function() {
+                productFileInput.click();
+            });
+            
+            productFileInput.addEventListener('change', handleFileUpload);
+            
+            // Withdrawal method change
+            document.getElementById('withdrawalMethod')?.addEventListener('change', function() {
+                const method = this.value;
+                document.getElementById('bankDetails').style.display = method === 'bank' ? 'block' : 'none';
+                document.getElementById('paypalDetails').style.display = method === 'paypal' ? 'block' : 'none';
+            });
+            
+            // Analytics period change
+            document.getElementById('analyticsPeriod')?.addEventListener('change', updateAnalytics);
+            
+            // Product form submission
+            document.getElementById('productForm')?.addEventListener('submit', submitProductForm);
+        }
+
+        // Handle file upload
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            // Validate file size (500MB max)
+            const maxSize = 500 * 1024 * 1024; // 500MB in bytes
+            if (file.size > maxSize) {
+                showUploadError('File size exceeds 500MB limit. Please choose a smaller file.');
+                return;
+            }
+            
+            // Validate file type
+            const validExtensions = ['.pdf', '.zip', '.mp4', '.mp3', '.doc', '.docx', '.psd', '.jpg', '.png', '.ppt', '.xlsx'];
+            const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+            
+            if (!validExtensions.includes(fileExtension)) {
+                showUploadError('File type not supported. Please upload PDF, ZIP, MP4, MP3, DOC, PSD, JPG, PNG, PPT, or XLSX files.');
+                return;
+            }
+            
+            uploadedFile = file;
+            
+            // Show selected file
+            document.getElementById('selectedFileName').innerHTML = `
+                <i class="fas fa-file" style="margin-right: 0.5rem;"></i>
+                <strong>${file.name}</strong> (${formatFileSize(file.size)})
+            `;
+            document.getElementById('selectedFileName').style.color = 'var(--success)';
+            
+            // Hide any previous error
+            document.getElementById('uploadError').style.display = 'none';
+            
+            // Simulate upload progress
+            simulateUploadProgress();
+        }
+
+        // Simulate upload progress (in production, this would be real upload)
+        function simulateUploadProgress() {
+            const progressBar = document.getElementById('uploadProgress');
+            const progressFill = document.getElementById('progressFill');
+            
+            progressBar.style.display = 'block';
+            progressFill.style.width = '0%';
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                progressFill.style.width = progress + '%';
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    showNotification('File uploaded successfully!', 'success');
+                }
+            }, 100);
+        }
+
+        // Show upload error
+        function showUploadError(message) {
+            const errorDiv = document.getElementById('uploadError');
+            errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+            errorDiv.style.display = 'block';
+        }
+
+        // Submit product form
+        async function submitProductForm(event) {
+            event.preventDefault();
+            
+            if (!uploadedFile) {
+                showNotification('Please upload a product file', 'error');
+                return;
+            }
+            
+            const submitBtn = document.getElementById('submitProductBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            
+            try {
+                // Get form data
+                const productData = {
+                    id: generateId(),
+                    title: document.getElementById('productTitle').value,
+                    category: document.getElementById('productCategory').value,
+                    description: document.getElementById('productDescription').value,
+                    price: parseFloat(document.getElementById('productPrice').value),
+                    type: document.getElementById('productType').value,
+                    tags: document.getElementById('productTags').value.split(',').map(tag => tag.trim()),
+                    status: 'active',
+                    createdAt: new Date().toISOString(),
+                    fileName: uploadedFile.name,
+                    fileSize: uploadedFile.size,
+                    sales: 0,
+                    rating: null
+                };
+                
+                // Validate price
+                if (productData.price <= 0) {
+                    throw new Error('Price must be greater than 0');
+                }
+                
+                // Add product to seller data
+                sellerData.products.push(productData);
+                
+                // Save to storage
+                await saveSellerData();
+                
+                // Update products list
+                userProducts.push(productData);
+                
+                // Reset form
+                document.getElementById('productForm').reset();
+                document.getElementById('selectedFileName').innerHTML = '';
+                document.getElementById('uploadProgress').style.display = 'none';
+                uploadedFile = null;
+                
+                // Switch to products tab
+                switchTab('products');
+                
+                // Update UI
+                updateProductsTable();
+                updateSellerStats();
+                
+                showNotification('Product published successfully!', 'success');
+            } catch (error) {
+                console.error('Error saving product:', error);
+                showNotification(error.message || 'Error saving product', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-save"></i> Save & Publish Product';
+            }
+        }
+
+        // Open withdrawal modal
+        function openWithdrawalModal() {
+            if (sellerData.balance < 50) {
+                showNotification('Minimum withdrawal amount is R50. Your current balance is R' + sellerData.balance.toFixed(2), 'warning');
+                return;
+            }
+            
+            document.getElementById('availableBalance').textContent = 'R' + sellerData.balance.toFixed(2);
+            document.getElementById('withdrawalAmount').value = '';
+            document.getElementById('withdrawalMethod').value = '';
+            document.getElementById('withdrawalError').style.display = 'none';
+            document.getElementById('withdrawalForm').style.display = 'block';
+            document.getElementById('withdrawalSuccess').style.display = 'none';
+            
+            // Reset form fields
+            document.getElementById('bankName').value = '';
+            document.getElementById('accountHolderName').value = '';
+            document.getElementById('accountNumber').value = '';
+            document.getElementById('branchCode').value = '';
+            document.getElementById('paypalEmail').value = '';
+            
+            openModal('withdrawalModal');
+        }
+
+        // Submit withdrawal request
+        async function submitWithdrawalRequest() {
+            const submitBtn = document.getElementById('submitWithdrawalBtn');
+            const amount = parseFloat(document.getElementById('withdrawalAmount').value);
+            const method = document.getElementById('withdrawalMethod').value;
+            
+            // Validation
+            if (!amount || amount < 50) {
+                showWithdrawalError('Minimum withdrawal amount is R50.00');
+                return;
+            }
+            
+            if (amount > sellerData.balance) {
+                showWithdrawalError('Withdrawal amount cannot exceed available balance');
+                return;
+            }
+            
+            if (!method) {
+                showWithdrawalError('Please select a payment method');
+                return;
+            }
+            
+            // Validate method-specific details
+            if (method === 'bank') {
+                const bankName = document.getElementById('bankName').value;
+                const accountHolder = document.getElementById('accountHolderName').value;
+                const accountNumber = document.getElementById('accountNumber').value;
+                const branchCode = document.getElementById('branchCode').value;
+                
+                if (!bankName || !accountHolder || !accountNumber || !branchCode) {
+                    showWithdrawalError('Please fill in all bank details');
+                    return;
+                }
+            } else if (method === 'paypal') {
+                const paypalEmail = document.getElementById('paypalEmail').value;
+                if (!paypalEmail || !isValidEmail(paypalEmail)) {
+                    showWithdrawalError('Please enter a valid PayPal email address');
+                    return;
+                }
+            }
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            
+            try {
+                // Create withdrawal record
+                const withdrawal = {
+                    id: generateId(),
+                    amount: amount,
+                    method: method,
+                    status: 'pending',
+                    date: new Date().toISOString(),
+                    reference: 'W-' + generateReference(),
+                    details: method === 'bank' ? {
+                        bankName: document.getElementById('bankName').value,
+                        accountHolder: document.getElementById('accountHolderName').value,
+                        accountNumber: document.getElementById('accountNumber').value,
+                        branchCode: document.getElementById('branchCode').value
+                    } : {
+                        paypalEmail: document.getElementById('paypalEmail').value
+                    }
+                };
+                
+                // Update seller balance
+                sellerData.balance -= amount;
+                
+                // Add to withdrawals
+                sellerData.withdrawals.push(withdrawal);
+                userWithdrawals.push(withdrawal);
+                
+                // Save to storage
+                await saveSellerData();
+                
+                // Show success
+                document.getElementById('withdrawalForm').style.display = 'none';
+                document.getElementById('withdrawalSuccess').style.display = 'block';
+                
+                // Update earnings tab
+                updateEarningsTab();
+            } catch (error) {
+                console.error('Error processing withdrawal:', error);
+                showWithdrawalError('Error processing withdrawal. Please try again.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Withdrawal Request';
+            }
+        }
+
+        // Show withdrawal error
+        function showWithdrawalError(message) {
+            const errorDiv = document.getElementById('withdrawalError');
+            errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+            errorDiv.style.display = 'block';
+        }
+
+        // Update analytics
+        function updateAnalytics() {
+            const period = document.getElementById('analyticsPeriod').value;
+            const analyticsContent = document.getElementById('analyticsContent');
+            
+            if (!userSales.length) {
+                analyticsContent.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>No Sales Data Available</h3>
+                        <p>Start selling to see your analytics data</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Calculate analytics based on period
+            const now = new Date();
+            let filteredSales = [...userSales];
+            
+            if (period === '7days') {
+                const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+                filteredSales = userSales.filter(sale => new Date(sale.date) >= sevenDaysAgo);
+            } else if (period === '30days') {
+                const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+                filteredSales = userSales.filter(sale => new Date(sale.date) >= thirtyDaysAgo);
+            } else if (period === '90days') {
+                const ninetyDaysAgo = new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000);
+                filteredSales = userSales.filter(sale => new Date(sale.date) >= ninetyDaysAgo);
+            } else if (period === 'year') {
+                const yearStart = new Date(now.getFullYear(), 0, 1);
+                filteredSales = userSales.filter(sale => new Date(sale.date) >= yearStart);
+            }
+            
+            const totalEarnings = filteredSales.reduce((sum, sale) => sum + sale.amount, 0);
+            const totalSalesCount = filteredSales.length;
+            
+            // Group sales by product
+            const salesByProduct = {};
+            filteredSales.forEach(sale => {
+                if (!salesByProduct[sale.productId]) {
+                    salesByProduct[sale.productId] = 0;
+                }
+                salesByProduct[sale.productId]++;
+            });
+            
+            // Get top products
+            const topProducts = Object.entries(salesByProduct)
+                .map(([productId, count]) => {
+                    const product = userProducts.find(p => p.id === productId);
+                    return {
+                        name: product ? product.title : 'Unknown Product',
+                        sales: count
+                    };
+                })
+                .sort((a, b) => b.sales - a.sales)
+                .slice(0, 3);
+            
+            // Group sales by category
+            const salesByCategory = {};
+            filteredSales.forEach(sale => {
+                const product = userProducts.find(p => p.id === sale.productId);
+                if (product) {
+                    if (!salesByCategory[product.category]) {
+                        salesByCategory[product.category] = 0;
+                    }
+                    salesByCategory[product.category]++;
+                }
+            });
+            
+            analyticsContent.innerHTML = `
+                <div style="margin-bottom: 2rem;">
+                    <div style="background-color: var(--gray-light); border-radius: var(--radius); padding: 2rem; text-align: center;">
+                        <h3 style="margin-bottom: 1rem;">Period: ${formatPeriod(period)}</h3>
+                        <div style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--success);">R${totalEarnings.toFixed(2)}</div>
+                                <div style="font-size: 0.875rem; color: var(--gray);">Total Earnings</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--info);">${totalSalesCount}</div>
+                                <div style="font-size: 0.875rem; color: var(--gray);">Total Sales</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="section">
+                        <h3 style="margin-bottom: 1rem;">Top Products</h3>
+                        ${topProducts.length ? `
+                            <ul style="list-style: none;">
+                                ${topProducts.map(product => `
+                                    <li style="padding: 1rem 0; border-bottom: 1px solid var(--gray-light); display: flex; justify-content: space-between;">
+                                        <span>${product.name}</span>
+                                        <strong>${product.sales} sales</strong>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        ` : `
+                            <div class="empty-state" style="padding: 1rem;">
+                                <p>No sales in this period</p>
+                            </div>
+                        `}
+                    </div>
+                    
+                    <div class="section">
+                        <h3 style="margin-bottom: 1rem;">Sales by Category</h3>
+                        ${Object.keys(salesByCategory).length ? `
+                            <ul style="list-style: none;">
+                                ${Object.entries(salesByCategory).map(([category, count]) => `
+                                    <li style="padding: 1rem 0; border-bottom: 1px solid var(--gray-light); display: flex; justify-content: space-between;">
+                                        <span>${formatCategory(category)}</span>
+                                        <strong>${count} sales</strong>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        ` : `
+                            <div class="empty-state" style="padding: 1rem;">
+                                <p>No category data</p>
+                            </div>
+                        `}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Edit product
+        function editProduct(productId) {
+            const product = userProducts.find(p => p.id === productId);
+            if (!product) return;
+            
+            // Switch to add product tab and populate form
+            switchTab('add-product');
+            
+            // Populate form
+            document.getElementById('productTitle').value = product.title;
+            document.getElementById('productCategory').value = product.category;
+            document.getElementById('productDescription').value = product.description;
+            document.getElementById('productPrice').value = product.price;
+            document.getElementById('productType').value = product.type;
+            document.getElementById('productTags').value = product.tags.join(', ');
+            
+            // Update form for editing
+            const submitBtn = document.getElementById('submitProductBtn');
+            submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Product';
+            submitBtn.onclick = function(e) {
+                e.preventDefault();
+                updateProduct(productId);
+            };
+            
+            showNotification('Edit mode: Updating existing product', 'info');
+        }
+
+        // Update product
+        async function updateProduct(productId) {
+            try {
+                const productIndex = userProducts.findIndex(p => p.id === productId);
+                if (productIndex === -1) return;
+                
+                // Update product data
+                userProducts[productIndex] = {
+                    ...userProducts[productIndex],
+                    title: document.getElementById('productTitle').value,
+                    category: document.getElementById('productCategory').value,
+                    description: document.getElementById('productDescription').value,
+                    price: parseFloat(document.getElementById('productPrice').value),
+                    type: document.getElementById('productType').value,
+                    tags: document.getElementById('productTags').value.split(',').map(tag => tag.trim()),
+                    updatedAt: new Date().toISOString()
+                };
+                
+                // Update seller data
+                sellerData.products[productIndex] = userProducts[productIndex];
+                
+                // Save to storage
+                await saveSellerData();
+                
+                // Reset form
+                document.getElementById('productForm').reset();
+                
+                // Switch to products tab
+                switchTab('products');
+                
+                // Update UI
+                updateProductsTable();
+                
+                showNotification('Product updated successfully!', 'success');
+                
+                // Reset form button
+                const submitBtn = document.getElementById('submitProductBtn');
+                submitBtn.innerHTML = '<i class="fas fa-save"></i> Save & Publish Product';
+                submitBtn.onclick = null;
+            } catch (error) {
+                console.error('Error updating product:', error);
+                showNotification('Error updating product', 'error');
+            }
+        }
+
+        // View product
+        function viewProduct(productId) {
+            const product = userProducts.find(p => p.id === productId);
+            if (!product) return;
+            
+            alert(`Product: ${product.title}\nPrice: R${product.price.toFixed(2)}\nCategory: ${formatCategory(product.category)}\nDescription: ${product.description}`);
+        }
+
+        // Delete product
+        async function deleteProduct(productId) {
+            if (!confirm('Are you sure you want to delete this product? This action cannot be undone.')) {
+                return;
+            }
+            
+            try {
+                // Remove from arrays
+                userProducts = userProducts.filter(p => p.id !== productId);
+                sellerData.products = sellerData.products.filter(p => p.id !== productId);
+                
+                // Save to storage
+                await saveSellerData();
+                
+                // Update UI
+                updateProductsTable();
+                updateSellerStats();
+                
+                showNotification('Product deleted successfully', 'success');
+            } catch (error) {
+                console.error('Error deleting product:', error);
+                showNotification('Error deleting product', 'error');
+            }
+        }
+
+        // Save seller data to storage
+        async function saveSellerData() {
+            // Simulate API delay
+            await new Promise(resolve => setTimeout(resolve, 200));
+            
+            // Save to localStorage (in production, this would be an API call)
+            localStorage.setItem(`digihive_seller_${currentUser.id}`, JSON.stringify(sellerData));
+        }
+
+        // Logout
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                // Clear any session data (in production)
+                // localStorage.removeItem('digihive_user');
+                
+                // Redirect to home
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Setup tabs
+        function setupTabs() {
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    switchTab(tabId);
+                });
+            });
+        }
+
+        // Switch tab
         function switchTab(tabId) {
             // Update active tab
-            tabs.forEach(tab => {
+            document.querySelectorAll('.tab').forEach(tab => {
                 if (tab.getAttribute('data-tab') === tabId) {
                     tab.classList.add('active');
                 } else {
@@ -1316,7 +2071,7 @@
             });
             
             // Show active tab content
-            tabContents.forEach(content => {
+            document.querySelectorAll('.tab-content').forEach(content => {
                 if (content.id === `${tabId}-tab`) {
                     content.classList.add('active');
                 } else {
@@ -1324,140 +2079,147 @@
                 }
             });
             
-            // Scroll to top of tab content
-            const activeTabContent = document.getElementById(`${tabId}-tab`);
-            if (activeTabContent) {
-                activeTabContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Load tab-specific data
+            if (tabId === 'sales') {
+                updateAnalytics();
+            } else if (tabId === 'earnings') {
+                updateEarningsTab();
             }
         }
-        
-        // Setup tab click events
-        tabs.forEach(tab => {
-            tab.addEventListener('click', function() {
-                const tabId = this.getAttribute('data-tab');
-                switchTab(tabId);
-            });
-        });
-        
-        // File upload functionality
-        const fileUploadArea = document.getElementById('fileUploadArea');
-        const productFileInput = document.getElementById('productFile');
-        const selectedFileName = document.getElementById('selectedFileName');
-        
-        fileUploadArea.addEventListener('click', function() {
-            productFileInput.click();
-        });
-        
-        productFileInput.addEventListener('change', function() {
-            if (this.files.length > 0) {
-                const fileName = this.files[0].name;
-                const fileSize = this.files[0].size;
-                const fileSizeMB = (fileSize / (1024 * 1024)).toFixed(2);
-                
-                selectedFileName.innerHTML = `
-                    <i class="fas fa-file" style="margin-right: 0.5rem;"></i>
-                    <strong>${fileName}</strong> (${fileSizeMB} MB)
-                `;
-                selectedFileName.style.color = 'var(--success)';
-            }
-        });
-        
-        // Product form submission
-        const productForm = document.getElementById('productForm');
-        productForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+
+        // Open modal
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        // Close modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            const icon = type === 'success' ? 'fa-check-circle' :
+                        type === 'error' ? 'fa-exclamation-circle' :
+                        type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle';
             
-            // Get form data
-            const productData = {
-                title: document.getElementById('productTitle').value,
-                category: document.getElementById('productCategory').value,
-                description: document.getElementById('productDescription').value,
-                price: document.getElementById('productPrice').value,
-                type: document.getElementById('productType').value,
-                tags: document.getElementById('productTags').value,
-                image: document.getElementById('productImage').value
+            const color = type === 'success' ? 'var(--success)' :
+                         type === 'error' ? 'var(--danger)' :
+                         type === 'warning' ? 'var(--warning)' : 'var(--info)';
+            
+            notification.innerHTML = `
+                <div style="background-color: ${color}; color: white; padding: 1rem 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas ${icon}"></i>
+                    <span>${message}</span>
+                    <button onclick="this.parentElement.parentElement.style.display='none'" style="background: none; border: none; color: white; margin-left: 1rem; cursor: pointer;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            
+            notification.style.display = 'block';
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 5000);
+        }
+
+        // Utility functions
+        function generateId() {
+            return 'prod_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        function generateReference() {
+            return Math.random().toString(36).substr(2, 8).toUpperCase();
+        }
+
+        function formatCategory(category) {
+            const categories = {
+                'ebooks': 'Ebooks & Guides',
+                'templates': 'Templates',
+                'courses': 'Online Courses',
+                'software': 'Software & Tools',
+                'graphics': 'Graphics & Design',
+                'audio': 'Audio & Music'
             };
-            
-            // Basic validation
-            if (!productData.title || !productData.category || !productData.description || !productData.price) {
-                alert('Please fill in all required fields');
-                return;
-            }
-            
-            // Show success message
-            alert('Product saved successfully! It will now appear in your product list.');
-            
-            // Reset form
-            productForm.reset();
-            selectedFileName.innerHTML = '';
-            document.getElementById('productTags').value = 'digital, marketing, guide, premium';
-            
-            // Switch to products tab
-            switchTab('products');
-        });
-        
-        // Plan selection
-        function selectPlan(plan) {
-            let planName = '';
-            let planPrice = '';
-            
-            switch(plan) {
-                case 'free':
-                    planName = 'Free Plan';
-                    planPrice = 'R0/month';
-                    break;
-                case 'pro':
-                    planName = 'Pro Plan';
-                    planPrice = 'R99/month';
-                    break;
-                case 'business':
-                    planName = 'Business Plan';
-                    planPrice = 'R199/month';
-                    break;
-            }
-            
-            if (confirm(`Are you sure you want to select the ${planName} (${planPrice})?`)) {
-                // In a real app, this would process payment and update user plan
-                document.querySelector('.plan-badge').textContent = planName;
-                document.querySelector('.user-details p').textContent = planName;
-                
-                // Show success message
-                alert(`Successfully upgraded to ${planName}! Your account has been updated.`);
-            }
+            return categories[category] || category;
         }
-        
-        // Logout functionality
-        const logoutBtn = document.getElementById('logoutBtn');
-        logoutBtn.addEventListener('click', function() {
-            if (confirm('Are you sure you want to logout?')) {
-                // In a real app, this would clear session and redirect
-                alert('Logged out successfully. Redirecting to home page...');
-                window.location.href = 'index.html';
-            }
-        });
-        
-        // Withdrawal button
-        const withdrawBtn = document.getElementById('withdrawBtn');
-        if (withdrawBtn) {
-            withdrawBtn.addEventListener('click', function() {
-                // In a real app, this would open a withdrawal modal
-                alert('Withdrawal feature will be available soon! You can request withdrawals from your dashboard.');
+
+        function formatStatus(status) {
+            return status.charAt(0).toUpperCase() + status.slice(1);
+        }
+
+        function getStatusClass(status) {
+            const classes = {
+                'active': 'status-active',
+                'draft': 'status-draft',
+                'pending': 'status-pending'
+            };
+            return classes[status] || 'status-draft';
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-ZA', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
             });
         }
-        
-        // Analytics period change
-        const analyticsPeriod = document.getElementById('analyticsPeriod');
-        if (analyticsPeriod) {
-            analyticsPeriod.addEventListener('change', function() {
-                // In a real app, this would reload analytics data
-                console.log('Analytics period changed to:', this.value);
-                alert('Loading analytics data for selected period...');
-            });
+
+        function formatWithdrawalMethod(method) {
+            return method === 'bank' ? 'Bank Transfer' : 'PayPal';
         }
-        
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Seller portal loaded successfully');
+
+        function formatWithdrawalStatus(status) {
+            const statusMap = {
+                'pending': 'Pending',
+                'processing': 'Processing',
+                'completed': 'Completed',
+                'failed': 'Failed'
+            };
+            return statusMap[status] || status;
+        }
+
+        function getWithdrawalStatusClass(status) {
+            const classes = {
+                'pending': 'status-pending',
+                'processing': 'status-pending',
+                'completed': 'status-completed',
+                'failed': 'status-draft'
+            };
+            return classes[status] || 'status-pending';
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        function formatPeriod(period) {
+            const periods = {
+                '7days': 'Last 7 Days',
+                '30days': 'Last 30 Days',
+                '90days': 'Last 90 Days',
+                'year': 'This Year',
+                'all': 'All Time'
+            };
+            return periods[period] || period;
+        }
+
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
         });
     </script>
 </body>
