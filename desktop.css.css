@@ -1,0 +1,195 @@
+/* ========== DESKTOP LAYOUTS ========== */
+@media (min-width: 769px) {
+    /* Navigation */
+    .nav-links {
+        display: flex;
+    }
+
+    .mobile-menu-btn {
+        display: none;
+    }
+
+    .mobile-nav {
+        display: none;
+    }
+
+    /* Hero Section */
+    .hero-content {
+        flex-direction: row;
+        text-align: left;
+    }
+
+    .hero h1 {
+        font-size: 4rem;
+    }
+
+    .hero p {
+        font-size: 1.4rem;
+    }
+
+    .hero-actions {
+        flex-direction: row;
+    }
+
+    .hero-stats {
+        flex-direction: row;
+    }
+
+    /* Features Grid */
+    .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+    }
+
+    /* Products Grid */
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+    }
+
+    /* Floating Cards */
+    .floating-cards {
+        height: 400px;
+    }
+
+    .card {
+        position: absolute;
+    }
+
+    /* Counters */
+    .counters-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .counter-value {
+        font-size: 4rem;
+    }
+
+    /* Footer */
+    .footer-content {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    /* Show desktop elements */
+    .desktop-only {
+        display: block !important;
+    }
+
+    /* Hide mobile elements */
+    .mobile-only {
+        display: none !important;
+    }
+}
+
+/* ========== LARGE DESKTOP ========== */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1200px;
+    }
+
+    .hero h1 {
+        font-size: 4.5rem;
+    }
+
+    .features-grid {
+        gap: 3rem;
+    }
+
+    .products-grid {
+        gap: 3rem;
+    }
+
+    .card-1 {
+        right: 0;
+    }
+
+    .card-2 {
+        left: 0;
+    }
+
+    .card-3 {
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* ========== DESKTOP ANIMATIONS ========== */
+@media (prefers-reduced-motion: no-preference) {
+    .card {
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .card-2 {
+        animation-delay: 2s;
+    }
+
+    .card-3 {
+        animation-delay: 4s;
+    }
+}
+
+/* ========== DESKTOP HOVER EFFECTS ========== */
+@media (hover: hover) {
+    .nav-links a:hover::after {
+        width: 100%;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-15px);
+    }
+
+    .product-card:hover {
+        transform: translateY(-15px);
+    }
+
+    .btn:hover::before {
+        left: 100%;
+    }
+
+    .social-links a:hover {
+        transform: translateY(-3px);
+    }
+}
+
+/* ========== DESKTOP UTILITIES ========== */
+.desktop-only {
+    display: block;
+}
+
+.mobile-only {
+    display: none;
+}
+
+/* Smooth scrolling for desktop */
+@media (min-width: 769px) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+/* Desktop specific transitions */
+@media (min-width: 769px) {
+    .feature-card,
+    .product-card,
+    .stat-item-large,
+    .counter-item {
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+}
+
+/* Desktop sticky elements */
+@media (min-width: 769px) {
+    header {
+        position: sticky;
+    }
+}
+
+/* Desktop optimized typography */
+@media (min-width: 769px) {
+    .hero h1 {
+        line-height: 1.1;
+    }
+
+    .section-header h2 {
+        line-height: 1.2;
+    }
+}

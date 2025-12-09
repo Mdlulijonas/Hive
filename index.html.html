@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiHive - Professional Platform for Digital Products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="mobile.css" media="screen and (max-width: 768px)">
+    <link rel="stylesheet" href="desktop.css" media="screen and (min-width: 769px)">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+</head>
+<body>
+    <!-- Navigation -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <div class="bee-logo-container">
+                        <div class="bee-logo-animated">
+                            <div class="bee-wings">
+                                <div class="wing wing-left"></div>
+                                <div class="wing wing-right"></div>
+                            </div>
+                            <div class="bee-body">
+                                <div class="bee-stripe stripe-1"></div>
+                                <div class="bee-stripe stripe-2"></div>
+                                <div class="bee-stripe stripe-3"></div>
+                                <div class="bee-antennas">
+                                    <div class="antenna antenna-left"></div>
+                                    <div class="antenna antenna-right"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    Digi<span>Hive</span>
+                </a>
+                
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <!-- Desktop Navigation -->
+                <ul class="nav-links" id="desktopNav">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="marketplace.html">Marketplace</a></li>
+                    <li><a href="videos.html">Video Content</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="seller.html">Sell on DigiHive</a></li>
+                    <li><a href="plans.html">Pricing</a></li>
+                </ul>
+                
+                <div class="nav-actions" id="navActions">
+                    <div class="user-wallet" id="userWallet" style="display: none;">
+                        <i class="fas fa-wallet"></i>
+                        <span id="walletBalance">0 Coins</span>
+                    </div>
+                    <button class="btn btn-outline" id="loginBtn">Log In</button>
+                    <button class="btn" id="signupBtn">Create Account</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-nav" id="mobileNav">
+        <ul class="mobile-nav-links">
+            <li><a href="index.html" onclick="toggleMobileMenu()">Home</a></li>
+            <li><a href="marketplace.html" onclick="toggleMobileMenu()">Marketplace</a></li>
+            <li><a href="videos.html" onclick="toggleMobileMenu()">Video Content</a></li>
+            <li><a href="dashboard.html" onclick="toggleMobileMenu()">Dashboard</a></li>
+            <li><a href="seller.html" onclick="toggleMobileMenu()">Sell on DigiHive</a></li>
+            <li><a href="plans.html" onclick="toggleMobileMenu()">Pricing</a></li>
+            <li><a href="profile.html" onclick="toggleMobileMenu()">My Profile</a></li>
+            <li><a href="affiliate.html" onclick="toggleMobileMenu()">Affiliate</a></li>
+            <li><a href="terms.html" onclick="toggleMobileMenu()">Terms</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Your Gateway to Digital Success</h1>
+                    <p>Create, sell, and buy premium digital products. Join thousands of creators earning real money with our platform. No account needed to start shopping!</p>
+                    <div class="hero-actions">
+                        <a href="marketplace.html" class="btn">
+                            <i class="fas fa-store"></i> Browse Marketplace
+                        </a>
+                        <a href="seller.html" class="btn btn-accent">
+                            <i class="fas fa-rocket"></i> Start Selling Free
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number" id="creatorsCount">0</div>
+                            <div class="stat-label">Active Creators</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="productsCount">0</div>
+                            <div class="stat-label">Products Sold</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="earningsCount">R0</div>
+                            <div class="stat-label">Creator Earnings</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="floating-cards">
+                        <div class="card card-1">
+                            <h3><i class="fas fa-bolt" style="color: var(--primary);"></i> Instant Delivery</h3>
+                            <p style="color: var(--gray); margin-top: 1rem;">Digital products delivered automatically after purchase</p>
+                        </div>
+                        <div class="card card-2">
+                            <h3><i class="fas fa-shield-alt" style="color: var(--primary);"></i> Secure Platform</h3>
+                            <p style="color: var(--gray); margin-top: 1rem;">Bank-level security for all transactions and data</p>
+                        </div>
+                        <div class="card card-3">
+                            <h3><i class="fas fa-globe" style="color: var(--primary);"></i> Global Reach</h3>
+                            <p style="color: var(--gray); margin-top: 1rem;">Sell to customers worldwide with multi-currency support</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Real-time Counters -->
+    <section class="counter-section">
+        <div class="container">
+            <div class="counters-container">
+                <div class="counter-item" id="creatorsCounter">
+                    <span class="counter-value" id="creatorsCountBig">0</span>
+                    <div class="counter-label">Active Creators</div>
+                </div>
+                <div class="counter-item" id="productsCounter">
+                    <span class="counter-value" id="productsCountBig">0</span>
+                    <div class="counter-label">Products Sold</div>
+                </div>
+                <div class="counter-item" id="earningsCounter">
+                    <span class="counter-value" id="earningsCountBig">R0</span>
+                    <div class="counter-label">Creator Earnings</div>
+                </div>
+                <div class="counter-item" id="usersCounter">
+                    <span class="counter-value" id="usersCount">0</span>
+                    <div class="counter-label">Registered Users</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Visitor Signup -->
+    <div class="container">
+        <div class="visitor-signup">
+            <h2>Ready to Join the Hive?</h2>
+            <p>Create your free account today and get access to premium features, seller tools, and a global marketplace of digital products.</p>
+            <div class="visitor-actions">
+                <button class="btn" id="signupTrigger">
+                    <i class="fas fa-user-plus"></i> Create Free Account
+                </button>
+                <a href="marketplace.html" class="btn btn-outline">
+                    <i class="fas fa-shopping-cart"></i> Shop as Visitor
+                </a>
+            </div>
+            <p class="visitor-note">
+                <i class="fas fa-check-circle" style="color: var(--success);"></i> No credit card required • Free forever plan available
+            </p>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Creators Love DigiHive</h2>
+                <p>Built with creators in mind, our platform offers everything you need to build a successful digital business</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h3>Fair Revenue Model</h3>
+                    <p>Keep 93% of every sale on our free plan. Upgrade to Pro for 100% earnings. Buy with 1:1 ratio, withdraw with 2:1 for creators.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>No Account Shopping</h3>
+                    <p>Visitors can purchase products instantly without creating accounts. Full features unlocked with easy signup.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Advanced DRM Protection</h3>
+                    <p>Your digital content stays protected with multi-layer security. Watermarking, encryption, and download limits.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Video Content Platform</h3>
+                    <p>Stream, like, and tip creators directly. Built-in video player with previews and secure content delivery.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Smart Analytics Dashboard</h3>
+                    <p>Real-time insights on sales, customer behavior, and product performance. Make data-driven decisions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Affiliate Program</h3>
+                    <p>Earn 10% commission on every referral. Build your network and earn passive income.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-content">
+                <div class="section-header" style="color: white;">
+                    <h2>Platform Success in Numbers</h2>
+                    <p>Join a thriving community of digital creators and buyers</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item-large">
+                        <h3>0%</h3>
+                        <p>Transaction Fees on Pro Plan</p>
+                    </div>
+                    <div class="stat-item-large">
+                        <h3>R0.50</h3>
+                        <p>Minimum Tip Amount</p>
+                    </div>
+                    <div class="stat-item-large">
+                        <h3>2:1</h3>
+                        <p>Digi-Coins Withdrawal Ratio</p>
+                    </div>
+                    <div class="stat-item-large">
+                        <h3>R50</h3>
+                        <p>Minimum Withdrawal</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Preview -->
+    <section class="featured-products">
+        <div class="container">
+            <div class="section-header">
+                <h2>Trending Digital Products</h2>
+                <p>Browse our curated selection of best-selling digital products. Purchase instantly without an account.</p>
+            </div>
+            <div class="products-grid" id="featuredProducts">
+                <!-- Featured products will be loaded by JavaScript -->
+            </div>
+            <div class="text-center mt-4">
+                <a href="marketplace.html" class="btn btn-outline">
+                    <i class="fas fa-store"></i> View All Products
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Start Your Digital Business Today</h2>
+                <p>Join thousands of creators who trust DigiHive to sell their digital products securely. Free forever plan with no hidden fees.</p>
+                <div class="cta-actions">
+                    <a href="seller.html" class="btn">
+                        <i class="fas fa-rocket"></i> Start Selling Free
+                    </a>
+                    <button class="btn btn-outline" id="buyerSignup">
+                        <i class="fas fa-user-plus"></i> Create Buyer Account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>DigiHive</h3>
+                    <p>Professional platform for digital content creators. Built with ❤️ for the creator economy.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Platform</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="marketplace.html">Marketplace</a></li>
+                        <li><a href="videos.html">Video Content</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>For Creators</h3>
+                    <ul class="footer-links">
+                        <li><a href="seller.html">Sell on DigiHive</a></li>
+                        <li><a href="plans.html">Pricing Plans</a></li>
+                        <li><a href="affiliate.html">Affiliate Program</a></li>
+                        <li><a href="#" id="creatorResources">Creator Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" id="helpCenter">Help Center</a></li>
+                        <li><a href="#" id="contactUs">Contact Us</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="#" id="privacyPolicy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    &copy; 2024 DigiHive. All rights reserved. Made with <i class="fas fa-heart" style="color: var(--primary);"></i> for creators.
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+            <div class="modal-header">
+                <h2>Welcome Back!</h2>
+                <p>Log in to access your account and continue your journey</p>
+            </div>
+            <form id="loginForm">
+                <button type="button" class="google-auth-btn" onclick="loginWithGoogle()">
+                    <i class="fab fa-google"></i> Log in with Google
+                </button>
+                <div class="auth-divider">
+                    <span>or log in with email</span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-input" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn w-100">Log In</button>
+                <div class="form-footer">
+                    <p>Don't have an account? <a href="#" onclick="closeModal('loginModal'); openModal('signupModal')">Sign up here</a></p>
+                    <p><a href="#" onclick="forgotPassword()">Forgot password?</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('signupModal')">&times;</button>
+            <div class="modal-header">
+                <h2>Join the Hive!</h2>
+                <p>Create your account and start your digital journey today</p>
+            </div>
+            <form id="signupForm">
+                <button type="button" class="google-auth-btn" onclick="signupWithGoogle()">
+                    <i class="fab fa-google"></i> Sign up with Google
+                </button>
+                <div class="auth-divider">
+                    <span>or continue with email</span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Full Name *</label>
+                    <input type="text" class="form-input" id="signupName" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email Address *</label>
+                    <input type="email" class="form-input" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password *</label>
+                    <input type="password" class="form-input" id="signupPassword" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Account Type *</label>
+                    <select class="form-input" id="accountType" required>
+                        <option value="">Select account type</option>
+                        <option value="buyer">Buyer Account (Purchase Only)</option>
+                        <option value="seller">Seller Account (Sell Products)</option>
+                        <option value="both">Both (Buyer & Seller)</option>
+                    </select>
+                </div>
+                <div class="terms-acceptance">
+                    <input type="checkbox" id="acceptTerms" required>
+                    <label for="acceptTerms">I agree to the <a href="terms.html">Terms and Conditions</a></label>
+                </div>
+                <button type="submit" class="btn w-100">Create Account</button>
+                <div class="form-footer">
+                    <p>Already have an account? <a href="#" onclick="closeModal('signupModal'); openModal('loginModal')">Log in here</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Email Verification Modal -->
+    <div class="modal" id="verificationModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('verificationModal')">&times;</button>
+            <div class="verification-container">
+                <h2>Email Verification</h2>
+                <p>We've sent a 6-digit code to your email address. Please enter it below:</p>
+                <div class="verification-code">
+                    <input type="text" class="verification-input" maxlength="1" oninput="moveToNext(this, 1)">
+                    <input type="text" class="verification-input" maxlength="1" oninput="moveToNext(this, 2)">
+                    <input type="text" class="verification-input" maxlength="1" oninput="moveToNext(this, 3)">
+                    <input type="text" class="verification-input" maxlength="1" oninput="moveToNext(this, 4)">
+                    <input type="text" class="verification-input" maxlength="1" oninput="moveToNext(this, 5)">
+                    <input type="text" class="verification-input" maxlength="1" oninput="moveToNext(this, 6)">
+                </div>
+                <button class="btn" onclick="verifyEmail()">
+                    <i class="fas fa-check"></i> Verify Email
+                </button>
+                <p>Didn't receive the code? <a href="#" onclick="resendVerification()">Resend Code</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Notification -->
+    <div id="cartNotification">
+        <span id="cartMessage"></span>
+        <button class="btn btn-outline" onclick="viewCart()">View Cart</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

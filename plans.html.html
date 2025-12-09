@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Plans - DigiHive</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="mobile.css" media="screen and (max-width: 768px)">
+    <link rel="stylesheet" href="desktop.css" media="screen and (min-width: 769px)">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Same header as index.html -->
+    
+    <div class="plans-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Choose Your Perfect Plan</h2>
+                <p>Start free, upgrade anytime. All plans include our secure platform and 24/7 support.</p>
+            </div>
+            
+            <div class="plans-grid">
+                <!-- Free Plan -->
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3 class="plan-name">Free Forever</h3>
+                        <div class="plan-price">R0</div>
+                        <div class="plan-period">per month</div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Sell Digital Products</li>
+                        <li><i class="fas fa-check"></i> 2% Transaction Fee per R10</li>
+                        <li><i class="fas fa-check"></i> 1% Withdrawal Fee</li>
+                        <li><i class="fas fa-times disabled"></i> Live Chat Support</li>
+                        <li><i class="fas fa-times disabled"></i> Algorithm Promotion</li>
+                    </ul>
+                    <button class="btn btn-outline w-100" onclick="selectPlan('free')">
+                        Start Free
+                    </button>
+                </div>
+
+                <!-- Basic Plan -->
+                <div class="plan-card popular">
+                    <div class="plan-badge">MOST POPULAR</div>
+                    <div class="plan-header">
+                        <h3 class="plan-name">Basic</h3>
+                        <div class="plan-price">R249</div>
+                        <div class="plan-period">per month</div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Everything in Free</li>
+                        <li><i class="fas fa-check"></i> Live Chat Support</li>
+                        <li><i class="fas fa-check"></i> No Transaction Fees</li>
+                        <li><i class="fas fa-check"></i> Withdrawal Fees Only</li>
+                        <li><i class="fas fa-times disabled"></i> Algorithm Promotion</li>
+                    </ul>
+                    <button class="btn w-100" onclick="selectPlan('basic')">
+                        Choose Basic
+                    </button>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3 class="plan-name">Pro</h3>
+                        <div class="plan-price">R349</div>
+                        <div class="plan-period">per month</div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Everything in Basic</li>
+                        <li><i class="fas fa-check"></i> Algorithm Content Push</li>
+                        <li><i class="fas fa-check"></i> Priority Support</li>
+                        <li><i class="fas fa-check"></i> No Transaction Fees</li>
+                        <li><i class="fas fa-check"></i> No Withdrawal Fees</li>
+                    </ul>
+                    <button class="btn w-100" onclick="selectPlan('pro')">
+                        Go Pro
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Same footer as index.html -->
+    <script src="script.js"></script>
+</body>
+</html>
