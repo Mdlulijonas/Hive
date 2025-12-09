@@ -1,0 +1,2803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiHive - Video Content</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --primary-dark: #d97706;
+            --secondary: #10b981;
+            --danger: #ef4444;
+            --gray-light: #f3f4f6;
+            --gray: #9ca3af;
+            --gray-dark: #4b5563;
+            --dark: #1f2937;
+            --light: #ffffff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--light);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--dark);
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .user-details h3 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .user-details p {
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+
+        .upload-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.25rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color 0.3s;
+        }
+
+        .upload-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .upload-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logout-btn:hover {
+            color: var(--danger);
+        }
+
+        /* Video Hero Section */
+        .video-hero {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .video-hero-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .video-hero-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .video-hero-text p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        .video-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        /* Main Content Layout */
+        .video-main {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Video Player Section */
+        .video-player-section {
+            background-color: var(--light);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            background-color: #000;
+            aspect-ratio: 16/9;
+        }
+
+        #mainVideoPlayer {
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .video-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .video-controls {
+            padding: 1rem;
+            background-color: #1a1a1a;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .video-creator {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .creator-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+
+        .creator-info h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .creator-info p {
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+
+        .video-stats-bar {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .stat-action {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: var(--radius);
+            transition: background-color 0.3s;
+        }
+
+        .stat-action:hover {
+            background-color: var(--gray-light);
+        }
+
+        .stat-action.liked i {
+            color: var(--danger);
+        }
+
+        .stat-action.liked span {
+            color: var(--danger);
+            font-weight: 600;
+        }
+
+        /* Video Description */
+        .video-description {
+            background-color: var(--gray-light);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .description-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+
+        .description-content {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .description-content.collapsed {
+            max-height: 60px;
+            overflow: hidden;
+        }
+
+        .video-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* Comments Section */
+        .comments-section {
+            margin-top: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .section-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .comments-count {
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        .comment-form {
+            margin-bottom: 2rem;
+        }
+
+        .comment-input {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 80px;
+            margin-bottom: 1rem;
+        }
+
+        .comment-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .comment-submit {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .comment-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .comments-list {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .comment {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .comment-author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .comment-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.875rem;
+        }
+
+        .comment-author h4 {
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .comment-time {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        .comment-content {
+            margin-bottom: 0.5rem;
+        }
+
+        .comment-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .comment-action {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .comment-action:hover {
+            color: var(--primary);
+        }
+
+        .comment-action.liked {
+            color: var(--danger);
+        }
+
+        /* Video Sidebar */
+        .video-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .sidebar-section {
+            background-color: var(--light);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .sidebar-section h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        /* Recommended Videos */
+        .recommended-videos {
+            list-style: none;
+        }
+
+        .recommended-video {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-light);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .recommended-video:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .recommended-video:hover {
+            transform: translateX(5px);
+        }
+
+        .video-thumbnail {
+            width: 120px;
+            height: 68px;
+            border-radius: 4px;
+            background-color: #000;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .thumbnail-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
+            color: var(--primary);
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-preview-info {
+            flex: 1;
+        }
+
+        .video-preview-title {
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .video-preview-creator {
+            font-size: 0.75rem;
+            color: var(--gray);
+            margin-bottom: 0.25rem;
+        }
+
+        .video-preview-stats {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        /* Categories */
+        .category-list {
+            list-style: none;
+        }
+
+        .category-item {
+            padding: 0.75rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-item:hover {
+            background-color: var(--gray-light);
+        }
+
+        .category-item.active {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .category-count {
+            background-color: var(--gray-light);
+            color: var(--gray-dark);
+            padding: 0.125rem 0.5rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+        }
+
+        .category-item.active .category-count {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Tip Section */
+        .tip-section {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .tip-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tip-option {
+            background-color: white;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius);
+            padding: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tip-option:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .tip-option.selected {
+            background-color: rgba(245, 158, 11, 0.1);
+            border-color: var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .tip-amount {
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+
+        .tip-custom {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tip-custom-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius);
+        }
+
+        .tip-custom-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .tip-submit {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tip-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Video List Section */
+        .video-list-section {
+            margin-bottom: 3rem;
+        }
+
+        .video-filters {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: none;
+            border: 1px solid var(--gray-light);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius);
+            min-width: 250px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .search-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .video-card {
+            background-color: var(--light);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .video-card-thumbnail {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-color: #000;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .video-card-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-duration {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+
+        .video-card-info {
+            padding: 1rem;
+        }
+
+        .video-card-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .video-card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-card-creator {
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+
+        .video-card-stats {
+            font-size: 0.875rem;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .video-card-description {
+            font-size: 0.875rem;
+            color: var(--gray-dark);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+        }
+
+        .video-card-tag {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--primary);
+            padding: 0.125rem 0.5rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+        }
+
+        /* Upload Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--light);
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        /* Upload Form */
+        .upload-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--gray-dark);
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-checkbox input {
+            width: 18px;
+            height: 18px;
+        }
+
+        .file-upload-area {
+            border: 2px dashed var(--gray-light);
+            border-radius: var(--radius);
+            padding: 3rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .file-upload-area:hover {
+            border-color: var(--primary);
+        }
+
+        .file-upload-area i {
+            font-size: 3rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .file-upload-area p {
+            margin-bottom: 0.5rem;
+        }
+
+        .file-upload-area small {
+            color: var(--gray);
+        }
+
+        .upload-progress {
+            margin-top: 1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: var(--gray-light);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .upload-status {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .upload-status i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .upload-status.success i {
+            color: var(--success);
+        }
+
+        .upload-status.error i {
+            color: var(--danger);
+        }
+
+        /* Watermark Label */
+        .streaminghoney-label {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background-color: rgba(245, 158, 11, 0.9);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        /* Auth Required Message */
+        .auth-message {
+            background-color: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: var(--radius);
+            padding: 1rem;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .auth-message p {
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .copyright {
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: var(--gray);
+            font-size: 1.25rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Loading States */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--gray);
+        }
+
+        .loading-spinner {
+            border: 3px solid var(--gray-light);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Empty States */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--gray);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Error States */
+        .error-message {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            padding: 1rem;
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Notification */
+        #notification {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 2000;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .video-main {
+                grid-template-columns: 1fr;
+            }
+            
+            .video-sidebar {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                display: grid;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .video-hero-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+            
+            .video-stats {
+                justify-content: center;
+            }
+            
+            .videos-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .video-filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            .search-input {
+                min-width: 0;
+                flex: 1;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <i class="fas fa-bee" style="color: var(--primary); margin-right: 0.5rem;"></i>
+                    Digi<span>Hive</span>
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="marketplace.html">Marketplace</a></li>
+                    <li><a href="videos.html" class="active">Video Content</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="seller.html">Seller Portal</a></li>
+                </ul>
+                
+                <div class="user-section">
+                    <div class="user-info">
+                        <div class="user-avatar" id="userAvatar">?</div>
+                        <div class="user-details">
+                            <h3 id="userName">Guest</h3>
+                            <p id="userType">Viewer</p>
+                        </div>
+                    </div>
+                    <button class="upload-btn" id="uploadVideoBtn" onclick="openUploadModal()">
+                        <i class="fas fa-upload"></i> Upload
+                    </button>
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Video Hero Section -->
+    <section class="video-hero">
+        <div class="container">
+            <div class="video-hero-content">
+                <div class="video-hero-text">
+                    <h1>StreamingHoney Video Platform</h1>
+                    <p>Watch premium video content from creators worldwide. Support creators with tips and engage with the community.</p>
+                </div>
+                <div class="video-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalVideosCount">0</div>
+                        <div class="stat-label">Videos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalCreatorsCount">0</div>
+                        <div class="stat-label">Creators</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalTipsCount">R0</div>
+                        <div class="stat-label">Tips Sent</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="video-main">
+            <!-- Main Video Player Section -->
+            <div class="video-player-section">
+                <div class="video-container">
+                    <div class="streaminghoney-label">StreamingHoney</div>
+                    <video id="mainVideoPlayer" controls></video>
+                    <div id="videoPlaceholder" class="video-placeholder">
+                        <div>
+                            <i class="fas fa-play-circle"></i>
+                            <h3>Select a video to start watching</h3>
+                            <p>Choose from the recommended videos or browse the video library</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-controls">
+                    <div class="video-stats-bar" id="videoStatsBar">
+                        <div class="stat-action" id="likeBtn" onclick="toggleLike()">
+                            <i class="far fa-thumbs-up"></i>
+                            <span id="likeCount">0</span>
+                        </div>
+                        <div class="stat-action" onclick="shareVideo()">
+                            <i class="fas fa-share"></i>
+                            <span>Share</span>
+                        </div>
+                        <div class="stat-action" id="saveBtn" onclick="toggleSave()">
+                            <i class="far fa-bookmark"></i>
+                            <span>Save</span>
+                        </div>
+                        <div class="stat-action" id="downloadBtn" onclick="downloadVideo()">
+                            <i class="fas fa-download"></i>
+                            <span>Download</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-info" id="videoInfo" style="display: none;">
+                    <h1 class="video-title" id="videoTitle">Video Title</h1>
+                    
+                    <div class="video-meta">
+                        <div class="video-creator" id="videoCreator">
+                            <div class="creator-avatar">C</div>
+                            <div class="creator-info">
+                                <h4 id="creatorName">Creator Name</h4>
+                                <p id="creatorSubscribers">0 subscribers</p>
+                            </div>
+                        </div>
+                        <div id="authMessage" class="auth-message" style="display: none;">
+                            <p>Log in to like, comment, and tip creators</p>
+                            <button class="btn btn-primary" onclick="redirectToLogin()">
+                                <i class="fas fa-sign-in-alt"></i> Log In
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="video-description">
+                        <div class="description-toggle" onclick="toggleDescription()">
+                            <h3>Description</h3>
+                            <i class="fas fa-chevron-down" id="descriptionIcon"></i>
+                        </div>
+                        <div class="description-content collapsed" id="descriptionContent">
+                            <p id="videoDescription">Video description will appear here...</p>
+                            <div class="video-tags" id="videoTags"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tip Section (Only for free videos) -->
+                    <div class="tip-section sidebar-section" id="tipSection" style="display: none;">
+                        <h3>Support the Creator</h3>
+                        <p style="margin-bottom: 1rem; font-size: 0.875rem;">This video is free! Consider tipping the creator to support their work.</p>
+                        
+                        <div class="tip-options">
+                            <div class="tip-option" onclick="selectTipAmount(5)">
+                                <div class="tip-amount">R5</div>
+                                <div style="font-size: 0.75rem; color: var(--gray);">Small Tip</div>
+                            </div>
+                            <div class="tip-option" onclick="selectTipAmount(10)">
+                                <div class="tip-amount">R10</div>
+                                <div style="font-size: 0.75rem; color: var(--gray);">Medium Tip</div>
+                            </div>
+                            <div class="tip-option" onclick="selectTipAmount(20)">
+                                <div class="tip-amount">R20</div>
+                                <div style="font-size: 0.75rem; color: var(--gray);">Large Tip</div>
+                            </div>
+                        </div>
+                        
+                        <div class="tip-custom">
+                            <input type="number" class="tip-custom-input" id="customTipAmount" placeholder="Custom amount (min R0.50)" min="0.5" step="0.5">
+                            <button class="tip-submit" id="tipSubmitBtn" onclick="sendTip()">
+                                <i class="fas fa-heart"></i> Tip
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Comments Section -->
+                    <div class="comments-section">
+                        <div class="section-header">
+                            <h2>Comments</h2>
+                            <div class="comments-count" id="commentsCount">0 comments</div>
+                        </div>
+                        
+                        <div id="commentFormContainer">
+                            <!-- Comment form will be inserted here based on auth status -->
+                        </div>
+                        
+                        <div class="comments-list" id="commentsList">
+                            <!-- Comments will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="video-sidebar">
+                <!-- Recommended Videos -->
+                <div class="sidebar-section">
+                    <h3>Recommended Videos</h3>
+                    <ul class="recommended-videos" id="recommendedVideos">
+                        <!-- Recommended videos will be loaded here -->
+                    </ul>
+                </div>
+
+                <!-- Categories -->
+                <div class="sidebar-section">
+                    <h3>Categories</h3>
+                    <ul class="category-list" id="categoryList">
+                        <!-- Categories will be loaded here -->
+                    </ul>
+                </div>
+
+                <!-- Top Creators -->
+                <div class="sidebar-section">
+                    <h3>Top Creators</h3>
+                    <div id="topCreators">
+                        <!-- Top creators will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Library Section -->
+        <div class="video-list-section">
+            <div class="section-header">
+                <h2>Video Library</h2>
+            </div>
+            
+            <div class="video-filters">
+                <div class="filter-buttons" id="filterButtons">
+                    <!-- Filter buttons will be generated here -->
+                </div>
+                <div class="search-box">
+                    <input type="text" class="search-input" id="videoSearch" placeholder="Search videos...">
+                    <button class="search-btn" onclick="searchVideos()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="videosGrid">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading videos...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Modal -->
+    <div class="modal" id="uploadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Upload Video</h2>
+                <button class="modal-close" onclick="closeModal('uploadModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="authRequiredMessage" class="auth-message" style="display: none;">
+                    <i class="fas fa-lock" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                    <h3>Authentication Required</h3>
+                    <p>You must be logged in to upload videos.</p>
+                    <button class="btn btn-primary" onclick="redirectToLogin()">
+                        <i class="fas fa-sign-in-alt"></i> Log In
+                    </button>
+                </div>
+                
+                <div id="uploadFormContainer">
+                    <!-- Upload form will be inserted here based on auth status -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>DigiHive</h3>
+                    <p>Professional platform for digital content creators.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Platform</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="marketplace.html">Marketplace</a></li>
+                        <li><a href="videos.html">Video Content</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>For Creators</h3>
+                    <ul class="footer-links">
+                        <li><a href="seller.html">Seller Portal</a></li>
+                        <li><a href="plans.html">Pricing Plans</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    &copy; 2024 DigiHive. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification -->
+    <div id="notification"></div>
+
+    <script>
+        // Global Variables
+        let currentUser = null;
+        let currentVideo = null;
+        let videos = [];
+        let categories = [];
+        let creators = [];
+        let selectedTipAmount = 0;
+        let uploadedVideoFile = null;
+        let uploadedThumbnailFile = null;
+
+        // Initialize Page
+        document.addEventListener('DOMContentLoaded', async function() {
+            await checkAuthentication();
+            await loadVideosData();
+            initializePage();
+            setupEventListeners();
+        });
+
+        // Check Authentication
+        async function checkAuthentication() {
+            try {
+                const user = JSON.parse(localStorage.getItem('digihive_user'));
+                currentUser = user;
+                updateUserUI();
+            } catch (error) {
+                console.error('Auth error:', error);
+                currentUser = null;
+            }
+        }
+
+        // Update user UI
+        function updateUserUI() {
+            if (currentUser) {
+                document.getElementById('userName').textContent = currentUser.name || 'User';
+                document.getElementById('userType').textContent = currentUser.isSeller ? 'Creator' : 'Member';
+                document.getElementById('userAvatar').textContent = currentUser.name ? currentUser.name.charAt(0).toUpperCase() : 'U';
+                
+                // Enable upload button
+                document.getElementById('uploadVideoBtn').disabled = false;
+            } else {
+                document.getElementById('userName').textContent = 'Guest';
+                document.getElementById('userType').textContent = 'Viewer';
+                document.getElementById('userAvatar').textContent = '?';
+                
+                // Disable upload button
+                document.getElementById('uploadVideoBtn').disabled = true;
+            }
+        }
+
+        // Load videos data
+        async function loadVideosData() {
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                // Load from localStorage
+                const storedVideos = JSON.parse(localStorage.getItem('digihive_videos')) || [];
+                videos = storedVideos;
+                
+                // Generate categories from videos
+                const categorySet = new Set();
+                storedVideos.forEach(video => {
+                    categorySet.add(video.category);
+                });
+                categories = Array.from(categorySet);
+                
+                // Generate creators from videos
+                const creatorSet = new Set();
+                storedVideos.forEach(video => {
+                    creatorSet.add(video.creatorId);
+                });
+                creators = Array.from(creatorSet);
+                
+                // Update stats
+                updateStats();
+            } catch (error) {
+                console.error('Error loading videos:', error);
+                showNotification('Error loading videos', 'error');
+            }
+        }
+
+        // Update stats
+        function updateStats() {
+            document.getElementById('totalVideosCount').textContent = videos.length;
+            document.getElementById('totalCreatorsCount').textContent = creators.length;
+            
+            // Calculate total tips
+            let totalTips = 0;
+            videos.forEach(video => {
+                totalTips += video.tipsReceived || 0;
+            });
+            document.getElementById('totalTipsCount').textContent = 'R' + totalTips.toFixed(2);
+        }
+
+        // Initialize page
+        function initializePage() {
+            loadRecommendedVideos();
+            loadCategories();
+            loadTopCreators();
+            loadVideoGrid();
+            generateFilterButtons();
+        }
+
+        // Load recommended videos
+        function loadRecommendedVideos() {
+            const container = document.getElementById('recommendedVideos');
+            
+            if (!videos.length) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <p>No videos available</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Get top 5 videos by views
+            const recommended = [...videos]
+                .sort((a, b) => (b.views || 0) - (a.views || 0))
+                .slice(0, 5);
+            
+            let html = '';
+            recommended.forEach(video => {
+                html += `
+                    <li class="recommended-video" onclick="loadVideo('${video.id}')">
+                        <div class="video-thumbnail">
+                            <div class="thumbnail-placeholder">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="video-preview-info">
+                            <div class="video-preview-title">${video.title}</div>
+                            <div class="video-preview-creator">${video.creatorName}</div>
+                            <div class="video-preview-stats">
+                                ${formatNumber(video.views || 0)} views • ${formatTimeAgo(video.uploadDate)}
+                            </div>
+                        </div>
+                    </li>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // Load categories
+        function loadCategories() {
+            const container = document.getElementById('categoryList');
+            
+            if (!categories.length) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <p>No categories</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            categories.forEach(category => {
+                const count = videos.filter(v => v.category === category).length;
+                html += `
+                    <li class="category-item" onclick="filterByCategory('${category}')">
+                        <span>${category}</span>
+                        <span class="category-count">${count}</span>
+                    </li>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // Load top creators
+        function loadTopCreators() {
+            const container = document.getElementById('topCreators');
+            
+            if (!creators.length) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <p>No creators</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Calculate creator stats
+            const creatorStats = {};
+            videos.forEach(video => {
+                if (!creatorStats[video.creatorId]) {
+                    creatorStats[video.creatorId] = {
+                        name: video.creatorName,
+                        videos: 0,
+                        totalViews: 0,
+                        totalTips: video.tipsReceived || 0
+                    };
+                }
+                creatorStats[video.creatorId].videos++;
+                creatorStats[video.creatorId].totalViews += video.views || 0;
+                creatorStats[video.creatorId].totalTips += video.tipsReceived || 0;
+            });
+            
+            // Get top 3 creators by views
+            const topCreators = Object.values(creatorStats)
+                .sort((a, b) => b.totalViews - a.totalViews)
+                .slice(0, 3);
+            
+            let html = '';
+            topCreators.forEach(creator => {
+                html += `
+                    <div style="padding: 0.75rem; border-bottom: 1px solid var(--gray-light); display: flex; align-items: center; gap: 1rem;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background-color: var(--primary); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                            ${creator.name.charAt(0)}
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600;">${creator.name}</div>
+                            <div style="font-size: 0.75rem; color: var(--gray);">
+                                ${creator.videos} videos • ${formatNumber(creator.totalViews)} views
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // Load video grid
+        function loadVideoGrid(filteredVideos = null) {
+            const container = document.getElementById('videosGrid');
+            const videosToShow = filteredVideos || videos;
+            
+            if (!videosToShow.length) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-video-slash"></i>
+                        <h3>No Videos Found</h3>
+                        <p>${filteredVideos ? 'Try different filters' : 'Be the first to upload a video!'}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '<div class="videos-grid">';
+            videosToShow.forEach(video => {
+                html += `
+                    <div class="video-card" onclick="loadVideo('${video.id}')">
+                        <div class="video-card-thumbnail">
+                            <div class="streaminghoney-label">StreamingHoney</div>
+                            <div class="thumbnail-placeholder">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="video-duration">${formatDuration(video.duration || 0)}</div>
+                        </div>
+                        <div class="video-card-info">
+                            <h3 class="video-card-title">${video.title}</h3>
+                            <div class="video-card-meta">
+                                <div class="video-card-creator">${video.creatorName}</div>
+                                <div class="video-card-stats">
+                                    <i class="fas fa-eye"></i> ${formatNumber(video.views || 0)}
+                                </div>
+                            </div>
+                            <p class="video-card-description">${video.description || ''}</p>
+                            <div class="video-card-tags">
+                                <span class="video-card-tag">${video.category}</span>
+                                ${video.isFree ? '<span class="video-card-tag">Free</span>' : ''}
+                                ${video.isDownloadable ? '<span class="video-card-tag">Downloadable</span>' : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            
+            container.innerHTML = html;
+        }
+
+        // Generate filter buttons
+        function generateFilterButtons() {
+            const container = document.getElementById('filterButtons');
+            const filters = [
+                { id: 'all', label: 'All Videos' },
+                { id: 'free', label: 'Free Videos' },
+                { id: 'popular', label: 'Most Popular' },
+                { id: 'recent', label: 'Recently Added' },
+                { id: 'short', label: 'Short Videos (< 5min)' },
+                { id: 'long', label: 'Long Videos (> 20min)' }
+            ];
+            
+            let html = '';
+            filters.forEach(filter => {
+                html += `
+                    <button class="filter-btn ${filter.id === 'all' ? 'active' : ''}" 
+                            onclick="applyFilter('${filter.id}')">
+                        ${filter.label}
+                    </button>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // Apply filter
+        function applyFilter(filterId) {
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            let filteredVideos = [...videos];
+            
+            switch(filterId) {
+                case 'free':
+                    filteredVideos = videos.filter(v => v.isFree);
+                    break;
+                case 'popular':
+                    filteredVideos = [...videos].sort((a, b) => (b.views || 0) - (a.views || 0));
+                    break;
+                case 'recent':
+                    filteredVideos = [...videos].sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate));
+                    break;
+                case 'short':
+                    filteredVideos = videos.filter(v => (v.duration || 0) < 300); // < 5 minutes
+                    break;
+                case 'long':
+                    filteredVideos = videos.filter(v => (v.duration || 0) > 1200); // > 20 minutes
+                    break;
+                default:
+                    // 'all' - show all videos
+                    break;
+            }
+            
+            loadVideoGrid(filteredVideos);
+        }
+
+        // Filter by category
+        function filterByCategory(category) {
+            // Update category selection
+            document.querySelectorAll('.category-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            const filteredVideos = videos.filter(v => v.category === category);
+            loadVideoGrid(filteredVideos);
+        }
+
+        // Search videos
+        function searchVideos() {
+            const searchTerm = document.getElementById('videoSearch').value.toLowerCase();
+            
+            if (!searchTerm) {
+                loadVideoGrid();
+                return;
+            }
+            
+            const filteredVideos = videos.filter(video => 
+                video.title.toLowerCase().includes(searchTerm) ||
+                video.description.toLowerCase().includes(searchTerm) ||
+                video.creatorName.toLowerCase().includes(searchTerm) ||
+                video.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+            );
+            
+            loadVideoGrid(filteredVideos);
+        }
+
+        // Load video
+        function loadVideo(videoId) {
+            const video = videos.find(v => v.id === videoId);
+            if (!video) return;
+            
+            currentVideo = video;
+            
+            // Update video player
+            const videoPlayer = document.getElementById('mainVideoPlayer');
+            const videoPlaceholder = document.getElementById('videoPlaceholder');
+            const videoInfo = document.getElementById('videoInfo');
+            
+            videoPlaceholder.style.display = 'none';
+            videoInfo.style.display = 'block';
+            videoPlayer.style.display = 'block';
+            
+            // In a real app, you would set the video source
+            // videoPlayer.src = video.videoUrl;
+            
+            // Update video info
+            document.getElementById('videoTitle').textContent = video.title;
+            document.getElementById('creatorName').textContent = video.creatorName;
+            document.getElementById('creatorSubscribers').textContent = `${formatNumber(video.subscribers || 0)} subscribers`;
+            document.getElementById('videoDescription').textContent = video.description || 'No description provided.';
+            document.getElementById('likeCount').textContent = formatNumber(video.likes || 0);
+            
+            // Update creator avatar
+            document.querySelector('#videoCreator .creator-avatar').textContent = video.creatorName.charAt(0);
+            
+            // Update tags
+            const tagsContainer = document.getElementById('videoTags');
+            let tagsHtml = '';
+            video.tags.forEach(tag => {
+                tagsHtml += `<span class="tag">${tag}</span>`;
+            });
+            tagsContainer.innerHTML = tagsHtml;
+            
+            // Update like button state
+            const likeBtn = document.getElementById('likeBtn');
+            if (video.userLiked) {
+                likeBtn.classList.add('liked');
+                likeBtn.querySelector('i').className = 'fas fa-thumbs-up';
+            } else {
+                likeBtn.classList.remove('liked');
+                likeBtn.querySelector('i').className = 'far fa-thumbs-up';
+            }
+            
+            // Update save button state
+            const saveBtn = document.getElementById('saveBtn');
+            if (video.userSaved) {
+                saveBtn.classList.add('liked');
+                saveBtn.querySelector('i').className = 'fas fa-bookmark';
+            } else {
+                saveBtn.classList.remove('liked');
+                saveBtn.querySelector('i').className = 'far fa-bookmark';
+            }
+            
+            // Update download button
+            const downloadBtn = document.getElementById('downloadBtn');
+            if (video.isDownloadable) {
+                downloadBtn.style.display = 'flex';
+            } else {
+                downloadBtn.style.display = 'none';
+            }
+            
+            // Show/hide tip section for free videos
+            const tipSection = document.getElementById('tipSection');
+            if (video.isFree) {
+                tipSection.style.display = 'block';
+            } else {
+                tipSection.style.display = 'none';
+            }
+            
+            // Update auth message
+            const authMessage = document.getElementById('authMessage');
+            if (!currentUser) {
+                authMessage.style.display = 'block';
+            } else {
+                authMessage.style.display = 'none';
+            }
+            
+            // Load comments
+            loadComments(video.id);
+            
+            // Update comment form
+            updateCommentForm();
+            
+            // Increment view count
+            incrementViewCount(videoId);
+            
+            // Scroll to video player
+            document.querySelector('.video-player-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Increment view count
+        function incrementViewCount(videoId) {
+            const videoIndex = videos.findIndex(v => v.id === videoId);
+            if (videoIndex === -1) return;
+            
+            videos[videoIndex].views = (videos[videoIndex].views || 0) + 1;
+            saveVideosToStorage();
+        }
+
+        // Load comments
+        function loadComments(videoId) {
+            const commentsList = document.getElementById('commentsList');
+            const commentsCount = document.getElementById('commentsCount');
+            
+            // Get comments from video
+            const video = videos.find(v => v.id === videoId);
+            const comments = video.comments || [];
+            
+            commentsCount.textContent = `${comments.length} comment${comments.length !== 1 ? 's' : ''}`;
+            
+            if (!comments.length) {
+                commentsList.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-comment"></i>
+                        <h3>No Comments Yet</h3>
+                        <p>Be the first to comment on this video</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            comments.forEach(comment => {
+                html += `
+                    <div class="comment">
+                        <div class="comment-header">
+                            <div class="comment-author">
+                                <div class="comment-avatar">${comment.authorName.charAt(0)}</div>
+                                <h4>${comment.authorName}</h4>
+                            </div>
+                            <div class="comment-time">${formatTimeAgo(comment.timestamp)}</div>
+                        </div>
+                        <div class="comment-content">${comment.content}</div>
+                        <div class="comment-actions">
+                            <button class="comment-action ${comment.userLiked ? 'liked' : ''}" 
+                                    onclick="likeComment('${videoId}', '${comment.id}')">
+                                <i class="${comment.userLiked ? 'fas' : 'far'} fa-thumbs-up"></i>
+                                <span>${comment.likes || 0}</span>
+                            </button>
+                            ${currentUser && currentUser.id === comment.authorId ? `
+                                <button class="comment-action" onclick="deleteComment('${videoId}', '${comment.id}')">
+                                    <i class="fas fa-trash"></i>
+                                    <span>Delete</span>
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            commentsList.innerHTML = html;
+        }
+
+        // Update comment form
+        function updateCommentForm() {
+            const container = document.getElementById('commentFormContainer');
+            
+            if (!currentUser) {
+                container.innerHTML = `
+                    <div class="auth-message">
+                        <p>Log in to comment on this video</p>
+                        <button class="btn btn-primary" onclick="redirectToLogin()">
+                            <i class="fas fa-sign-in-alt"></i> Log In
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = `
+                <div class="comment-form">
+                    <textarea class="comment-input" id="commentInput" placeholder="Add a comment..."></textarea>
+                    <button class="comment-submit" id="commentSubmitBtn" onclick="submitComment()">
+                        <i class="fas fa-paper-plane"></i> Post Comment
+                    </button>
+                </div>
+            `;
+        }
+
+        // Submit comment
+        function submitComment() {
+            if (!currentUser || !currentVideo) return;
+            
+            const commentInput = document.getElementById('commentInput');
+            const commentText = commentInput.value.trim();
+            
+            if (!commentText) {
+                showNotification('Please enter a comment', 'warning');
+                return;
+            }
+            
+            // Create comment object
+            const comment = {
+                id: generateId(),
+                authorId: currentUser.id,
+                authorName: currentUser.name || 'User',
+                content: commentText,
+                timestamp: new Date().toISOString(),
+                likes: 0,
+                userLiked: false
+            };
+            
+            // Add comment to video
+            const videoIndex = videos.findIndex(v => v.id === currentVideo.id);
+            if (videoIndex === -1) return;
+            
+            if (!videos[videoIndex].comments) {
+                videos[videoIndex].comments = [];
+            }
+            
+            videos[videoIndex].comments.unshift(comment);
+            saveVideosToStorage();
+            
+            // Update UI
+            commentInput.value = '';
+            loadComments(currentVideo.id);
+            showNotification('Comment posted successfully', 'success');
+        }
+
+        // Like comment
+        function likeComment(videoId, commentId) {
+            if (!currentUser) {
+                showNotification('Please log in to like comments', 'warning');
+                return;
+            }
+            
+            const videoIndex = videos.findIndex(v => v.id === videoId);
+            if (videoIndex === -1) return;
+            
+            const commentIndex = videos[videoIndex].comments.findIndex(c => c.id === commentId);
+            if (commentIndex === -1) return;
+            
+            const comment = videos[videoIndex].comments[commentIndex];
+            
+            if (comment.userLiked) {
+                // Unlike
+                comment.likes = Math.max(0, (comment.likes || 0) - 1);
+                comment.userLiked = false;
+            } else {
+                // Like
+                comment.likes = (comment.likes || 0) + 1;
+                comment.userLiked = true;
+            }
+            
+            saveVideosToStorage();
+            loadComments(videoId);
+        }
+
+        // Delete comment
+        function deleteComment(videoId, commentId) {
+            if (!currentUser) return;
+            
+            if (!confirm('Are you sure you want to delete this comment?')) {
+                return;
+            }
+            
+            const videoIndex = videos.findIndex(v => v.id === videoId);
+            if (videoIndex === -1) return;
+            
+            videos[videoIndex].comments = videos[videoIndex].comments.filter(c => c.id !== commentId);
+            saveVideosToStorage();
+            loadComments(videoId);
+            showNotification('Comment deleted', 'success');
+        }
+
+        // Toggle like
+        function toggleLike() {
+            if (!currentUser) {
+                showNotification('Please log in to like videos', 'warning');
+                return;
+            }
+            
+            if (!currentVideo) return;
+            
+            const videoIndex = videos.findIndex(v => v.id === currentVideo.id);
+            if (videoIndex === -1) return;
+            
+            const video = videos[videoIndex];
+            
+            if (video.userLiked) {
+                // Unlike
+                video.likes = Math.max(0, (video.likes || 0) - 1);
+                video.userLiked = false;
+                
+                const likeBtn = document.getElementById('likeBtn');
+                likeBtn.classList.remove('liked');
+                likeBtn.querySelector('i').className = 'far fa-thumbs-up';
+                document.getElementById('likeCount').textContent = formatNumber(video.likes);
+            } else {
+                // Like
+                video.likes = (video.likes || 0) + 1;
+                video.userLiked = true;
+                
+                const likeBtn = document.getElementById('likeBtn');
+                likeBtn.classList.add('liked');
+                likeBtn.querySelector('i').className = 'fas fa-thumbs-up';
+                document.getElementById('likeCount').textContent = formatNumber(video.likes);
+            }
+            
+            saveVideosToStorage();
+        }
+
+        // Toggle save
+        function toggleSave() {
+            if (!currentUser) {
+                showNotification('Please log in to save videos', 'warning');
+                return;
+            }
+            
+            if (!currentVideo) return;
+            
+            const videoIndex = videos.findIndex(v => v.id === currentVideo.id);
+            if (videoIndex === -1) return;
+            
+            const video = videos[videoIndex];
+            video.userSaved = !video.userSaved;
+            
+            const saveBtn = document.getElementById('saveBtn');
+            if (video.userSaved) {
+                saveBtn.classList.add('liked');
+                saveBtn.querySelector('i').className = 'fas fa-bookmark';
+                showNotification('Video saved to your library', 'success');
+            } else {
+                saveBtn.classList.remove('liked');
+                saveBtn.querySelector('i').className = 'far fa-bookmark';
+                showNotification('Video removed from your library', 'info');
+            }
+            
+            saveVideosToStorage();
+        }
+
+        // Download video
+        function downloadVideo() {
+            if (!currentVideo) return;
+            
+            if (!currentVideo.isDownloadable) {
+                showNotification('This video is not available for download', 'warning');
+                return;
+            }
+            
+            // In a real app, this would initiate a download
+            showNotification('Downloading video...', 'info');
+            
+            // Simulate download
+            setTimeout(() => {
+                showNotification('Video downloaded with StreamingHoney watermark', 'success');
+            }, 1500);
+        }
+
+        // Share video
+        function shareVideo() {
+            if (!currentVideo) return;
+            
+            const shareUrl = `${window.location.origin}/videos.html?video=${currentVideo.id}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: currentVideo.title,
+                    text: `Check out this video on DigiHive: ${currentVideo.title}`,
+                    url: shareUrl
+                });
+            } else {
+                navigator.clipboard.writeText(shareUrl);
+                showNotification('Link copied to clipboard', 'success');
+            }
+        }
+
+        // Select tip amount
+        function selectTipAmount(amount) {
+            selectedTipAmount = amount;
+            
+            // Update UI
+            document.querySelectorAll('.tip-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+            
+            // Update custom input
+            document.getElementById('customTipAmount').value = amount;
+        }
+
+        // Send tip
+        function sendTip() {
+            if (!currentUser) {
+                showNotification('Please log in to send tips', 'warning');
+                return;
+            }
+            
+            if (!currentVideo) return;
+            
+            let amount = selectedTipAmount;
+            const customAmount = parseFloat(document.getElementById('customTipAmount').value);
+            
+            if (customAmount && !isNaN(customAmount) && customAmount >= 0.5) {
+                amount = customAmount;
+            }
+            
+            if (!amount || amount < 0.5) {
+                showNotification('Minimum tip amount is R0.50', 'warning');
+                return;
+            }
+            
+            // In a real app, this would process payment
+            showNotification(`Processing R${amount.toFixed(2)} tip...`, 'info');
+            
+            // Simulate payment processing
+            setTimeout(() => {
+                // Update video tips
+                const videoIndex = videos.findIndex(v => v.id === currentVideo.id);
+                if (videoIndex !== -1) {
+                    videos[videoIndex].tipsReceived = (videos[videoIndex].tipsReceived || 0) + amount;
+                    saveVideosToStorage();
+                    updateStats();
+                }
+                
+                showNotification(`Successfully sent R${amount.toFixed(2)} tip to ${currentVideo.creatorName}!`, 'success');
+                
+                // Reset tip selection
+                selectedTipAmount = 0;
+                document.querySelectorAll('.tip-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                document.getElementById('customTipAmount').value = '';
+            }, 1500);
+        }
+
+        // Open upload modal
+        function openUploadModal() {
+            if (!currentUser) {
+                // Show auth required message
+                document.getElementById('authRequiredMessage').style.display = 'block';
+                document.getElementById('uploadFormContainer').innerHTML = '';
+            } else {
+                // Show upload form
+                document.getElementById('authRequiredMessage').style.display = 'none';
+                loadUploadForm();
+            }
+            
+            openModal('uploadModal');
+        }
+
+        // Load upload form
+        function loadUploadForm() {
+            const container = document.getElementById('uploadFormContainer');
+            
+            container.innerHTML = `
+                <form id="uploadForm" class="upload-form">
+                    <div class="form-group">
+                        <label class="form-label">Video Title *</label>
+                        <input type="text" class="form-input" id="videoTitleInput" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-textarea" id="videoDescriptionInput" placeholder="Describe your video..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Category *</label>
+                        <select class="form-select" id="videoCategoryInput" required>
+                            <option value="">Select Category</option>
+                            <option value="Education">Education</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Tutorial">Tutorial</option>
+                            <option value="Music">Music</option>
+                            <option value="Gaming">Gaming</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Business">Business</option>
+                            <option value="Lifestyle">Lifestyle</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Tags (comma separated)</label>
+                        <input type="text" class="form-input" id="videoTagsInput" placeholder="tag1, tag2, tag3">
+                    </div>
+                    
+                    <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label class="form-label">Video Type</label>
+                            <select class="form-select" id="videoTypeInput">
+                                <option value="free">Free (Accept Tips)</option>
+                                <option value="paid">Paid (Set Price)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" id="priceContainer" style="display: none;">
+                            <label class="form-label">Price (ZAR) *</label>
+                            <input type="number" class="form-input" id="videoPriceInput" min="0" step="0.01">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="isDownloadableInput">
+                            <label for="isDownloadableInput">Allow downloading (with StreamingHoney watermark)</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Video File *</label>
+                        <div class="file-upload-area" onclick="document.getElementById('videoFileInput').click()">
+                            <i class="fas fa-video"></i>
+                            <p>Click to upload video file</p>
+                            <small>Max file size: 2GB • Supported formats: MP4, MOV, AVI, MKV</small>
+                            <div id="selectedVideoFile" style="margin-top: 1rem;"></div>
+                        </div>
+                        <input type="file" id="videoFileInput" accept="video/*" style="display: none;">
+                        <div class="upload-progress" id="uploadProgress" style="display: none;">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                            <div id="uploadStatus" style="text-align: center; margin-top: 0.5rem;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                        <button type="submit" class="btn btn-primary" id="uploadSubmitBtn">
+                            <i class="fas fa-upload"></i> Upload Video
+                        </button>
+                        <button type="button" class="btn btn-outline" onclick="closeModal('uploadModal')">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                    </div>
+                </form>
+            `;
+            
+            // Setup form event listeners
+            setupUploadForm();
+        }
+
+        // Setup upload form
+        function setupUploadForm() {
+            const videoTypeInput = document.getElementById('videoTypeInput');
+            const priceContainer = document.getElementById('priceContainer');
+            const videoFileInput = document.getElementById('videoFileInput');
+            const selectedVideoFile = document.getElementById('selectedVideoFile');
+            
+            // Video type change
+            videoTypeInput.addEventListener('change', function() {
+                if (this.value === 'paid') {
+                    priceContainer.style.display = 'block';
+                } else {
+                    priceContainer.style.display = 'none';
+                }
+            });
+            
+            // File input change
+            videoFileInput.addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    const file = this.files[0];
+                    uploadedVideoFile = file;
+                    
+                    // Validate file
+                    const maxSize = 2 * 1024 * 1024 * 1024; // 2GB
+                    if (file.size > maxSize) {
+                        showNotification('File size exceeds 2GB limit', 'error');
+                        this.value = '';
+                        uploadedVideoFile = null;
+                        selectedVideoFile.innerHTML = '';
+                        return;
+                    }
+                    
+                    // Validate file type
+                    const validTypes = ['video/mp4', 'video/quicktime', 'video/x-msvideo', 'video/x-matroska'];
+                    if (!validTypes.includes(file.type)) {
+                        showNotification('Invalid file type. Please upload MP4, MOV, AVI, or MKV files.', 'error');
+                        this.value = '';
+                        uploadedVideoFile = null;
+                        selectedVideoFile.innerHTML = '';
+                        return;
+                    }
+                    
+                    selectedVideoFile.innerHTML = `
+                        <i class="fas fa-file-video" style="margin-right: 0.5rem;"></i>
+                        <strong>${file.name}</strong> (${formatFileSize(file.size)})
+                    `;
+                    selectedVideoFile.style.color = 'var(--success)';
+                }
+            });
+            
+            // Form submission
+            document.getElementById('uploadForm').addEventListener('submit', uploadVideo);
+        }
+
+        // Upload video
+        async function uploadVideo(event) {
+            event.preventDefault();
+            
+            if (!uploadedVideoFile) {
+                showNotification('Please select a video file', 'error');
+                return;
+            }
+            
+            const submitBtn = document.getElementById('uploadSubmitBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+            
+            try {
+                // Get form data
+                const videoData = {
+                    id: generateId(),
+                    title: document.getElementById('videoTitleInput').value,
+                    description: document.getElementById('videoDescriptionInput').value,
+                    category: document.getElementById('videoCategoryInput').value,
+                    tags: document.getElementById('videoTagsInput').value.split(',').map(tag => tag.trim()).filter(tag => tag),
+                    isFree: document.getElementById('videoTypeInput').value === 'free',
+                    price: document.getElementById('videoPriceInput').value ? parseFloat(document.getElementById('videoPriceInput').value) : 0,
+                    isDownloadable: document.getElementById('isDownloadableInput').checked,
+                    creatorId: currentUser.id,
+                    creatorName: currentUser.name || 'User',
+                    uploadDate: new Date().toISOString(),
+                    views: 0,
+                    likes: 0,
+                    userLiked: false,
+                    userSaved: false,
+                    comments: [],
+                    tipsReceived: 0,
+                    duration: 0, // In seconds
+                    // In a real app, you would get this from the video file
+                    videoUrl: '#', // Placeholder for actual video URL
+                    thumbnailUrl: '#' // Placeholder for thumbnail URL
+                };
+                
+                // Validate required fields
+                if (!videoData.title || !videoData.category) {
+                    throw new Error('Please fill in all required fields');
+                }
+                
+                if (!videoData.isFree && videoData.price <= 0) {
+                    throw new Error('Please set a price for paid videos');
+                }
+                
+                // Show upload progress
+                const uploadProgress = document.getElementById('uploadProgress');
+                const progressFill = document.getElementById('progressFill');
+                const uploadStatus = document.getElementById('uploadStatus');
+                
+                uploadProgress.style.display = 'block';
+                progressFill.style.width = '0%';
+                uploadStatus.textContent = 'Starting upload...';
+                
+                // Simulate upload progress
+                await simulateUploadProgress(progressFill, uploadStatus);
+                
+                // Add video to collection
+                videos.unshift(videoData);
+                saveVideosToStorage();
+                
+                // Update categories if new
+                if (!categories.includes(videoData.category)) {
+                    categories.push(videoData.category);
+                    loadCategories();
+                }
+                
+                // Update creators if new
+                if (!creators.includes(videoData.creatorId)) {
+                    creators.push(videoData.creatorId);
+                    loadTopCreators();
+                }
+                
+                // Update stats
+                updateStats();
+                
+                // Reset form
+                document.getElementById('uploadForm').reset();
+                document.getElementById('selectedVideoFile').innerHTML = '';
+                uploadedVideoFile = null;
+                
+                // Close modal
+                closeModal('uploadModal');
+                
+                // Update video grid
+                loadVideoGrid();
+                loadRecommendedVideos();
+                
+                showNotification('Video uploaded successfully!', 'success');
+                
+                // Load the new video
+                setTimeout(() => {
+                    loadVideo(videoData.id);
+                }, 500);
+                
+            } catch (error) {
+                console.error('Error uploading video:', error);
+                showNotification(error.message || 'Error uploading video', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-upload"></i> Upload Video';
+            }
+        }
+
+        // Simulate upload progress
+        async function simulateUploadProgress(progressFill, uploadStatus) {
+            return new Promise(resolve => {
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += 5;
+                    progressFill.style.width = progress + '%';
+                    
+                    if (progress <= 30) {
+                        uploadStatus.textContent = 'Processing video...';
+                    } else if (progress <= 60) {
+                        uploadStatus.textContent = 'Generating thumbnail...';
+                    } else if (progress <= 90) {
+                        uploadStatus.textContent = 'Applying StreamingHoney watermark...';
+                    } else {
+                        uploadStatus.textContent = 'Finalizing upload...';
+                    }
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        setTimeout(resolve, 500);
+                    }
+                }, 100);
+            });
+        }
+
+        // Save videos to storage
+        function saveVideosToStorage() {
+            localStorage.setItem('digihive_videos', JSON.stringify(videos));
+        }
+
+        // Toggle description
+        function toggleDescription() {
+            const content = document.getElementById('descriptionContent');
+            const icon = document.getElementById('descriptionIcon');
+            
+            if (content.classList.contains('collapsed')) {
+                content.classList.remove('collapsed');
+                icon.className = 'fas fa-chevron-up';
+            } else {
+                content.classList.add('collapsed');
+                icon.className = 'fas fa-chevron-down';
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Logout button
+            document.getElementById('logoutBtn').addEventListener('click', logout);
+            
+            // Search input enter key
+            document.getElementById('videoSearch').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchVideos();
+                }
+            });
+        }
+
+        // Logout
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                // In a real app, this would clear session
+                currentUser = null;
+                updateUserUI();
+                showNotification('Logged out successfully', 'info');
+                
+                // Update comment form if video is loaded
+                if (currentVideo) {
+                    updateCommentForm();
+                }
+            }
+        }
+
+        // Open modal
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        // Close modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Redirect to login
+        function redirectToLogin() {
+            window.location.href = 'dashboard.html';
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            const icon = type === 'success' ? 'fa-check-circle' :
+                        type === 'error' ? 'fa-exclamation-circle' :
+                        type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle';
+            
+            const color = type === 'success' ? 'var(--success)' :
+                         type === 'error' ? 'var(--danger)' :
+                         type === 'warning' ? 'var(--warning)' : 'var(--info)';
+            
+            notification.innerHTML = `
+                <div style="background-color: ${color}; color: white; padding: 1rem 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 0.5rem; min-width: 300px;">
+                    <i class="fas ${icon}"></i>
+                    <span>${message}</span>
+                    <button onclick="this.parentElement.parentElement.style.display='none'" style="background: none; border: none; color: white; margin-left: 1rem; cursor: pointer;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            
+            notification.style.display = 'block';
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 5000);
+        }
+
+        // Utility functions
+        function generateId() {
+            return 'vid_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + 'M';
+            }
+            if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            }
+            return num.toString();
+        }
+
+        function formatTimeAgo(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMs / 3600000);
+            const diffDays = Math.floor(diffMs / 86400000);
+            
+            if (diffMins < 1) return 'just now';
+            if (diffMins < 60) return `${diffMins} minute${diffMins !== 1 ? 's' : ''} ago`;
+            if (diffHours < 24) return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
+            if (diffDays < 30) return `${diffDays} day${diffDays !== 1 ? 's' : ''} ago`;
+            
+            const diffMonths = Math.floor(diffDays / 30);
+            if (diffMonths < 12) return `${diffMonths} month${diffMonths !== 1 ? 's' : ''} ago`;
+            
+            const diffYears = Math.floor(diffDays / 365);
+            return `${diffYears} year${diffYears !== 1 ? 's' : ''} ago`;
+        }
+
+        function formatDuration(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = Math.floor(seconds % 60);
+            
+            if (hours > 0) {
+                return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+            return `${minutes}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            if (bytes < 1024 * 1024 * 1024) return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+            return (bytes / (1024 * 1024 * 1024)).toFixed(1) + ' GB';
+        }
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
