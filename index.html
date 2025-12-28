@@ -6,532 +6,36 @@
     <title>Dhive - Professional Platform for Digital Products</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #f59e0b;
-            --primary-dark: #d97706;
-            --secondary: #10b981;
-            --danger: #ef4444;
-            --gray-light: #f3f4f6;
-            --gray: #9ca3af;
-            --gray-dark: #4b5563;
-            --dark: #1f2937;
-            --light: #ffffff;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --info: #3b82f6;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --radius: 8px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f9fafb;
-            color: var(--dark);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Mobile-first responsive design */
-        .container {
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 16px;
-        }
-
-        /* Header */
-        header {
-            background-color: var(--light);
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 0 16px;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            flex-wrap: wrap;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            font-size: 1.5rem;
-            font-weight: 800;
-            text-decoration: none;
-            color: var(--dark);
-        }
-
-        .logo span {
-            color: var(--primary);
-        }
-
-        /* Mobile Menu Button */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--dark);
-            cursor: pointer;
-            padding: 0.5rem;
-            z-index: 1001;
-        }
-
-        /* Navigation Links */
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 1.5rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--gray-dark);
-            font-weight: 500;
-            transition: color 0.3s;
-            padding: 0.5rem 0;
-            position: relative;
-            white-space: nowrap;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--primary);
-        }
-
-        .user-section {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        /* Mobile Navigation */
-        .mobile-nav {
-            position: fixed;
-            top: 76px;
-            left: 0;
-            width: 100%;
-            height: calc(100vh - 76px);
-            background: var(--light);
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-            z-index: 999;
-            overflow-y: auto;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .mobile-nav.active {
-            transform: translateX(0);
-        }
-
-        .mobile-nav-links {
-            list-style: none;
-            padding: 1.5rem;
-        }
-
-        .mobile-nav-links li {
-            margin-bottom: 0.5rem;
-        }
-
-        .mobile-nav-links a {
-            display: block;
-            padding: 1rem 1.5rem;
-            color: var(--dark);
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: var(--radius);
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-        }
-
-        .mobile-nav-links a:hover,
-        .mobile-nav-links a.active {
-            background: rgba(245, 158, 11, 0.1);
-            color: var(--primary);
-            border-left-color: var(--primary);
-        }
-
-        /* Plans Section on Home Page */
-        .plans-showcase {
-            padding: 4rem 0;
-            background: linear-gradient(135deg, #fefce8 0%, #fef3c7 100%);
-        }
-
-        .plans-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .plan-card {
-            background: white;
-            border-radius: var(--radius);
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            text-align: center;
-        }
-
-        .plan-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--primary);
-        }
-
-        .plan-card.popular {
-            position: relative;
-            border: 2px solid var(--primary);
-        }
-
-        .plan-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--primary);
-            color: white;
-            padding: 0.25rem 1rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .plan-price {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--dark);
-            margin: 1rem 0;
-        }
-
-        .plan-price span {
-            font-size: 1rem;
-            color: var(--gray);
-        }
-
-        /* Buttons - Mobile Optimized */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.875rem 1.5rem;
-            border-radius: var(--radius);
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            transition: all 0.3s;
-            text-decoration: none;
-            font-size: 1rem;
-            min-height: 48px; /* Touch-friendly */
-            min-width: 48px;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        /* Marketplace Button */
-        .marketplace-btn {
-            background-color: var(--success);
-            color: white;
-            padding: 0.875rem 1.5rem;
-            border-radius: var(--radius);
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s;
-        }
-
-        .marketplace-btn:hover {
-            background-color: #0da271;
-            transform: translateY(-2px);
-        }
-
-        /* Forms - Mobile Optimized */
-        .auth-form {
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 1rem;
-            border: 1px solid var(--gray-light);
-            border-radius: var(--radius);
-            font-size: 1rem;
-            transition: all 0.3s;
-            margin-bottom: 1rem;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
-        }
-
-        /* Seller Portal Auth */
-        .seller-auth-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 3rem 2rem;
-            border-radius: var(--radius);
-            text-align: center;
-            margin: 2rem 0;
-        }
-
-        .seller-auth-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
-        }
-
-        /* Video Player Enhancements */
-        .video-interaction {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .video-stat {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: var(--gray-light);
-            border-radius: 50px;
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-
-        .tip-options {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .tip-btn {
-            padding: 0.5rem 1rem;
-            border: 2px solid var(--primary);
-            background: transparent;
-            color: var(--primary);
-            border-radius: var(--radius);
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-        }
-
-        .tip-btn:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .tip-btn.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* Video Upload Restriction */
-        .upload-restriction {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid var(--danger);
-            color: var(--danger);
-            padding: 1rem;
-            border-radius: var(--radius);
-            margin: 1rem 0;
-            text-align: center;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            /* Mobile Navigation */
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            /* Logo size */
-            .logo {
-                font-size: 1.25rem;
-            }
-
-            /* Container padding */
-            .container {
-                padding: 0 12px;
-            }
-
-            /* Plans grid */
-            .plans-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .plan-card {
-                padding: 1.5rem;
-            }
-
-            /* Button sizes */
-            .btn {
-                padding: 1rem 1.5rem;
-                font-size: 1rem;
-                width: 100%;
-                max-width: 100%;
-            }
-
-            /* Forms */
-            .auth-form {
-                padding: 1.5rem;
-            }
-
-            /* Seller portal buttons */
-            .seller-auth-buttons {
-                flex-direction: column;
-            }
-
-            /* Video interactions */
-            .video-interaction {
-                justify-content: center;
-            }
-
-            /* Hide affiliate button on mobile */
-            .nav-links li:has(a[href*="affiliate"]) {
-                display: none;
-            }
-
-            /* Move affiliate link to footer or other location */
-            .mobile-nav-links li:has(a[href*="affiliate"]) {
-                order: 10; /* Move to bottom */
-            }
-        }
-
-        @media (max-width: 480px) {
-            /* Extra small devices */
-            .container {
-                padding: 0 8px;
-            }
-
-            .logo {
-                font-size: 1.1rem;
-            }
-
-            .plan-price {
-                font-size: 2rem;
-            }
-
-            .btn {
-                padding: 0.875rem 1rem;
-                font-size: 0.9375rem;
-            }
-        }
-
-        @media (min-width: 769px) {
-            /* Desktop styles */
-            .mobile-nav {
-                display: none;
-            }
-
-            .nav-links {
-                display: flex;
-            }
-
-            /* Affiliate button positioning */
-            .nav-links li:has(a[href*="affiliate"]) {
-                margin-left: auto; /* Move to right side */
-                order: 2;
-            }
-        }
-
-        /* Tablet */
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .nav-links {
-                gap: 1rem;
-            }
-
-            .plans-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        /* Utility classes */
-        .text-center {
-            text-align: center;
-        }
-
-        .mt-2 { margin-top: 0.5rem; }
-        .mt-4 { margin-top: 1rem; }
-        .mt-8 { margin-top: 2rem; }
-        .mb-2 { margin-bottom: 0.5rem; }
-        .mb-4 { margin-bottom: 1rem; }
-        .mb-8 { margin-bottom: 2rem; }
-
-        /* Ensure forms fit screen */
-        .modal-content {
-            width: 95%;
-            max-width: 400px;
-            margin: 1rem auto;
-        }
-
-        /* Google Auth Button */
-        .google-auth-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            width: 100%;
-            padding: 1rem;
-            background: white;
-            border: 2px solid var(--gray-light);
-            border-radius: var(--radius);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin: 1rem 0;
-        }
-
-        .google-auth-btn:hover {
-            border-color: #4285F4;
-            background: rgba(66, 133, 244, 0.05);
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="mobile.css" media="screen and (max-width: 768px)">
+    <link rel="stylesheet" href="desktop.css" media="screen and (min-width: 769px)">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    
 </head>
 <body>
-    <!-- Header -->
-    <header>
+    <!-- Navigation -->
+    <header id="header">
         <div class="container">
             <nav>
                 <a href="index.html" class="logo">
-                    <i class="fas fa-bee" style="color: var(--primary); margin-right: 0.5rem;"></i>
-                    <span>Dhive</span>
+                    <div class="bee-logo-container">
+                        <div class="bee-logo-animated">
+                            <div class="bee-wings">
+                                <div class="wing wing-left"></div>
+                                <div class="wing wing-right"></div>
+                            </div>
+                            <div class="bee-body">
+                                <div class="bee-stripe stripe-1"></div>
+                                <div class="bee-stripe stripe-2"></div>
+                                <div class="bee-stripe stripe-3"></div>
+                                <div class="bee-antennas">
+                                    <div class="antenna antenna-left"></div>
+                                    <div class="antenna antenna-right"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    Dhive<span></span>
                 </a>
                 
                 <!-- Mobile Menu Button -->
@@ -542,19 +46,21 @@
                 <!-- Desktop Navigation -->
                 <ul class="nav-links" id="desktopNav">
                     <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="marketplace.html" class="marketplace-btn">
-                        <i class="fas fa-store"></i> Marketplace
-                    </a></li>
+                    <li><a href="marketplace.html">Marketplace</a></li>
                     <li><a href="videos.html">Video Content</a></li>
                     <li><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="seller.html">Seller Portal</a></li>
-                    <li><a href="affiliate.html">Affiliate</a></li>
+                    <li><a href="seller.html">Sell on DigiHive</a></li>
+                    <li><a href="plans.html">Pricing</a></li>
+                    <li><a href="affiliate.html">Affiliate Program</a></li>
                 </ul>
                 
-                <div class="user-section">
-                    <button class="btn btn-primary" id="loginBtn">
-                        <i class="fas fa-sign-in-alt"></i> Login
-                    </button>
+                <div class="nav-actions" id="navActions">
+                    <div class="user-wallet" id="userWallet" style="display: none;">
+                        <i class="fas fa-wallet"></i>
+                        <span id="walletBalance">0 Coins</span>
+                    </div>
+                    <button class="btn btn-outline" id="loginBtn">Log In</button>
+                    <button class="btn" id="signupBtn">Create Account</button>
                 </div>
             </nav>
         </div>
@@ -563,25 +69,15 @@
     <!-- Mobile Navigation Menu -->
     <div class="mobile-nav" id="mobileNav">
         <ul class="mobile-nav-links">
-            <li><a href="index.html" class="active" onclick="toggleMobileMenu()">Home</a></li>
-            <li><a href="marketplace.html" onclick="toggleMobileMenu()">
-                <i class="fas fa-store"></i> Marketplace
-            </a></li>
-            <li><a href="videos.html" onclick="toggleMobileMenu()">
-                <i class="fas fa-video"></i> Video Content
-            </a></li>
-            <li><a href="dashboard.html" onclick="toggleMobileMenu()">
-                <i class="fas fa-tachometer-alt"></i> Dashboard
-            </a></li>
-            <li><a href="seller.html" onclick="toggleMobileMenu()">
-                <i class="fas fa-store"></i> Seller Portal
-            </a></li>
-            <li><a href="affiliate.html" onclick="toggleMobileMenu()">
-                <i class="fas fa-handshake"></i> Affiliate
-            </a></li>
-            <li><a href="plans.html" onclick="toggleMobileMenu()">
-                <i class="fas fa-tag"></i> Pricing Plans
-            </a></li>
+            <li><a href="index.html" onclick="toggleMobileMenu()">Home</a></li>
+            <li><a href="marketplace.html" onclick="toggleMobileMenu()">Marketplace</a></li>
+            <li><a href="videos.html" onclick="toggleMobileMenu()">Video Content</a></li>
+            <li><a href="dashboard.html" onclick="toggleMobileMenu()">Dashboard</a></li>
+            <li><a href="seller.html" onclick="toggleMobileMenu()">Sell on DigiHive</a></li>
+            <li><a href="plans.html" onclick="toggleMobileMenu()">Pricing</a></li>
+            <li><a href="profile.html" onclick="toggleMobileMenu()">My Profile</a></li>
+            <li><a href="affiliate.html" onclick="toggleMobileMenu()">Affiliate</a></li>
+            <li><a href="terms.html" onclick="toggleMobileMenu()">Terms</a></li>
         </ul>
     </div>
 
@@ -591,261 +87,374 @@
             <div class="hero-content">
                 <div class="hero-text">
                     <h1>Your Gateway to Digital Success</h1>
-                    <p>Create, sell, and buy premium digital products. Join thousands of creators earning real money with our platform.</p>
+                    <p>Create, sell, and buy premium digital products. Join thousands of creators earning real money with our platform. No account needed to start shopping!</p>
                     <div class="hero-actions">
-                        <a href="marketplace.html" class="btn btn-primary">
+                        <a href="marketplace.html" class="btn">
                             <i class="fas fa-store"></i> Browse Marketplace
                         </a>
-                        <a href="seller.html" class="btn">
+                        <a href="seller.html" class="btn btn-accent">
                             <i class="fas fa-rocket"></i> Start Selling Free
                         </a>
                     </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number" id="creatorsCount">0</div>
+                            <div class="stat-label">Active Creators</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="productsCount">0</div>
+                            <div class="stat-label">Products Sold</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="earningsCount">R0</div>
+                            <div class="stat-label">Creator Earnings</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="floating-cards">
+                        <div class="card card-1">
+                            <h3><i class="fas fa-bolt" style="color: var(--primary);"></i> Instant Delivery</h3>
+                            <p style="color: var(--gray); margin-top: 1rem;">Digital products delivered automatically after purchase</p>
+                        </div>
+                        <div class="card card-2">
+                            <h3><i class="fas fa-shield-alt" style="color: var(--primary);"></i> Secure Platform</h3>
+                            <p style="color: var(--gray); margin-top: 1rem;">Bank-level security for all transactions and data</p>
+                        </div>
+                        <div class="card card-3">
+                            <h3><i class="fas fa-globe" style="color: var(--primary);"></i> Global Reach</h3>
+                            <p style="color: var(--gray); margin-top: 1rem;">Sell to customers worldwide with multi-currency support</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Plans Section on Home Page -->
-    <section class="plans-showcase">
+    <!-- Real-time Counters -->
+    <section class="counter-section">
         <div class="container">
-            <div class="text-center mb-8">
-                <h2>Choose Your Perfect Plan</h2>
-                <p>Start free, upgrade anytime. All plans include our secure platform and 24/7 support.</p>
-            </div>
-            
-            <div class="plans-grid">
-                <!-- Free Plan -->
-                <div class="plan-card">
-                    <h3>Free Forever</h3>
-                    <div class="plan-price">R0<span>/month</span></div>
-                    <ul style="text-align: left; margin: 2rem 0; padding-left: 1rem;">
-                        <li style="margin-bottom: 0.5rem;">✓ Sell Digital Products</li>
-                        <li style="margin-bottom: 0.5rem;">✓ 93% Earnings Retention</li>
-                        <li style="margin-bottom: 0.5rem;">✓ Basic Analytics</li>
-                        <li style="margin-bottom: 0.5rem;">✗ Priority Support</li>
-                    </ul>
-                    <button class="btn" onclick="selectPlan('free')">Start Free</button>
+            <div class="counters-container">
+                <div class="counter-item" id="creatorsCounter">
+                    <span class="counter-value" id="creatorsCountBig">0</span>
+                    <div class="counter-label">Active Creators</div>
                 </div>
-
-                <!-- Basic Plan -->
-                <div class="plan-card popular">
-                    <div class="plan-badge">MOST POPULAR</div>
-                    <h3>Basic</h3>
-                    <div class="plan-price">R249<span>/month</span></div>
-                    <ul style="text-align: left; margin: 2rem 0; padding-left: 1rem;">
-                        <li style="margin-bottom: 0.5rem;">✓ Everything in Free</li>
-                        <li style="margin-bottom: 0.5rem;">✓ 100% Earnings</li>
-                        <li style="margin-bottom: 0.5rem;">✓ Advanced Analytics</li>
-                        <li style="margin-bottom: 0.5rem;">✓ Priority Support</li>
-                    </ul>
-                    <button class="btn btn-primary" onclick="selectPlan('basic')">Choose Basic</button>
+                <div class="counter-item" id="productsCounter">
+                    <span class="counter-value" id="productsCountBig">0</span>
+                    <div class="counter-label">Products Sold</div>
                 </div>
-
-                <!-- Pro Plan -->
-                <div class="plan-card">
-                    <h3>Pro</h3>
-                    <div class="plan-price">R349<span>/month</span></div>
-                    <ul style="text-align: left; margin: 2rem 0; padding-left: 1rem;">
-                        <li style="margin-bottom: 0.5rem;">✓ Everything in Basic</li>
-                        <li style="margin-bottom: 0.5rem;">✓ Algorithm Promotion</li>
-                        <li style="margin-bottom: 0.5rem;">✓ Premium Support</li>
-                        <li style="margin-bottom: 0.5rem;">✓ Early Access Features</li>
-                    </ul>
-                    <button class="btn" onclick="selectPlan('pro')">Go Pro</button>
+                <div class="counter-item" id="earningsCounter">
+                    <span class="counter-value" id="earningsCountBig">R0</span>
+                    <div class="counter-label">Creator Earnings</div>
+                </div>
+                <div class="counter-item" id="usersCounter">
+                    <span class="counter-value" id="usersCount">0</span>
+                    <div class="counter-label">Registered Users</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Seller Portal Auth Section -->
+    <!-- Interactive Visitor Signup -->
     <div class="container">
-        <div class="seller-auth-section">
-            <h2>Seller Portal Access</h2>
-            <p><strong>Authentication Required:</strong> You must be logged in and have a seller account to access the seller portal.</p>
-            <div class="seller-auth-buttons">
-                <a href="dashboard.html" class="btn btn-primary">
-                    <i class="fas fa-sign-in-alt"></i> Go to Dashboard
-                </a>
-                <a href="index.html" class="btn">
-                    <i class="fas fa-home"></i> Return to Home
-                </a>
-                <button class="btn" onclick="openLoginModal()">
-                    <i class="fas fa-user-shield"></i> Access Portal
+        <div class="visitor-signup">
+            <h2>Ready to Join the Hive?</h2>
+            <p>Create your free account today and get access to premium features, seller tools, and a global marketplace of digital products.</p>
+            <div class="visitor-actions">
+                <button class="btn" id="signupTrigger">
+                    <i class="fas fa-user-plus"></i> Create Free Account
                 </button>
+                <a href="marketplace.html" class="btn btn-outline">
+                    <i class="fas fa-shopping-cart"></i> Shop as Visitor
+                </a>
             </div>
+            <p class="visitor-note">
+                <i class="fas fa-check-circle" style="color: var(--success);"></i> No credit card required • Free forever plan available
+            </p>
         </div>
     </div>
 
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Creators Love DigiHive</h2>
+                <p>Built with creators in mind, our platform offers everything you need to build a successful digital business</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h3>Fair Revenue Model</h3>
+                    <p>Keep 93% of every sale on our free plan. Upgrade to Pro for 100% earnings. Buy with 1:1 ratio, withdraw with 2:1 for creators.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>No Account Shopping</h3>
+                    <p>Visitors can purchase products instantly without creating accounts. Full features unlocked with easy signup.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Advanced DRM Protection</h3>
+                    <p>Your digital content stays protected with multi-layer security. Watermarking, encryption, and download limits.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Video Content Platform</h3>
+                    <p>Stream, like, and tip creators directly. Built-in video player with previews and secure content delivery.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Smart Analytics Dashboard</h3>
+                    <p>Real-time insights on sales, customer behavior, and product performance. Make data-driven decisions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Affiliate Program</h3>
+                    <p>Earn 10% commission on every referral. Build your network and earn passive income.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-content">
+                <div class="section-header" style="color: white;">
+                    <h2>Platform Success in Numbers</h2>
+                    <p>Join a thriving community of digital creators and buyers</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item-large">
+                        <h3>0%</h3>
+                        <p>Transaction Fees on Pro Plan</p>
+                    </div>
+                    <div class="stat-item-large">
+                        <h3>R0.50</h3>
+                        <p>Minimum Tip Amount</p>
+                    </div>
+                    <div class="stat-item-large">
+                        <h3>2:1</h3>
+                        <p>Digi-Coins Withdrawal Ratio</p>
+                    </div>
+                    <div class="stat-item-large">
+                        <h3>R50</h3>
+                        <p>Minimum Withdrawal</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Preview -->
+    <section class="featured-products">
+        <div class="container">
+            <div class="section-header">
+                <h2>Trending Digital Products</h2>
+                <p>Browse our curated selection of best-selling digital products. Purchase instantly without an account.</p>
+            </div>
+            <div class="products-grid" id="featuredProducts">
+                <!-- Featured products will be loaded by JavaScript -->
+            </div>
+            <div class="text-center mt-4">
+                <a href="marketplace.html" class="btn btn-outline">
+                    <i class="fas fa-store"></i> View All Products
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Start Your Digital Business Today</h2>
+                <p>Join thousands of creators who trust DigiHive to sell their digital products securely. Free forever plan with no hidden fees.</p>
+                <div class="cta-actions">
+                    <a href="seller.html" class="btn">
+                        <i class="fas fa-rocket"></i> Start Selling Free
+                    </a>
+                    <button class="btn btn-outline" id="buyerSignup">
+                        <i class="fas fa-user-plus"></i> Create Buyer Account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Dhive</h3>
+                    <p>Professional platform for digital content creators. Built with ❤️ for the creator economy.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Platform</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="marketplace.html">Marketplace</a></li>
+                        <li><a href="videos.html">Video Content</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>For Creators</h3>
+                    <ul class="footer-links">
+                        <li><a href="seller.html">Sell on DigiHive</a></li>
+                        <li><a href="plans.html">Pricing Plans</a></li>
+                        <li><a href="affiliate.html">Affiliate Program</a></li>
+                        <li><a href="#" id="creatorResources">Creator Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" id="helpCenter">Help Center</a></li>
+                        <li><a href="#" id="contactUs">Contact Us</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="#" id="privacyPolicy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    &copy; 2024 DigiHive. All rights reserved. Made with <i class="fas fa-heart" style="color: var(--primary);"></i> for creators.
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
     <!-- Login Modal -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
             <div class="modal-header">
-                <h2>Welcome to Dhive</h2>
-                <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+                <h2>Welcome Back!</h2>
+                <p>Log in to access your account and continue your journey</p>
             </div>
-            <div class="modal-body">
-                <form id="loginForm" class="auth-form">
-                    <button type="button" class="google-auth-btn" onclick="loginWithGoogle()">
-                        <i class="fab fa-google"></i> Continue with Google
-                    </button>
-                    
-                    <div class="auth-divider">
-                        <span>or log in with email</span>
-                    </div>
-                    
-                    <input type="email" class="form-input" placeholder="Email Address" required>
-                    <input type="password" class="form-input" placeholder="Password" required>
-                    
-                    <button type="submit" class="btn btn-primary w-100">Log In</button>
-                    
-                    <div class="form-footer">
-                        <p>Don't have an account? <a href="#" onclick="openSignupModal()">Sign up here</a></p>
-                    </div>
-                </form>
-            </div>
+            <form id="loginForm">
+                <button type="button" class="google-auth-btn" onclick="loginWithGoogle()">
+                    <i class="fab fa-google"></i> Log in with Google
+                </button>
+                <div class="auth-divider">
+                    <span>or log in with email</span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-input" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn w-100">Log In</button>
+                <div class="form-footer">
+                    <p>Don't have an account? <a href="#" onclick="closeModal('loginModal'); openModal('signupModal')">Sign up here</a></p>
+                    <p><a href="#" onclick="forgotPassword()">Forgot password?</a></p>
+                </div>
+            </form>
         </div>
     </div>
 
     <!-- Signup Modal -->
     <div class="modal" id="signupModal">
         <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('signupModal')">&times;</button>
             <div class="modal-header">
-                <h2>Join Dhive</h2>
-                <button class="modal-close" onclick="closeModal('signupModal')">&times;</button>
+                <h2>Join the Hive!</h2>
+                <p>Create your account and start your digital journey today</p>
             </div>
-            <div class="modal-body">
-                <form id="signupForm" class="auth-form">
-                    <button type="button" class="google-auth-btn" onclick="signupWithGoogle()">
-                        <i class="fab fa-google"></i> Sign up with Google
-                    </button>
-                    
-                    <div class="auth-divider">
-                        <span>or sign up with email</span>
-                    </div>
-                    
-                    <input type="text" class="form-input" placeholder="Full Name" required>
-                    <input type="email" class="form-input" placeholder="Email Address" required>
-                    <input type="password" class="form-input" placeholder="Password" required>
-                    
-                    <select class="form-input" required>
-                        <option value="">Select Account Type</option>
-                        <option value="buyer">Buyer Account</option>
-                        <option value="seller">Seller Account</option>
+            <form id="signupForm">
+                <button type="button" class="google-auth-btn" onclick="signupWithGoogle()">
+                    <i class="fab fa-google"></i> Sign up with Google
+                </button>
+                <div class="auth-divider">
+                    <span>or continue with email</span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Full Name *</label>
+                    <input type="text" class="form-input" id="signupName" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email Address *</label>
+                    <input type="email" class="form-input" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password *</label>
+                    <input type="password" class="form-input" id="signupPassword" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Account Type *</label>
+                    <select class="form-input" id="accountType" required>
+                        <option value="">Select account type</option>
+                        <option value="buyer">Buyer Account (Purchase Only)</option>
+                        <option value="seller">Seller Account (Sell Products)</option>
+                        <option value="both">Both (Buyer & Seller)</option>
                     </select>
-                    
-                    <div class="terms-acceptance">
-                        <input type="checkbox" id="acceptTerms" required>
-                        <label for="acceptTerms">I agree to the Terms and Conditions</label>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary w-100">Create Account</button>
-                </form>
+                </div>
+                <div class="terms-acceptance">
+                    <input type="checkbox" id="acceptTerms" required>
+                    <label for="acceptTerms">I agree to the <a href="terms.html">Terms and Conditions</a></label>
+                </div>
+                <button type="submit" class="btn w-100">Create Account</button>
+                <div class="form-footer">
+                    <p>Already have an account? <a href="#" onclick="closeModal('signupModal'); openModal('loginModal')">Log in here</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Email Verification Modal -->
+    <div class="modal" id="verificationModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('verificationModal')">&times;</button>
+            <div class="verification-container">
+                <h2>Email Verification</h2>
+                <p>We've sent a 6-digit code to your email address. Please enter it below:</p>
+                <div class="verification-code">
+                    <input type="text" class="verification-input" maxlength="1" oninput="moveToNext(this, 1)">
+                    <input type="text" class="verification-input" maxlength="1" oninput="moveToNext(this, 2)">
+                    <input type="text" class="verification-input" maxlength="1" oninput="moveToNext(this, 3)">
+                    <input type="text" class="verification-input" maxlength="1" oninput="moveToNext(this, 4)">
+                    <input type="text" class="verification-input" maxlength="1" oninput="moveToNext(this, 5)">
+                    <input type="text" class="verification-input" maxlength="1" oninput="moveToNext(this, 6)">
+                </div>
+                <button class="btn" onclick="verifyEmail()">
+                    <i class="fas fa-check"></i> Verify Email
+                </button>
+                <p>Didn't receive the code? <a href="#" onclick="resendVerification()">Resend Code</a></p>
             </div>
         </div>
     </div>
 
-    <script>
-        // Mobile Menu Toggle
-        function toggleMobileMenu() {
-            const mobileNav = document.getElementById('mobileNav');
-            const menuIcon = document.querySelector('#mobileMenuBtn i');
-            
-            mobileNav.classList.toggle('active');
-            
-            if (mobileNav.classList.contains('active')) {
-                menuIcon.classList.remove('fa-bars');
-                menuIcon.classList.add('fa-times');
-                document.body.style.overflow = 'hidden';
-            } else {
-                menuIcon.classList.remove('fa-times');
-                menuIcon.classList.add('fa-bars');
-                document.body.style.overflow = 'auto';
-            }
-        }
+    <!-- Cart Notification -->
+    <div id="cartNotification">
+        <span id="cartMessage"></span>
+        <button class="btn btn-outline" onclick="viewCart()">View Cart</button>
+    </div>
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            const mobileNav = document.getElementById('mobileNav');
-            const menuBtn = document.getElementById('mobileMenuBtn');
-            
-            if (mobileNav.classList.contains('active') && 
-                !mobileNav.contains(e.target) && 
-                !menuBtn.contains(e.target)) {
-                toggleMobileMenu();
-            }
-        });
-
-        // Modal Functions
-        function openLoginModal() {
-            document.getElementById('loginModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function openSignupModal() {
-            closeModal('loginModal');
-            document.getElementById('signupModal').classList.add('active');
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Google Auth Functions
-        function loginWithGoogle() {
-            // Simulate Google auth
-            alert('Google authentication would be implemented here');
-            // In production, this would redirect to Google OAuth
-        }
-
-        function signupWithGoogle() {
-            loginWithGoogle();
-        }
-
-        // Plan Selection
-        function selectPlan(plan) {
-            alert(`Selected ${plan} plan`);
-            // In production, this would redirect to checkout or update account
-        }
-
-        // Form Submission
-        document.getElementById('loginForm')?.addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Handle login logic
-            closeModal('loginModal');
-            alert('Login successful!');
-        });
-
-        document.getElementById('signupForm')?.addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Handle signup logic
-            closeModal('signupModal');
-            alert('Account created successfully!');
-        });
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add event listeners
-            document.getElementById('loginBtn').addEventListener('click', openLoginModal);
-            
-            // Close modals on outside click
-            document.querySelectorAll('.modal').forEach(modal => {
-                modal.addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        closeModal(this.id);
-                    }
-                });
-            });
-
-            // Close modals on escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    document.querySelectorAll('.modal.active').forEach(modal => {
-                        closeModal(modal.id);
-                    });
-                }
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
