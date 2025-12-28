@@ -3,32 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marketplace - DigiHive</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="mobile.css" media="screen and (max-width: 768px)">
-    <link rel="stylesheet" href="desktop.css" media="screen and (min-width: 769px)">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Marketplace - Dhive</title>
+    <!-- Same styles as index.html -->
 </head>
 <body>
     <!-- Same header as index.html -->
-    <!-- Marketplace specific content -->
-    <div class="marketplace-header">
-        <div class="container">
-            <h1>Digital Marketplace</h1>
-            <p>Browse and purchase premium digital products from talented creators worldwide</p>
-        </div>
-    </div>
-    
+
     <div class="container">
-        <div class="filters">
-            <!-- Filters content -->
+        <div class="marketplace-header">
+            <h1>Digital Products Marketplace</h1>
+            <p>Browse and purchase digital products from creators worldwide. No account required to shop!</p>
         </div>
-        <div class="products-grid" id="marketplaceProducts">
-            <!-- Products loaded by JavaScript -->
+
+        <div class="products-grid">
+            <!-- Products will be loaded here -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="product-info">
+                    <h3>Digital Marketing Guide</h3>
+                    <p>Complete guide to digital marketing strategies</p>
+                    <div class="product-price">R149.00</div>
+                    <button class="btn btn-primary" onclick="addToCart(1)">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <!-- More products... -->
         </div>
     </div>
-    <!-- Same footer as index.html -->
-    <script src="script.js"></script>
+
+    <script>
+        // Marketplace specific functionality
+        function addToCart(productId) {
+            let cart = JSON.parse(localStorage.getItem('dhive_cart')) || [];
+            cart.push({
+                id: productId,
+                addedAt: new Date().toISOString()
+            });
+            localStorage.setItem('dhive_cart', JSON.stringify(cart));
+            showNotification('Product added to cart!', 'success');
+        }
+    </script>
 </body>
 </html>
