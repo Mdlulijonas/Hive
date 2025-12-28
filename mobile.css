@@ -325,3 +325,58 @@ html {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+/* Mobile Marketplace Styles */
+@media (max-width: 768px) {
+    .back-home-btn {
+        margin-right: 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .marketplace-header {
+        padding: 2rem 0;
+    }
+    
+    .marketplace-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .filters-sidebar {
+        position: static;
+    }
+    
+    .products-grid.grid-view {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+    
+    .product-card {
+        margin-bottom: 1rem;
+    }
+    
+    .product-image {
+        height: 150px;
+    }
+    
+    .product-info {
+        padding: 1rem;
+    }
+    
+    .product-title {
+        font-size: 1rem;
+    }
+    
+    .current-price {
+        font-size: 1.2rem;
+    }
+    
+    .product-footer {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
+    
+    .product-meta {
+        flex-direction: row;
+        gap: 1rem;
+    }
+}
