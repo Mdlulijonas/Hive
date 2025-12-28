@@ -9,66 +9,64 @@
 <body>
     <!-- Same header as index.html -->
 
-    <div class="container">
-        <!-- Video Player -->
-        <div class="video-player">
-            <video id="mainVideo" controls>
-                <source src="#" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            
-            <div class="video-info">
-                <h2 id="videoTitle">Video Title</h2>
-                <div class="video-stats">
-                    <span id="viewCount">0 views</span>
-                    • 
-                    <span id="uploadDate">Just now</span>
-                </div>
-                
-                <div class="video-actions">
-                    <button class="video-action-btn" onclick="toggleLike()">
-                        <i class="far fa-thumbs-up"></i>
-                        <span id="likeCount">0</span>
-                    </button>
-                    
-                    <button class="video-action-btn" onclick="toggleCommentSection()">
-                        <i class="far fa-comment"></i>
-                        <span id="commentCount">0</span>
-                    </button>
-                    
-                    <button class="video-action-btn" onclick="shareVideo()">
-                        <i class="fas fa-share"></i> Share
-                    </button>
-                    
-                    <button class="video-action-btn" onclick="toggleSave()">
-                        <i class="far fa-bookmark"></i> Save
-                    </button>
-                    
-                    <button class="video-action-btn btn-primary" onclick="openTipModal()">
-                        <i class="fas fa-heart"></i> Tip Creator
-                    </button>
-                </div>
-                
-                <!-- Comment Section -->
-                <div class="comment-section" id="commentSection" style="display: none;">
-                    <h3>Comments</h3>
-                    <div class="comments-list" id="commentsList">
-                        <!-- Comments will be loaded here -->
-                    </div>
-                    <div class="comment-form">
-                        <textarea placeholder="Add a comment..." id="commentInput"></textarea>
-                        <button class="btn btn-primary" onclick="postComment()">Post</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   <!-- Replace the video player section in your original videos.html with this -->
 
-    <!-- Tip Modal -->
-    <div class="modal" id="tipModal">
-        <div class="modal-content">
-            <h2>Tip the Creator</h2>
-            <p>Minimum tip amount: R1</p>
+<!-- In the video-player-section div, add these updates: -->
+<div class="video-player-section" aria-labelledby="video-title">
+    <!-- Add watermark label -->
+    <div class="watermark-label">StreamingHoney</div>
+    
+    <!-- Add view counter near video -->
+    <div class="view-counter">
+        <i class="fas fa-eye"></i>
+        <span id="viewCount">0</span> views
+    </div>
+    
+    <!-- Rest of original video player code remains the same -->
+</div>
+
+<!-- In the video-controls div, update buttons: -->
+<div class="video-controls">
+    <div class="video-stats-bar" id="videoStatsBar">
+        <button class="stat-action" id="likeBtn" onclick="toggleLike()" aria-label="Like video">
+            <i class="far fa-thumbs-up"></i>
+            <span id="likeCount">0</span>
+        </button>
+        
+        <!-- Comment button that toggles comment section -->
+        <button class="stat-action" onclick="toggleCommentSection()" aria-label="Show comments">
+            <i class="far fa-comment"></i>
+            <span id="commentCount">0</span>
+        </button>
+        
+        <button class="stat-action" onclick="shareVideo()" aria-label="Share video">
+            <i class="fas fa-share"></i>
+            <span>Share</span>
+        </button>
+        
+        <button class="stat-action" id="saveBtn" onclick="toggleSave()" aria-label="Save video">
+            <i class="far fa-bookmark"></i>
+            <span>Save</span>
+        </button>
+        
+        <!-- Tip button - only for account holders -->
+        <button class="stat-action tip-btn" onclick="openTipModal()" aria-label="Tip creator" 
+                id="tipBtn" style="display: none;">
+            <i class="fas fa-heart"></i>
+            <span>Tip</span>
+        </button>
+    </div>
+</div>
+
+<!-- Add Tip Modal (place before closing body tag) -->
+<div class="modal" id="tipModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Support the Creator</h2>
+            <button class="modal-close" onclick="closeModal('tipModal')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>Minimum tip amount: <strong>R1</strong></p>
             
             <div class="tip-options">
                 <button class="tip-option" onclick="selectTipAmount(1)">R1</button>
@@ -78,182 +76,230 @@
                 <button class="tip-option" onclick="selectTipAmount(50)">R50</button>
             </div>
             
-            <div class="custom-tip">
-                <input type="number" id="customTipAmount" placeholder="Custom amount" min="1" step="0.01">
-                <button class="btn btn-primary" onclick="processCustomTip()">Custom Amount</button>
-            </div>
-            
-            <div class="payment-methods">
-                <h4>Payment Methods:</h4>
-                <button class="btn btn-outline" onclick="processCardPayment()">
-                    <i class="fas fa-credit-card"></i> Card Payment
-                </button>
-                <button class="btn btn-outline" onclick="processDigicoinPayment()">
-                    <i class="fas fa-coins"></i> Digi-Coins
+            <div class="tip-custom">
+                <input type="number" class="form-input" id="customTipAmount" 
+                       placeholder="Custom amount" min="1" step="0.01">
+                <button class="btn btn-outline" onclick="processCustomTip()">
+                    Set Custom Amount
                 </button>
             </div>
             
-            <button class="btn btn-primary" onclick="sendTip()">Send Tip</button>
+            <div class="payment-methods mt-4">
+                <h4>Payment Method:</h4>
+                <div class="flex gap-2 mt-2">
+                    <button class="btn btn-outline flex-1" onclick="processCardPayment()">
+                        <i class="fas fa-credit-card"></i> Card
+                    </button>
+                    <button class="btn btn-outline flex-1" onclick="processDigicoinPayment()">
+                        <i class="fas fa-coins"></i> Digi-Coins
+                    </button>
+                </div>
+            </div>
+            
+            <button class="btn btn-primary w-100 mt-4" onclick="sendTip()">
+                <i class="fas fa-paper-plane"></i> Send Tip
+            </button>
         </div>
     </div>
+</div>
 
-    <script>
-        // Video Player Functionality
-        let currentVideo = {
+<!-- Add this JavaScript to your videos.html script section -->
+<script>
+    // Video specific functionality
+    let currentVideo = null;
+    let selectedTipAmount = 0;
+    
+    // Initialize video page
+    document.addEventListener('DOMContentLoaded', function() {
+        checkVideoAuth();
+        setupVideoPlayer();
+    });
+    
+    function checkVideoAuth() {
+        const user = JSON.parse(localStorage.getItem('digihive_user'));
+        const tipBtn = document.getElementById('tipBtn');
+        const uploadBtn = document.getElementById('uploadVideoBtn');
+        
+        if (user) {
+            // Show tip button for logged in users
+            if (tipBtn) tipBtn.style.display = 'flex';
+            
+            // Enable upload for account holders
+            if (uploadBtn) uploadBtn.disabled = false;
+        } else {
+            // Hide tip button for guests
+            if (tipBtn) tipBtn.style.display = 'none';
+            
+            // Disable upload for non-account holders
+            if (uploadBtn) uploadBtn.disabled = true;
+        }
+    }
+    
+    function setupVideoPlayer() {
+        // Track video views
+        const videoPlayer = document.getElementById('mainVideoPlayer');
+        if (videoPlayer) {
+            videoPlayer.addEventListener('play', function() {
+                incrementViewCount();
+            });
+        }
+        
+        // Load video data
+        loadCurrentVideo();
+    }
+    
+    function loadCurrentVideo() {
+        // This would load from your video data
+        currentVideo = {
             id: 1,
             title: "Sample Video",
             views: 1250,
             likes: 89,
-            comments: [],
+            comments: 15,
             isLiked: false,
-            isSaved: false
+            isSaved: false,
+            viewCount: 1250
         };
-
-        let selectedTipAmount = 0;
-
-        function toggleLike() {
-            if (!currentUser) {
-                showNotification('Please login to like videos', 'warning');
-                openModal('loginModal');
-                return;
-            }
-            
-            currentVideo.isLiked = !currentVideo.isLiked;
-            currentVideo.likes += currentVideo.isLiked ? 1 : -1;
-            
-            document.querySelector('.video-action-btn .fa-thumbs-up').className = 
-                currentVideo.isLiked ? 'fas fa-thumbs-up' : 'far fa-thumbs-up';
+        
+        // Update UI
+        if (currentVideo) {
+            document.getElementById('viewCount').textContent = currentVideo.viewCount;
             document.getElementById('likeCount').textContent = currentVideo.likes;
+            document.getElementById('commentCount').textContent = currentVideo.comments;
         }
-
-        function toggleSave() {
-            if (!currentUser) {
-                showNotification('Please login to save videos', 'warning');
-                openModal('loginModal');
-                return;
-            }
-            
-            currentVideo.isSaved = !currentVideo.isSaved;
-            
-            document.querySelector('.video-action-btn .fa-bookmark').className = 
-                currentVideo.isSaved ? 'fas fa-bookmark' : 'far fa-bookmark';
-            
-            showNotification(currentVideo.isSaved ? 'Video saved!' : 'Video removed from saved', 'info');
+    }
+    
+    function incrementViewCount() {
+        if (currentVideo) {
+            currentVideo.viewCount++;
+            document.getElementById('viewCount').textContent = currentVideo.viewCount;
         }
-
-        function toggleCommentSection() {
-            const section = document.getElementById('commentSection');
-            section.style.display = section.style.display === 'none' ? 'block' : 'none';
+    }
+    
+    function toggleLike() {
+        if (!currentUser) {
+            showNotification('Please login to like videos', 'warning');
+            openModal('loginModal');
+            return;
         }
-
-        function postComment() {
-            if (!currentUser) {
-                showNotification('Please login to comment', 'warning');
-                openModal('loginModal');
-                return;
-            }
-            
-            const commentInput = document.getElementById('commentInput');
-            const comment = commentInput.value.trim();
-            
-            if (!comment) {
-                showNotification('Please enter a comment', 'warning');
-                return;
-            }
-            
-            // Add comment to list
-            const commentElement = document.createElement('div');
-            commentElement.className = 'comment';
-            commentElement.innerHTML = `
-                <div class="comment-author">${currentUser.name}</div>
-                <div class="comment-text">${comment}</div>
-                <div class="comment-time">Just now</div>
-            `;
-            
-            document.getElementById('commentsList').appendChild(commentElement);
-            commentInput.value = '';
-            
-            // Update count
-            const commentCount = document.getElementById('commentCount');
-            commentCount.textContent = parseInt(commentCount.textContent) + 1;
+        
+        if (!currentVideo) return;
+        
+        currentVideo.isLiked = !currentVideo.isLiked;
+        currentVideo.likes += currentVideo.isLiked ? 1 : -1;
+        
+        const likeBtn = document.getElementById('likeBtn');
+        likeBtn.classList.toggle('liked', currentVideo.isLiked);
+        likeBtn.querySelector('i').className = currentVideo.isLiked ? 'fas fa-thumbs-up' : 'far fa-thumbs-up';
+        document.getElementById('likeCount').textContent = currentVideo.likes;
+    }
+    
+    function toggleSave() {
+        if (!currentUser) {
+            showNotification('Please login to save videos', 'warning');
+            openModal('loginModal');
+            return;
         }
-
-        function openTipModal() {
-            if (!currentUser) {
-                showNotification('Please login to tip creators', 'warning');
-                openModal('loginModal');
-                return;
-            }
-            
-            openModal('tipModal');
+        
+        if (!currentVideo) return;
+        
+        currentVideo.isSaved = !currentVideo.isSaved;
+        
+        const saveBtn = document.getElementById('saveBtn');
+        saveBtn.classList.toggle('saved', currentVideo.isSaved);
+        saveBtn.querySelector('i').className = currentVideo.isSaved ? 'fas fa-bookmark' : 'far fa-bookmark';
+        
+        showNotification(currentVideo.isSaved ? 'Video saved!' : 'Video removed from saved', 'info');
+    }
+    
+    function toggleCommentSection() {
+        const commentSection = document.getElementById('commentsSection');
+        if (commentSection) {
+            commentSection.style.display = commentSection.style.display === 'none' ? 'block' : 'none';
         }
-
-        function selectTipAmount(amount) {
-            selectedTipAmount = amount;
-            document.querySelectorAll('.tip-option').forEach(btn => {
-                btn.classList.remove('selected');
+    }
+    
+    function shareVideo() {
+        const shareUrl = window.location.href;
+        
+        if (navigator.share) {
+            navigator.share({
+                title: currentVideo?.title || 'Check out this video',
+                text: 'Watch this video on Dhive',
+                url: shareUrl
             });
-            event.target.classList.add('selected');
+        } else {
+            navigator.clipboard.writeText(shareUrl)
+                .then(() => showNotification('Link copied to clipboard!', 'success'));
         }
-
-        function processCustomTip() {
-            const amount = parseFloat(document.getElementById('customTipAmount').value);
-            if (amount >= 1) {
-                selectedTipAmount = amount;
-                showNotification(`Tip amount set to R${amount.toFixed(2)}`, 'info');
-            } else {
-                showNotification('Minimum tip amount is R1', 'warning');
-            }
+    }
+    
+    // Tip functionality
+    function openTipModal() {
+        if (!currentUser) {
+            showNotification('Please login to tip creators', 'warning');
+            openModal('loginModal');
+            return;
         }
-
-        async function sendTip() {
-            if (selectedTipAmount < 1) {
-                showNotification('Minimum tip amount is R1', 'warning');
-                return;
-            }
-            
-            showNotification(`Processing R${selectedTipAmount.toFixed(2)} tip...`, 'info');
-            
-            // Simulate payment processing
-            setTimeout(() => {
-                showNotification(`Tip of R${selectedTipAmount.toFixed(2)} sent successfully!`, 'success');
-                closeModal('tipModal');
-                selectedTipAmount = 0;
-            }, 2000);
-        }
-
-        function processCardPayment() {
-            showNotification('Redirecting to card payment...', 'info');
-            // In production, integrate with payment gateway
-        }
-
-        function processDigicoinPayment() {
-            if (!currentUser) return;
-            
-            showNotification('Processing Digi-Coin payment...', 'info');
-            // In production, deduct from user's Digi-Coin balance
-        }
-
-        function shareVideo() {
-            const shareUrl = window.location.href;
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: currentVideo.title,
-                    text: 'Check out this video on Dhive',
-                    url: shareUrl
-                });
-            } else {
-                navigator.clipboard.writeText(shareUrl)
-                    .then(() => showNotification('Link copied to clipboard!', 'success'));
-            }
-        }
-
-        // Update view count
-        document.getElementById('mainVideo').addEventListener('play', function() {
-            currentVideo.views++;
-            document.getElementById('viewCount').textContent = currentVideo.views + ' views';
+        
+        selectedTipAmount = 0;
+        document.getElementById('customTipAmount').value = '';
+        document.querySelectorAll('.tip-option').forEach(btn => {
+            btn.classList.remove('selected');
         });
-    </script>
-</body>
-</html>
+        
+        openModal('tipModal');
+    }
+    
+    function selectTipAmount(amount) {
+        selectedTipAmount = amount;
+        
+        document.querySelectorAll('.tip-option').forEach(btn => {
+            btn.classList.remove('selected');
+        });
+        event.target.classList.add('selected');
+        
+        document.getElementById('customTipAmount').value = amount;
+    }
+    
+    function processCustomTip() {
+        const amount = parseFloat(document.getElementById('customTipAmount').value);
+        if (amount >= 1) {
+            selectedTipAmount = amount;
+            showNotification(`Tip amount set to R${amount.toFixed(2)}`, 'info');
+        } else {
+            showNotification('Minimum tip amount is R1', 'warning');
+        }
+    }
+    
+    function sendTip() {
+        if (selectedTipAmount < 1) {
+            showNotification('Minimum tip amount is R1', 'warning');
+            return;
+        }
+        
+        showNotification(`Processing R${selectedTipAmount.toFixed(2)} tip...`, 'info');
+        
+        // Simulate payment processing
+        setTimeout(() => {
+            showNotification(`Tip of R${selectedTipAmount.toFixed(2)} sent successfully!`, 'success');
+            closeModal('tipModal');
+            selectedTipAmount = 0;
+        }, 2000);
+    }
+    
+    function processCardPayment() {
+        showNotification('Redirecting to card payment gateway...', 'info');
+        // In production, integrate with payment gateway like Stripe
+    }
+    
+    function processDigicoinPayment() {
+        if (!currentUser) {
+            showNotification('Please login to use Digi-Coins', 'warning');
+            return;
+        }
+        
+        showNotification('Processing Digi-Coin payment...', 'info');
+        // In production, deduct from user's Digi-Coin balance
+    }
+</script>
