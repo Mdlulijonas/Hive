@@ -10,7 +10,257 @@
     <link rel="stylesheet" href="mobile.css" media="screen and (max-width: 768px)">
     <link rel="stylesheet" href="desktop.css" media="screen and (min-width: 769px)">
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
-    
+    <style>
+        /* Additional styles for pricing section */
+        .plans-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .plans-section .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .plans-section .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .plans-section .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .plans-section .section-header p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .plan-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+            border-color: var(--primary-light);
+        }
+        
+        .plan-card.popular {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            position: relative;
+        }
+        
+        .plan-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .plan-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid #f0f2ff;
+        }
+        
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .plan-price {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            margin: 0.5rem 0;
+        }
+        
+        .plan-card.popular .plan-price {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .plan-period {
+            color: var(--gray);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .plan-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 2rem 0;
+            flex-grow: 1;
+        }
+        
+        .plan-features li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: var(--dark);
+        }
+        
+        .plan-features i {
+            margin-right: 1rem;
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .plan-features i.fa-check {
+            color: var(--success);
+        }
+        
+        .plan-features i.fa-times.disabled {
+            color: #ddd;
+        }
+        
+        .plan-features li:last-child {
+            margin-bottom: 0;
+        }
+        
+        .plan-card .btn {
+            margin-top: auto;
+            padding: 1rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .plan-card .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .plan-card .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .plan-card .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .w-100 {
+            width: 100%;
+        }
+        
+        .plan-signup-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .plan-signup-btn {
+            padding: 0.8rem;
+            font-weight: 600;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .plan-signup-btn.primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .plan-signup-btn.secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .plan-signup-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .plans-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .plan-card {
+                padding: 2rem;
+            }
+            
+            .plans-section .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .plan-price {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .plans-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* Add some decorative elements */
+        .plans-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%236c63ff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -173,6 +423,91 @@
             </p>
         </div>
     </div>
+
+    <!-- Pricing Plans Section -->
+    <section class="plans-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Choose Your Perfect Plan</h2>
+                <p>Start free, upgrade anytime. All plans include our secure platform and 24/7 support.</p>
+            </div>
+            
+            <div class="plans-grid">
+                <!-- Free Plan -->
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3 class="plan-name">Free Forever</h3>
+                        <div class="plan-price">R0</div>
+                        <div class="plan-period">per month</div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Sell Digital Products</li>
+                        <li><i class="fas fa-check"></i> 2% Transaction Fee per R10</li>
+                        <li><i class="fas fa-check"></i> 1% Withdrawal Fee</li>
+                        <li><i class="fas fa-times disabled"></i> Live Chat Support</li>
+                        <li><i class="fas fa-times disabled"></i> Algorithm Promotion</li>
+                    </ul>
+                    <div class="plan-signup-options">
+                        <button class="plan-signup-btn secondary" onclick="openModal('signupModal')">
+                            Sign Up Free
+                        </button>
+                        <button class="plan-signup-btn primary" onclick="selectPlan('free')">
+                            Choose Free Plan
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Basic Plan -->
+                <div class="plan-card popular">
+                    <div class="plan-badge">MOST POPULAR</div>
+                    <div class="plan-header">
+                        <h3 class="plan-name">Basic</h3>
+                        <div class="plan-price">R249</div>
+                        <div class="plan-period">per month</div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Everything in Free</li>
+                        <li><i class="fas fa-check"></i> Live Chat Support</li>
+                        <li><i class="fas fa-check"></i> No Transaction Fees</li>
+                        <li><i class="fas fa-check"></i> Withdrawal Fees Only</li>
+                        <li><i class="fas fa-times disabled"></i> Algorithm Promotion</li>
+                    </ul>
+                    <div class="plan-signup-options">
+                        <button class="plan-signup-btn secondary" onclick="openModal('signupModal')">
+                            Sign Up & Upgrade
+                        </button>
+                        <button class="plan-signup-btn primary" onclick="selectPlan('basic')">
+                            Choose Basic Plan
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3 class="plan-name">Pro</h3>
+                        <div class="plan-price">R349</div>
+                        <div class="plan-period">per month</div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Everything in Basic</li>
+                        <li><i class="fas fa-check"></i> Algorithm Content Push</li>
+                        <li><i class="fas fa-check"></i> Priority Support</li>
+                        <li><i class="fas fa-check"></i> No Transaction Fees</li>
+                        <li><i class="fas fa-check"></i> No Withdrawal Fees</li>
+                    </ul>
+                    <div class="plan-signup-options">
+                        <button class="plan-signup-btn secondary" onclick="openModal('signupModal')">
+                            Sign Up & Upgrade
+                        </button>
+                        <button class="plan-signup-btn primary" onclick="selectPlan('pro')">
+                            Go Pro
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Features Section -->
     <section class="features">
@@ -426,6 +761,38 @@
         </div>
     </div>
 
+    <!-- Plan Selection Modal -->
+    <div class="modal" id="planSelectionModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('planSelectionModal')">&times;</button>
+            <div class="modal-header">
+                <h2 id="selectedPlanTitle">Select Plan</h2>
+                <p id="selectedPlanDescription">Choose how you want to proceed with this plan</p>
+            </div>
+            <div class="plan-confirmation">
+                <div class="selected-plan-details">
+                    <h3 id="planNameDisplay">Free Forever</h3>
+                    <div class="plan-price-display" id="planPriceDisplay">R0 <span>/month</span></div>
+                    <ul class="selected-plan-features" id="selectedPlanFeatures">
+                        <li><i class="fas fa-check"></i> Sell Digital Products</li>
+                        <li><i class="fas fa-check"></i> 2% Transaction Fee per R10</li>
+                    </ul>
+                </div>
+                <div class="plan-action-buttons">
+                    <button class="btn btn-outline w-100" onclick="openModal('signupModal'); closeModal('planSelectionModal')">
+                        <i class="fas fa-user-plus"></i> Sign Up First
+                    </button>
+                    <button class="btn w-100" onclick="upgradeToPlan()" id="upgradePlanBtn">
+                        <i class="fas fa-rocket"></i> Upgrade Now
+                    </button>
+                </div>
+                <p class="plan-note">
+                    <i class="fas fa-info-circle"></i> You need to be logged in to upgrade your plan
+                </p>
+            </div>
+        </div>
+    </div>
+
     <!-- Email Verification Modal -->
     <div class="modal" id="verificationModal">
         <div class="modal-content">
@@ -456,5 +823,180 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        // Plan selection functionality
+        function selectPlan(planType) {
+            let planTitle, planDescription, planName, planPrice, features;
+            
+            switch(planType) {
+                case 'free':
+                    planTitle = "Free Forever Plan";
+                    planDescription = "Perfect for getting started with no commitment";
+                    planName = "Free Forever";
+                    planPrice = "R0";
+                    features = [
+                        "Sell Digital Products",
+                        "2% Transaction Fee per R10",
+                        "1% Withdrawal Fee"
+                    ];
+                    break;
+                case 'basic':
+                    planTitle = "Basic Plan";
+                    planDescription = "Most popular choice for serious creators";
+                    planName = "Basic";
+                    planPrice = "R249";
+                    features = [
+                        "Everything in Free",
+                        "Live Chat Support",
+                        "No Transaction Fees",
+                        "Withdrawal Fees Only"
+                    ];
+                    break;
+                case 'pro':
+                    planTitle = "Pro Plan";
+                    planDescription = "Maximum features for professional creators";
+                    planName = "Pro";
+                    planPrice = "R349";
+                    features = [
+                        "Everything in Basic",
+                        "Algorithm Content Push",
+                        "Priority Support",
+                        "No Transaction Fees",
+                        "No Withdrawal Fees"
+                    ];
+                    break;
+            }
+            
+            // Update modal content
+            document.getElementById('selectedPlanTitle').textContent = planTitle;
+            document.getElementById('selectedPlanDescription').textContent = planDescription;
+            document.getElementById('planNameDisplay').textContent = planName;
+            document.getElementById('planPriceDisplay').innerHTML = `${planPrice} <span>/month</span>`;
+            
+            // Update features list
+            const featuresList = document.getElementById('selectedPlanFeatures');
+            featuresList.innerHTML = '';
+            features.forEach(feature => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fas fa-check"></i> ${feature}`;
+                featuresList.appendChild(li);
+            });
+            
+            // Update button text
+            const upgradeBtn = document.getElementById('upgradePlanBtn');
+            if (planType === 'free') {
+                upgradeBtn.innerHTML = '<i class="fas fa-check"></i> Select Free Plan';
+                upgradeBtn.onclick = function() {
+                    selectFreePlan();
+                };
+            } else {
+                upgradeBtn.innerHTML = `<i class="fas fa-rocket"></i> Upgrade to ${planName}`;
+                upgradeBtn.onclick = function() {
+                    upgradeToPlan(planType);
+                };
+            }
+            
+            // Open modal
+            openModal('planSelectionModal');
+        }
+        
+        function selectFreePlan() {
+            // If user is logged in, upgrade to free plan
+            // If not, ask them to sign up first
+            const userLoggedIn = checkUserLoggedIn(); // You need to implement this
+            if (userLoggedIn) {
+                // Call API to set user to free plan
+                showNotification('Free plan selected successfully!', 'success');
+                closeModal('planSelectionModal');
+            } else {
+                closeModal('planSelectionModal');
+                openModal('signupModal');
+            }
+        }
+        
+        function upgradeToPlan(planType) {
+            const userLoggedIn = checkUserLoggedIn(); // You need to implement this
+            if (userLoggedIn) {
+                // Call API to upgrade user plan
+                showNotification(`Upgrading to ${planType} plan...`, 'info');
+                // In a real app, you would redirect to payment page or process payment
+                setTimeout(() => {
+                    showNotification(`Successfully upgraded to ${planType} plan!`, 'success');
+                    closeModal('planSelectionModal');
+                }, 1500);
+            } else {
+                showNotification('Please sign up or log in first', 'warning');
+                closeModal('planSelectionModal');
+                openModal('signupModal');
+            }
+        }
+        
+        function checkUserLoggedIn() {
+            // This should check if user is logged in
+            // For now, return false to demonstrate
+            return false;
+        }
+        
+        function showNotification(message, type) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            // Add styles
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--success)' : type === 'warning' ? 'var(--warning)' : 'var(--info)'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+                z-index: 9999;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+        
+        // Add CSS for animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
