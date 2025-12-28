@@ -13,7 +13,7 @@
     <style>
         /* Additional styles for pricing section */
         .plans-section {
-            padding: 5rem 0;
+            padding: 3rem 0;
             background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
             position: relative;
             overflow: hidden;
@@ -26,11 +26,12 @@
         
         .plans-section .section-header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
         }
         
         .plans-section .section-header h2 {
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: var(--dark);
             margin-bottom: 1rem;
@@ -40,25 +41,26 @@
         }
         
         .plans-section .section-header p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--gray);
             max-width: 600px;
             margin: 0 auto;
-            line-height: 1.6;
+            line-height: 1.5;
         }
         
         .plans-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding: 0 1rem;
         }
         
         .plan-card {
             background: white;
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
             border: 2px solid transparent;
             transition: all 0.3s ease;
             position: relative;
@@ -68,8 +70,8 @@
         }
         
         .plan-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
             border-color: var(--primary-light);
         }
         
@@ -81,34 +83,34 @@
         
         .plan-badge {
             position: absolute;
-            top: -12px;
+            top: -10px;
             left: 50%;
             transform: translateX(-50%);
             background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             color: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
+            padding: 0.4rem 1rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
             font-weight: 600;
             white-space: nowrap;
         }
         
         .plan-header {
             text-align: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
             border-bottom: 2px solid #f0f2ff;
         }
         
         .plan-name {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--dark);
             margin-bottom: 0.5rem;
         }
         
         .plan-price {
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             font-weight: 800;
             color: var(--primary);
             line-height: 1;
@@ -123,29 +125,29 @@
         
         .plan-period {
             color: var(--gray);
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 500;
         }
         
         .plan-features {
             list-style: none;
             padding: 0;
-            margin: 0 0 2rem 0;
+            margin: 0 0 1.5rem 0;
             flex-grow: 1;
         }
         
         .plan-features li {
             display: flex;
             align-items: center;
-            margin-bottom: 1rem;
-            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
             color: var(--dark);
         }
         
         .plan-features i {
-            margin-right: 1rem;
-            font-size: 1.2rem;
-            width: 24px;
+            margin-right: 0.8rem;
+            font-size: 1rem;
+            width: 20px;
             text-align: center;
         }
         
@@ -161,55 +163,28 @@
             margin-bottom: 0;
         }
         
-        .plan-card .btn {
-            margin-top: auto;
-            padding: 1rem;
-            font-weight: 600;
-            font-size: 1.1rem;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-        
-        .plan-card .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-        
-        .plan-card .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-        
-        .plan-card .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .w-100 {
-            width: 100%;
-        }
-        
         .plan-signup-options {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1rem;
+            gap: 0.8rem;
             margin-top: 1rem;
         }
         
         .plan-signup-btn {
             padding: 0.8rem;
             font-weight: 600;
-            border-radius: 10px;
+            border-radius: 8px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-size: 0.95rem;
+            border: none;
+            width: 100%;
         }
         
         .plan-signup-btn.primary {
             background: var(--primary);
             color: white;
-            border: none;
         }
         
         .plan-signup-btn.secondary {
@@ -220,33 +195,207 @@
         
         .plan-signup-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         
-        /* Responsive adjustments */
+        /* Mobile Navigation Styles */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: white;
+            z-index: 1000;
+            padding: 5rem 1.5rem 2rem;
+            overflow-y: auto;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-nav.active {
+            display: block;
+            transform: translateX(0);
+        }
+        
+        .mobile-nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .mobile-nav-links li {
+            margin-bottom: 1rem;
+        }
+        
+        .mobile-nav-links a {
+            display: block;
+            padding: 1rem;
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-nav-links a:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        
+        .mobile-nav-links a.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--dark);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+        
+        .mobile-menu-btn:hover {
+            color: var(--primary);
+        }
+        
+        /* Mobile Menu Close Button */
+        .mobile-nav-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--dark);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        /* Mobile Responsive Adjustments */
         @media (max-width: 768px) {
-            .plans-grid {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .nav-actions {
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+            }
+            
+            .nav-actions .btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .hero-content {
+                flex-direction: column;
+            }
+            
+            .hero-text, .hero-image {
+                width: 100%;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero-actions {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .visitor-signup {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+            
+            .features-grid, .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .counter-section .counters-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1rem;
+            }
+            
+            .footer-content {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
             
-            .plan-card {
-                padding: 2rem;
-            }
-            
-            .plans-section .section-header h2 {
-                font-size: 2rem;
-            }
-            
-            .plan-price {
-                font-size: 3rem;
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
             }
         }
         
-        @media (min-width: 992px) {
+        @media (min-width: 769px) {
+            .mobile-nav {
+                display: none !important;
+            }
+            
             .plans-grid {
                 grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+                padding: 0;
             }
+            
+            .plan-card {
+                padding: 2rem;
+                border-radius: 20px;
+            }
+            
+            .plans-section {
+                padding: 5rem 0;
+            }
+            
+            .plans-section .section-header h2 {
+                font-size: 2.5rem;
+            }
+            
+            .plan-price {
+                font-size: 3.5rem;
+            }
+        }
+        
+        /* Mobile Overlay */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .mobile-nav-overlay.active {
+            display: block;
+            opacity: 1;
         }
         
         /* Add some decorative elements */
@@ -259,6 +408,30 @@
             bottom: 0;
             background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%236c63ff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
             opacity: 0.5;
+        }
+        
+        /* Modal adjustments for mobile */
+        .modal-content {
+            max-height: 90vh;
+            overflow-y: auto;
+            margin: 1rem;
+            width: calc(100% - 2rem);
+        }
+        
+        @media (max-width: 768px) {
+            .modal-content {
+                padding: 1.5rem;
+            }
+            
+            .verification-code {
+                gap: 0.5rem;
+            }
+            
+            .verification-input {
+                width: 40px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
@@ -289,7 +462,7 @@
                 </a>
                 
                 <!-- Mobile Menu Button -->
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
                     <i class="fas fa-bars"></i>
                 </button>
                 
@@ -317,9 +490,13 @@
     </header>
 
     <!-- Mobile Navigation Menu -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
     <div class="mobile-nav" id="mobileNav">
+        <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">
+            <i class="fas fa-times"></i>
+        </button>
         <ul class="mobile-nav-links">
-            <li><a href="index.html" onclick="toggleMobileMenu()">Home</a></li>
+            <li><a href="index.html" class="active" onclick="toggleMobileMenu()">Home</a></li>
             <li><a href="marketplace.html" onclick="toggleMobileMenu()">Marketplace</a></li>
             <li><a href="videos.html" onclick="toggleMobileMenu()">Video Content</a></li>
             <li><a href="dashboard.html" onclick="toggleMobileMenu()">Dashboard</a></li>
@@ -329,8 +506,17 @@
             <li><a href="affiliate.html" onclick="toggleMobileMenu()">Affiliate</a></li>
             <li><a href="terms.html" onclick="toggleMobileMenu()">Terms</a></li>
         </ul>
+        <div class="mobile-nav-actions">
+            <button class="btn btn-outline w-100" onclick="openModal('loginModal'); toggleMobileMenu()">
+                Log In
+            </button>
+            <button class="btn w-100" onclick="openModal('signupModal'); toggleMobileMenu()">
+                Create Account
+            </button>
+        </div>
     </div>
 
+    <!-- Rest of your HTML content remains the same -->
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
@@ -824,6 +1010,25 @@
 
     <script src="script.js"></script>
     <script>
+        // Mobile Menu Functionality
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+            const body = document.body;
+            
+            mobileNav.classList.toggle('active');
+            mobileNavOverlay.classList.toggle('active');
+            body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+        }
+        
+        // Close mobile menu when clicking overlay
+        document.getElementById('mobileNavOverlay').addEventListener('click', toggleMobileMenu);
+        
+        // Close mobile menu when clicking close button
+        document.getElementById('mobileNavClose').addEventListener('click', toggleMobileMenu);
+        
+        // Close mobile menu when clicking a link (handled in the links themselves)
+        
         // Plan selection functionality
         function selectPlan(planType) {
             let planTitle, planDescription, planName, planPrice, features;
@@ -993,6 +1198,37 @@
                 to {
                     transform: translateX(100%);
                     opacity: 0;
+                }
+            }
+            .mobile-nav-actions {
+                padding: 1.5rem;
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin-top: 2rem;
+                border-top: 1px solid #eee;
+            }
+            
+            @media (max-width: 768px) {
+                .hero h1 {
+                    font-size: 2rem;
+                }
+                
+                .hero p {
+                    font-size: 1rem;
+                }
+                
+                .featured-products .section-header h2 {
+                    font-size: 1.8rem;
+                }
+                
+                .cta h2 {
+                    font-size: 1.8rem;
+                }
+                
+                .modal-content {
+                    width: 95%;
+                    margin: 5% auto;
                 }
             }
         `;
