@@ -3,39 +3,450 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DigiHive - Professional Platform for Digital Products</title>
+    <title>Dhive - Professional Platform for Digital Products</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="mobile.css" media="screen and (max-width: 768px)">
-    <link rel="stylesheet" href="desktop.css" media="screen and (min-width: 769px)">
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
-    
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --primary-dark: #d97706;
+            --secondary: #10b981;
+            --danger: #ef4444;
+            --gray-light: #f3f4f6;
+            --gray: #9ca3af;
+            --gray-dark: #4b5563;
+            --dark: #1f2937;
+            --light: #ffffff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 8px;
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Mobile First Navigation */
+        .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 76px;
+            left: 0;
+            width: 100%;
+            background: white;
+            padding: 1rem;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            max-height: calc(100vh - 76px);
+            overflow-y: auto;
+        }
+
+        .mobile-nav.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+        }
+
+        .mobile-nav-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .mobile-nav-links a {
+            display: block;
+            padding: 1rem;
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: var(--border-radius);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav-links a:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+
+        /* Header */
+        header {
+            background-color: var(--light);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--dark);
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: none;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Auth Modal Forms (Mobile Optimized) */
+        .modal-content {
+            width: 95%;
+            margin: 1rem;
+            padding: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius);
+            font-size: 16px; /* Prevents zoom on iOS */
+        }
+
+        .google-auth-btn {
+            width: 100%;
+            padding: 1rem;
+            background: white;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 1rem 0;
+        }
+
+        /* Plans Section on Home Page */
+        .plans-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #fef3c7 0%, #fefce8 100%);
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .plans-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .plan-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .plan-card.popular {
+            border-color: var(--primary);
+            position: relative;
+        }
+
+        .plan-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .plan-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .plan-period {
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .plan-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .plan-features .fa-check {
+            color: var(--success);
+        }
+
+        .plan-features .disabled {
+            color: var(--gray);
+            opacity: 0.5;
+        }
+
+        /* Video Player Enhancements */
+        .video-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: var(--gray-light);
+            border-radius: var(--radius);
+        }
+
+        .video-action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .video-action-btn:hover {
+            background: var(--primary-light);
+        }
+
+        .video-stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+
+        /* Seller Portal Auth Button */
+        .seller-auth-section {
+            text-align: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: var(--radius);
+            margin: 2rem 0;
+        }
+
+        /* Responsive Styles */
+        @media (min-width: 768px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+
+            .nav-links {
+                display: flex;
+            }
+
+            .mobile-nav {
+                display: none;
+            }
+
+            .modal-content {
+                width: 90%;
+                max-width: 500px;
+                margin: 2rem auto;
+                padding: 2rem;
+            }
+
+            .plans-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .video-actions {
+                flex-wrap: nowrap;
+            }
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(245, 158, 11, 0.1);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #0da271;
+        }
+
+        /* Touch-friendly buttons for mobile */
+        .btn, .video-action-btn, .mobile-nav-links a {
+            min-height: 44px;
+            min-width: 44px;
+        }
+
+        /* Fix for mobile viewport */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem !important;
+            }
+            
+            .hero p {
+                font-size: 1rem !important;
+            }
+            
+            .hero-actions {
+                flex-direction: column;
+            }
+            
+            .hero-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Header -->
     <header id="header">
         <div class="container">
             <nav>
                 <a href="index.html" class="logo">
-                    <div class="bee-logo-container">
-                        <div class="bee-logo-animated">
-                            <div class="bee-wings">
-                                <div class="wing wing-left"></div>
-                                <div class="wing wing-right"></div>
-                            </div>
-                            <div class="bee-body">
-                                <div class="bee-stripe stripe-1"></div>
-                                <div class="bee-stripe stripe-2"></div>
-                                <div class="bee-stripe stripe-3"></div>
-                                <div class="bee-antennas">
-                                    <div class="antenna antenna-left"></div>
-                                    <div class="antenna antenna-right"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    Digi<span>Hive</span>
+                    <i class="fas fa-bee" style="color: var(--primary); margin-right: 0.5rem;"></i>
+                    Dh<span>ive</span>
                 </a>
                 
                 <!-- Mobile Menu Button -->
@@ -49,18 +460,12 @@
                     <li><a href="marketplace.html">Marketplace</a></li>
                     <li><a href="videos.html">Video Content</a></li>
                     <li><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="seller.html">Sell on DigiHive</a></li>
-                    <li><a href="plans.html">Pricing</a></li>
-                    <li><a href="affiliate.html">Affiliate Program</a></li>
+                    <li><a href="seller.html">Seller Portal</a></li>
                 </ul>
                 
-                <div class="nav-actions" id="navActions">
-                    <div class="user-wallet" id="userWallet" style="display: none;">
-                        <i class="fas fa-wallet"></i>
-                        <span id="walletBalance">0 Coins</span>
-                    </div>
+                <div class="user-section">
                     <button class="btn btn-outline" id="loginBtn">Log In</button>
-                    <button class="btn" id="signupBtn">Create Account</button>
+                    <button class="btn btn-primary" id="signupBtn">Create Account</button>
                 </div>
             </nav>
         </div>
@@ -73,10 +478,8 @@
             <li><a href="marketplace.html" onclick="toggleMobileMenu()">Marketplace</a></li>
             <li><a href="videos.html" onclick="toggleMobileMenu()">Video Content</a></li>
             <li><a href="dashboard.html" onclick="toggleMobileMenu()">Dashboard</a></li>
-            <li><a href="seller.html" onclick="toggleMobileMenu()">Sell on DigiHive</a></li>
-            <li><a href="plans.html" onclick="toggleMobileMenu()">Pricing</a></li>
+            <li><a href="seller.html" onclick="toggleMobileMenu()">Seller Portal</a></li>
             <li><a href="profile.html" onclick="toggleMobileMenu()">My Profile</a></li>
-            <li><a href="affiliate.html" onclick="toggleMobileMenu()">Affiliate</a></li>
             <li><a href="terms.html" onclick="toggleMobileMenu()">Terms</a></li>
         </ul>
     </div>
@@ -87,274 +490,132 @@
             <div class="hero-content">
                 <div class="hero-text">
                     <h1>Your Gateway to Digital Success</h1>
-                    <p>Create, sell, and buy premium digital products. Join thousands of creators earning real money with our platform. No account needed to start shopping!</p>
+                    <p>Create, sell, and buy premium digital products. Join thousands of creators earning real money with our platform.</p>
                     <div class="hero-actions">
-                        <a href="marketplace.html" class="btn">
+                        <a href="marketplace.html" class="btn btn-primary">
                             <i class="fas fa-store"></i> Browse Marketplace
                         </a>
-                        <a href="seller.html" class="btn btn-accent">
+                        <a href="seller.html" class="btn btn-success">
                             <i class="fas fa-rocket"></i> Start Selling Free
                         </a>
                     </div>
-                    <div class="hero-stats">
-                        <div class="stat-item">
-                            <div class="stat-number" id="creatorsCount">0</div>
-                            <div class="stat-label">Active Creators</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="productsCount">0</div>
-                            <div class="stat-label">Products Sold</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="earningsCount">R0</div>
-                            <div class="stat-label">Creator Earnings</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <div class="floating-cards">
-                        <div class="card card-1">
-                            <h3><i class="fas fa-bolt" style="color: var(--primary);"></i> Instant Delivery</h3>
-                            <p style="color: var(--gray); margin-top: 1rem;">Digital products delivered automatically after purchase</p>
-                        </div>
-                        <div class="card card-2">
-                            <h3><i class="fas fa-shield-alt" style="color: var(--primary);"></i> Secure Platform</h3>
-                            <p style="color: var(--gray); margin-top: 1rem;">Bank-level security for all transactions and data</p>
-                        </div>
-                        <div class="card card-3">
-                            <h3><i class="fas fa-globe" style="color: var(--primary);"></i> Global Reach</h3>
-                            <p style="color: var(--gray); margin-top: 1rem;">Sell to customers worldwide with multi-currency support</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Real-time Counters -->
-    <section class="counter-section">
-        <div class="container">
-            <div class="counters-container">
-                <div class="counter-item" id="creatorsCounter">
-                    <span class="counter-value" id="creatorsCountBig">0</span>
-                    <div class="counter-label">Active Creators</div>
-                </div>
-                <div class="counter-item" id="productsCounter">
-                    <span class="counter-value" id="productsCountBig">0</span>
-                    <div class="counter-label">Products Sold</div>
-                </div>
-                <div class="counter-item" id="earningsCounter">
-                    <span class="counter-value" id="earningsCountBig">R0</span>
-                    <div class="counter-label">Creator Earnings</div>
-                </div>
-                <div class="counter-item" id="usersCounter">
-                    <span class="counter-value" id="usersCount">0</span>
-                    <div class="counter-label">Registered Users</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Interactive Visitor Signup -->
-    <div class="container">
-        <div class="visitor-signup">
-            <h2>Ready to Join the Hive?</h2>
-            <p>Create your free account today and get access to premium features, seller tools, and a global marketplace of digital products.</p>
-            <div class="visitor-actions">
-                <button class="btn" id="signupTrigger">
-                    <i class="fas fa-user-plus"></i> Create Free Account
-                </button>
-                <a href="marketplace.html" class="btn btn-outline">
-                    <i class="fas fa-shopping-cart"></i> Shop as Visitor
-                </a>
-            </div>
-            <p class="visitor-note">
-                <i class="fas fa-check-circle" style="color: var(--success);"></i> No credit card required • Free forever plan available
-            </p>
-        </div>
-    </div>
-
-    <!-- Features Section -->
-    <section class="features">
+    <!-- Plans Section on Home Page -->
+    <section class="plans-section">
         <div class="container">
             <div class="section-header">
-                <h2>Why Creators Love DigiHive</h2>
-                <p>Built with creators in mind, our platform offers everything you need to build a successful digital business</p>
+                <h2>Choose Your Perfect Plan</h2>
+                <p>Start free, upgrade anytime. All plans include our secure platform and 24/7 support.</p>
             </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-coins"></i>
+            
+            <div class="plans-grid">
+                <!-- Free Plan -->
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3 class="plan-name">Free Forever</h3>
+                        <div class="plan-price">R0</div>
+                        <div class="plan-period">per month</div>
                     </div>
-                    <h3>Fair Revenue Model</h3>
-                    <p>Keep 93% of every sale on our free plan. Upgrade to Pro for 100% earnings. Buy with 1:1 ratio, withdraw with 2:1 for creators.</p>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Sell Digital Products</li>
+                        <li><i class="fas fa-check"></i> 2% Transaction Fee per R10</li>
+                        <li><i class="fas fa-check"></i> 1% Withdrawal Fee</li>
+                        <li><i class="fas fa-times disabled"></i> Live Chat Support</li>
+                        <li><i class="fas fa-times disabled"></i> Algorithm Promotion</li>
+                    </ul>
+                    <button class="btn btn-outline w-100" onclick="selectPlan('free')">
+                        Start Free
+                    </button>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>No Account Shopping</h3>
-                    <p>Visitors can purchase products instantly without creating accounts. Full features unlocked with easy signup.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Advanced DRM Protection</h3>
-                    <p>Your digital content stays protected with multi-layer security. Watermarking, encryption, and download limits.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-video"></i>
-                    </div>
-                    <h3>Video Content Platform</h3>
-                    <p>Stream, like, and tip creators directly. Built-in video player with previews and secure content delivery.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Smart Analytics Dashboard</h3>
-                    <p>Real-time insights on sales, customer behavior, and product performance. Make data-driven decisions.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-handshake"></i>
-                    </div>
-                    <h3>Affiliate Program</h3>
-                    <p>Earn 10% commission on every referral. Build your network and earn passive income.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="container">
-            <div class="stats-content">
-                <div class="section-header" style="color: white;">
-                    <h2>Platform Success in Numbers</h2>
-                    <p>Join a thriving community of digital creators and buyers</p>
+                <!-- Basic Plan -->
+                <div class="plan-card popular">
+                    <div class="plan-badge">MOST POPULAR</div>
+                    <div class="plan-header">
+                        <h3 class="plan-name">Basic</h3>
+                        <div class="plan-price">R249</div>
+                        <div class="plan-period">per month</div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Everything in Free</li>
+                        <li><i class="fas fa-check"></i> Live Chat Support</li>
+                        <li><i class="fas fa-check"></i> No Transaction Fees</li>
+                        <li><i class="fas fa-check"></i> Withdrawal Fees Only</li>
+                        <li><i class="fas fa-times disabled"></i> Algorithm Promotion</li>
+                    </ul>
+                    <button class="btn btn-primary w-100" onclick="selectPlan('basic')">
+                        Choose Basic
+                    </button>
                 </div>
-                <div class="stats-grid">
-                    <div class="stat-item-large">
-                        <h3>0%</h3>
-                        <p>Transaction Fees on Pro Plan</p>
-                    </div>
-                    <div class="stat-item-large">
-                        <h3>R0.50</h3>
-                        <p>Minimum Tip Amount</p>
-                    </div>
-                    <div class="stat-item-large">
-                        <h3>2:1</h3>
-                        <p>Digi-Coins Withdrawal Ratio</p>
-                    </div>
-                    <div class="stat-item-large">
-                        <h3>R50</h3>
-                        <p>Minimum Withdrawal</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Featured Products Preview -->
-    <section class="featured-products">
-        <div class="container">
-            <div class="section-header">
-                <h2>Trending Digital Products</h2>
-                <p>Browse our curated selection of best-selling digital products. Purchase instantly without an account.</p>
-            </div>
-            <div class="products-grid" id="featuredProducts">
-                <!-- Featured products will be loaded by JavaScript -->
-            </div>
-            <div class="text-center mt-4">
-                <a href="marketplace.html" class="btn btn-outline">
-                    <i class="fas fa-store"></i> View All Products
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Start Your Digital Business Today</h2>
-                <p>Join thousands of creators who trust DigiHive to sell their digital products securely. Free forever plan with no hidden fees.</p>
-                <div class="cta-actions">
-                    <a href="seller.html" class="btn">
-                        <i class="fas fa-rocket"></i> Start Selling Free
-                    </a>
-                    <button class="btn btn-outline" id="buyerSignup">
-                        <i class="fas fa-user-plus"></i> Create Buyer Account
+                <!-- Pro Plan -->
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3 class="plan-name">Pro</h3>
+                        <div class="plan-price">R349</div>
+                        <div class="plan-period">per month</div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Everything in Basic</li>
+                        <li><i class="fas fa-check"></i> Algorithm Content Push</li>
+                        <li><i class="fas fa-check"></i> Priority Support</li>
+                        <li><i class="fas fa-check"></i> No Transaction Fees</li>
+                        <li><i class="fas fa-check"></i> No Withdrawal Fees</li>
+                    </ul>
+                    <button class="btn btn-primary w-100" onclick="selectPlan('pro')">
+                        Go Pro
                     </button>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Seller Portal Auth Section -->
+    <div class="container">
+        <div class="seller-auth-section">
+            <h2>Seller Portal Access</h2>
+            <p>You must be logged in and have a seller account to access the seller portal.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem;">
+                <a href="dashboard.html" class="btn btn-success">
+                    <i class="fas fa-sign-in-alt"></i> Go to Dashboard
+                </a>
+                <a href="index.html" class="btn btn-outline" style="background: rgba(255,255,255,0.1); color: white;">
+                    <i class="fas fa-home"></i> Return to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>DigiHive</h3>
-                    <p>Professional platform for digital content creators. Built with ❤️ for the creator economy.</p>
-                </div>
-                <div class="footer-column">
-                    <h3>Platform</h3>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="marketplace.html">Marketplace</a></li>
-                        <li><a href="videos.html">Video Content</a></li>
-                        <li><a href="dashboard.html">Dashboard</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>For Creators</h3>
-                    <ul class="footer-links">
-                        <li><a href="seller.html">Sell on DigiHive</a></li>
-                        <li><a href="plans.html">Pricing Plans</a></li>
-                        <li><a href="affiliate.html">Affiliate Program</a></li>
-                        <li><a href="#" id="creatorResources">Creator Resources</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Support</h3>
-                    <ul class="footer-links">
-                        <li><a href="#" id="helpCenter">Help Center</a></li>
-                        <li><a href="#" id="contactUs">Contact Us</a></li>
-                        <li><a href="terms.html">Terms of Service</a></li>
-                        <li><a href="#" id="privacyPolicy">Privacy Policy</a></li>
-                    </ul>
+                    <h3>Dhive</h3>
+                    <p>Professional platform for digital content creators.</p>
                 </div>
             </div>
             <div class="footer-bottom">
                 <div class="copyright">
-                    &copy; 2024 DigiHive. All rights reserved. Made with <i class="fas fa-heart" style="color: var(--primary);"></i> for creators.
-                </div>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    &copy; 2024 Dhive. All rights reserved.
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Modals -->
     <!-- Login Modal -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
             <div class="modal-header">
                 <h2>Welcome Back!</h2>
-                <p>Log in to access your account and continue your journey</p>
+                <p>Log in to access your account</p>
             </div>
-            <form id="loginForm">
+            <form id="loginForm" onsubmit="return handleLogin(event)">
                 <button type="button" class="google-auth-btn" onclick="loginWithGoogle()">
                     <i class="fab fa-google"></i> Log in with Google
                 </button>
@@ -369,10 +630,9 @@
                     <label class="form-label">Password</label>
                     <input type="password" class="form-input" id="loginPassword" required>
                 </div>
-                <button type="submit" class="btn w-100">Log In</button>
+                <button type="submit" class="btn btn-primary w-100">Log In</button>
                 <div class="form-footer">
                     <p>Don't have an account? <a href="#" onclick="closeModal('loginModal'); openModal('signupModal')">Sign up here</a></p>
-                    <p><a href="#" onclick="forgotPassword()">Forgot password?</a></p>
                 </div>
             </form>
         </div>
@@ -383,10 +643,10 @@
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('signupModal')">&times;</button>
             <div class="modal-header">
-                <h2>Join the Hive!</h2>
-                <p>Create your account and start your digital journey today</p>
+                <h2>Join Dhive!</h2>
+                <p>Create your account today</p>
             </div>
-            <form id="signupForm">
+            <form id="signupForm" onsubmit="return handleSignup(event)">
                 <button type="button" class="google-auth-btn" onclick="signupWithGoogle()">
                     <i class="fab fa-google"></i> Sign up with Google
                 </button>
@@ -405,20 +665,11 @@
                     <label class="form-label">Password *</label>
                     <input type="password" class="form-input" id="signupPassword" required>
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Account Type *</label>
-                    <select class="form-input" id="accountType" required>
-                        <option value="">Select account type</option>
-                        <option value="buyer">Buyer Account (Purchase Only)</option>
-                        <option value="seller">Seller Account (Sell Products)</option>
-                        <option value="both">Both (Buyer & Seller)</option>
-                    </select>
-                </div>
                 <div class="terms-acceptance">
                     <input type="checkbox" id="acceptTerms" required>
                     <label for="acceptTerms">I agree to the <a href="terms.html">Terms and Conditions</a></label>
                 </div>
-                <button type="submit" class="btn w-100">Create Account</button>
+                <button type="submit" class="btn btn-primary w-100">Create Account</button>
                 <div class="form-footer">
                     <p>Already have an account? <a href="#" onclick="closeModal('signupModal'); openModal('loginModal')">Log in here</a></p>
                 </div>
@@ -426,35 +677,328 @@
         </div>
     </div>
 
-    <!-- Email Verification Modal -->
-    <div class="modal" id="verificationModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('verificationModal')">&times;</button>
-            <div class="verification-container">
-                <h2>Email Verification</h2>
-                <p>We've sent a 6-digit code to your email address. Please enter it below:</p>
-                <div class="verification-code">
-                    <input type="text" class="verification-input" maxlength="1" oninput="moveToNext(this, 1)">
-                    <input type="text" class="verification-input" maxlength="1" oninput="moveToNext(this, 2)">
-                    <input type="text" class="verification-input" maxlength="1" oninput="moveToNext(this, 3)">
-                    <input type="text" class="verification-input" maxlength="1" oninput="moveToNext(this, 4)">
-                    <input type="text" class="verification-input" maxlength="1" oninput="moveToNext(this, 5)">
-                    <input type="text" class="verification-input" maxlength="1" oninput="moveToNext(this, 6)">
+    <script>
+        // State Management
+        let currentUser = null;
+        let isMobileMenuOpen = false;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
+            setupEventListeners();
+        });
+
+        // Check Authentication Status
+        function checkAuthStatus() {
+            const user = localStorage.getItem('dhive_user');
+            if (user) {
+                currentUser = JSON.parse(user);
+                updateAuthButtons();
+            }
+        }
+
+        // Update Auth Buttons
+        function updateAuthButtons() {
+            const loginBtn = document.getElementById('loginBtn');
+            const signupBtn = document.getElementById('signupBtn');
+            
+            if (currentUser) {
+                loginBtn.textContent = 'Dashboard';
+                loginBtn.onclick = () => window.location.href = 'dashboard.html';
+                signupBtn.textContent = 'Logout';
+                signupBtn.onclick = logoutUser;
+            } else {
+                loginBtn.textContent = 'Log In';
+                loginBtn.onclick = () => openModal('loginModal');
+                signupBtn.textContent = 'Create Account';
+                signupBtn.onclick = () => openModal('signupModal');
+            }
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            const menuIcon = document.querySelector('#mobileMenuBtn i');
+            
+            isMobileMenuOpen = !isMobileMenuOpen;
+            mobileNav.classList.toggle('active');
+            
+            if (isMobileMenuOpen) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+                document.body.style.overflow = 'hidden';
+            } else {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Modal Functions
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Mobile menu button
+            document.getElementById('mobileMenuBtn').addEventListener('click', toggleMobileMenu);
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                const mobileNav = document.getElementById('mobileNav');
+                const menuBtn = document.getElementById('mobileMenuBtn');
+                
+                if (isMobileMenuOpen && 
+                    !mobileNav.contains(e.target) && 
+                    !menuBtn.contains(e.target)) {
+                    toggleMobileMenu();
+                }
+            });
+            
+            // Close modals when clicking outside
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeModal(this.id);
+                    }
+                });
+            });
+        }
+
+        // Login Handler
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Validation
+            if (!email || !password) {
+                showNotification('Please fill in all fields', 'error');
+                return false;
+            }
+            
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Create user object
+                currentUser = {
+                    id: Date.now().toString(),
+                    name: email.split('@')[0],
+                    email: email,
+                    isSeller: false,
+                    avatar: email.charAt(0).toUpperCase(),
+                    joined: new Date().toISOString()
+                };
+                
+                // Save to localStorage
+                localStorage.setItem('dhive_user', JSON.stringify(currentUser));
+                
+                // Update UI
+                updateAuthButtons();
+                closeModal('loginModal');
+                showNotification('Login successful!', 'success');
+                
+                return true;
+            } catch (error) {
+                showNotification('Login failed. Please try again.', 'error');
+                return false;
+            }
+        }
+
+        // Signup Handler
+        async function handleSignup(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const acceptTerms = document.getElementById('acceptTerms').checked;
+            
+            // Validation
+            if (!name || !email || !password) {
+                showNotification('Please fill in all fields', 'error');
+                return false;
+            }
+            
+            if (!acceptTerms) {
+                showNotification('Please accept the Terms and Conditions', 'error');
+                return false;
+            }
+            
+            if (password.length < 6) {
+                showNotification('Password must be at least 6 characters', 'error');
+                return false;
+            }
+            
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Create user object
+                currentUser = {
+                    id: Date.now().toString(),
+                    name: name,
+                    email: email,
+                    isSeller: false,
+                    avatar: name.charAt(0).toUpperCase(),
+                    joined: new Date().toISOString()
+                };
+                
+                // Save to localStorage
+                localStorage.setItem('dhive_user', JSON.stringify(currentUser));
+                
+                // Update UI
+                updateAuthButtons();
+                closeModal('signupModal');
+                showNotification('Account created successfully!', 'success');
+                
+                return true;
+            } catch (error) {
+                showNotification('Signup failed. Please try again.', 'error');
+                return false;
+            }
+        }
+
+        // Google Auth
+        async function loginWithGoogle() {
+            showNotification('Redirecting to Google authentication...', 'info');
+            
+            // In production, this would redirect to Google OAuth
+            setTimeout(() => {
+                currentUser = {
+                    id: 'google_' + Date.now().toString(),
+                    name: 'Google User',
+                    email: 'googleuser@example.com',
+                    isSeller: false,
+                    avatar: 'G',
+                    googleAuth: true,
+                    joined: new Date().toISOString()
+                };
+                
+                localStorage.setItem('dhive_user', JSON.stringify(currentUser));
+                updateAuthButtons();
+                closeModal('loginModal');
+                showNotification('Logged in with Google successfully!', 'success');
+            }, 1000);
+        }
+
+        function signupWithGoogle() {
+            loginWithGoogle();
+            closeModal('signupModal');
+        }
+
+        // Logout
+        function logoutUser() {
+            if (confirm('Are you sure you want to logout?')) {
+                currentUser = null;
+                localStorage.removeItem('dhive_user');
+                updateAuthButtons();
+                showNotification('Logged out successfully.', 'info');
+            }
+        }
+
+        // Plan Selection
+        function selectPlan(plan) {
+            if (!currentUser) {
+                showNotification('Please create an account first', 'warning');
+                openModal('signupModal');
+                return;
+            }
+            
+            showNotification(`Selected ${plan} plan successfully!`, 'success');
+            
+            if (plan !== 'free') {
+                // Redirect to payment page in production
+                setTimeout(() => {
+                    showNotification('Redirecting to payment gateway...', 'info');
+                }, 1000);
+            }
+        }
+
+        // Notification System
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}" 
+                       style="color: ${type === 'success' ? 'var(--success)' : type === 'error' ? 'var(--danger)' : 'var(--primary)'}"></i>
+                    <span>${message}</span>
                 </div>
-                <button class="btn" onclick="verifyEmail()">
-                    <i class="fas fa-check"></i> Verify Email
-                </button>
-                <p>Didn't receive the code? <a href="#" onclick="resendVerification()">Resend Code</a></p>
-            </div>
-        </div>
-    </div>
+            `;
+            
+            Object.assign(notification.style, {
+                position: 'fixed',
+                top: '20px',
+                right: '20px',
+                background: 'white',
+                padding: '1rem 1.5rem',
+                borderRadius: 'var(--radius)',
+                boxShadow: 'var(--shadow-lg)',
+                zIndex: '2000',
+                animation: 'slideInRight 0.3s ease',
+                borderLeft: `4px solid ${type === 'success' ? 'var(--success)' : type === 'error' ? 'var(--danger)' : 'var(--primary)'}`,
+                maxWidth: '400px'
+            });
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
 
-    <!-- Cart Notification -->
-    <div id="cartNotification">
-        <span id="cartMessage"></span>
-        <button class="btn btn-outline" onclick="viewCart()">View Cart</button>
-    </div>
-
-    <script src="script.js"></script>
+        // Add CSS for animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+            .modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 2000;
+                align-items: center;
+                justify-content: center;
+            }
+            .modal-content {
+                background: white;
+                border-radius: var(--radius);
+                position: relative;
+                animation: modalSlideIn 0.3s ease;
+            }
+            @keyframes modalSlideIn {
+                from { transform: translateY(-20px); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
